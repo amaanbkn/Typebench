@@ -1,0 +1,35 @@
+{
+  "repository": "zod",
+  "commitSha": "d6ca12ae3e28b40392ec49323edc31a56a05ff3b",
+  "shortSha": "d6ca12a",
+  "parentSha": "dc51404b2593b029166fd942319fda769f7ae631",
+  "status": "unvalidated",
+  "validationReason": "Environment failure during baseline test execution: \u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\u001b[31mfailed to load config from /tmp/typebench-validation/zod-d6ca12a-mt331ik6/packages/docs/vitest.config.ts\u001b[39m\n\n\u001b[31m⎯⎯⎯⎯⎯⎯⎯\u001b[39m\u001b[1m\u001b[41m Startup Error \u001b[49m\u001b[22m\u001b[31m⎯⎯⎯⎯⎯⎯⎯⎯\u001b[39m\nAggregateError: Failed to initialize projects. There were errors during projects setup. See below for more details.\n    at resolveProjects (file:///tmp/typebench-validation/zod-d6ca12a-mt331ik6/node_modules/.pnpm/vitest@4.1.5_@opentelemetry+api@1.9.0_@types+node@22.13.13_vite@7.3.2_@types+node@22.13_16a806e5e53cf775cc8de614dde74a84/node_modules/vitest/dist/chunks/cli-api.Cjt90eJu.js:11149:27)\n    at Vitest._setServer (file:///tmp/typebench-validation/zod-d6ca12a-mt331ik6/node_modules/.pnpm/vit",
+  "baseline": {
+    "command": "pnpm test -- packages/zod/src/v4/classic/tests/discriminated-unions.test.ts",
+    "exitCode": 1,
+    "durationMs": 739,
+    "passed": false,
+    "status": "error",
+    "stdoutSnippet": "> @ test /tmp/typebench-validation/zod-d6ca12a-mt331ik6\n> vitest run -- packages/zod/src/v4/classic/tests/discriminated-unions.test.ts\n\n ELIFECYCLE  Test failed. See above for more details.",
+    "stderrSnippet": "\u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\u001b[31mfailed to load config from /tmp/typebench-validation/zod-d6ca12a-mt331ik6/packages/docs/vitest.config.ts\u001b[39m\n\n\u001b[31m⎯⎯⎯⎯⎯⎯⎯\u001b[39m\u001b[1m\u001b[41m Startup Error \u001b[49m\u001b[22m\u001b[31m⎯⎯⎯⎯⎯⎯⎯⎯\u001b[39m\nAggregateError: Failed to initialize projects. There were errors during projects setup. See below for more details.\n    at resolveProjects (file:///tmp/typebench-validation/zod-d6ca12a-mt331ik6/node_modules/.pnpm/vitest@4.1.5_@opentelemetry+api@1.9.0_@types+node@22.13.13_vite@7.3.2_@types+node@22.13_16a806e5e53cf775cc8de614dde74a84/node_modules/vitest/dist/chunks/cli-api.Cjt90eJu.js:11149:27)\n    at Vitest._setServer (file:///tmp/typebench-validation/zod-d6ca12a-mt331ik6/node_modules/.pnpm/vit",
+    "isEnvironmentFailure": true
+  },
+  "fixed": {
+    "command": "none",
+    "exitCode": -1,
+    "durationMs": 0,
+    "passed": false,
+    "status": "skipped",
+    "stdoutSnippet": "",
+    "stderrSnippet": ""
+  },
+  "tests": [
+    "packages/treeshake/bundle-size.test.ts",
+    "packages/zod/src/v4/classic/tests/discriminated-unions.test.ts",
+    "packages/zod/src/v4/classic/tests/recursive-types.test.ts",
+    "packages/zod/src/v4/mini/tests/index.test.ts"
+  ],
+  "durationMs": 2356,
+  "timestamp": "2026-08-21T15:06:45.942Z"
+}

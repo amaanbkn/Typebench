@@ -1,12 +1,19 @@
 /**
- * TypeBench Task Generator Entrypoint (Step 2: Repository Cloning & Git History Discovery)
+ * TypeBench Task Generator Entrypoint (Steps 1-4: Cloning, History, Candidates & Validation)
  *
  * Usage:
- *   npx tsx scripts/generate-tasks.ts --repo <name> [--history-depth <n>] [--verbose]
+ *   npx tsx scripts/generate-tasks.ts --repo <name> [--history-depth <n>] [--validate] [--validate-count <n>] [--verbose]
  */
 
 import { cloneRepository, getSeedRepos } from './clone-repo.js';
-import { discoverGitHistory, formatCommitSummary } from './git-history.js';
+import { discoverGitHistory } from './git-history.js';
+import { discoverCandidates, formatCandidateSummary } from './candidate-discovery.js';
+import {
+  validateCandidate,
+  saveValidationReport,
+  formatValidationSummary,
+  ValidationReport,
+} from './validate-candidate.js';
 
 async function main() {
   const args = process.argv.slice(2);
@@ -14,6 +21,8 @@ async function main() {
   let cloneDepth: number | undefined;
   let historyDepth = 20;
   let verbose = false;
+  let validate = false;
+  let validateCount: number | undefined;
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
@@ -25,20 +34,26 @@ async function main() {
       cloneDepth = parseInt(args[++i], 10);
     } else if (arg === '--depth' || arg === '-d') {
       historyDepth = parseInt(args[++i], 10);
+    } else if (arg === '--validate') {
+      validate = true;
+    } else if (arg === '--validate-count' || arg === '--limit') {
+      validateCount = parseInt(args[++i], 10);
     } else if (arg === '--verbose' || arg === '-v') {
       verbose = true;
     } else if (arg === '--help' || arg === '-h') {
       console.log(`
-TypeBench - Git History Discovery
+TypeBench - Candidate Discovery & Validation
 
 Usage:
-  npx tsx scripts/generate-tasks.ts --repo <name> [--history-depth <n>] [--verbose]
+  npx tsx scripts/generate-tasks.ts --repo <name> [--history-depth <n>] [--validate] [--validate-count <n>] [--verbose]
 
 Options:
   -r, --repo <name>             Repository name from seed-repos.json or URL (e.g. trpc, zod, prisma, hono, type-challenges)
   -d, --history-depth <n>       Number of commits to discover (default: 20)
   --clone-depth <n>             Initial shallow clone depth (default: matches history-depth)
-  -v, --verbose                 Show detailed commit information (author, parent SHA, full commit message, files list)
+  --validate                    Validate discovered candidate commits in isolated test workspaces
+  --validate-count, --limit <n> Number of top candidates to validate (default: all discovered)
+  -v, --verbose                 Show detailed candidate scoring, signals, and test execution output
   -h, --help                    Show help
 
 Available repositories in seed-repos.json:
@@ -63,7 +78,7 @@ ${getSeedRepos().map((r) => `  - ${r.name} (${r.url})`).join('\n')}
   }
 
   // 2. Discover Git history
-  console.log('\n[TypeBench] Discovering Git history...\n');
+  console.log('\n[TypeBench] Discovering Git history...');
   const historyResult = await discoverGitHistory(cloneResult.workspacePath, {
     depth: historyDepth,
     verbose,
@@ -80,8 +95,42 @@ ${getSeedRepos().map((r) => `  - ${r.name} (${r.url})`).join('\n')}
 
   console.log(`[TypeBench] Commits discovered: ${historyResult.totalDiscovered}\n`);
 
-  // 3. Display formatted summary of commits
-  console.log(formatCommitSummary(historyResult.commits, verbose));
+  // 3. Discover candidates from structured commit history
+  const discoveryResult = discoverCandidates(historyResult.commits, { verbose });
+
+  // 4. Output candidate summary
+  console.log(formatCandidateSummary(discoveryResult, verbose));
+
+  // 5. Candidate Validation (only when --validate is explicitly provided)
+  if (validate) {
+    const candidatesToValidate = validateCount
+      ? discoveryResult.candidates.slice(0, validateCount)
+      : discoveryResult.candidates;
+
+    console.log(`\n[TypeBench] Validating ${candidatesToValidate.length} candidate commit(s)...`);
+
+    const reports: ValidationReport[] = [];
+
+    for (let i = 0; i < candidatesToValidate.length; i++) {
+      const candidate = candidatesToValidate[i];
+      console.log(`\n-> Validating [${i + 1}/${candidatesToValidate.length}] ${candidate.shortSha}: "${candidate.message.split('\n')[0]}"`);
+
+      const report = await validateCandidate(
+        cloneResult.repoName,
+        cloneResult.workspacePath,
+        candidate,
+        { verbose, timeoutMs: 45000 }
+      );
+
+      saveValidationReport(report);
+      reports.push(report);
+
+      console.log(`   Status: ${report.status} | Reason: ${report.validationReason}`);
+    }
+
+    // Print final validation summary table
+    console.log(formatValidationSummary(reports));
+  }
 }
 
 if (process.argv[1]?.includes('generate-tasks')) {

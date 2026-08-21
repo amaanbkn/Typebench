@@ -1,0 +1,32 @@
+{
+  "repository": "trpc",
+  "commitSha": "c7360d4eb3c89c336468809a293e5cda4b302d4b",
+  "shortSha": "c7360d4",
+  "parentSha": "774b244ca97518b86489d7b3c02c5f7b5e0de3ee",
+  "status": "unvalidated",
+  "validationReason": "Environment failure during baseline test execution: sh: line 1: vitest: command not found",
+  "baseline": {
+    "command": "pnpm test -- packages/tanstack-react-query/test/mutationOptions.test.tsx",
+    "exitCode": 1,
+    "durationMs": 530,
+    "passed": false,
+    "status": "error",
+    "stdoutSnippet": "WARN  Unsupported engine: wanted: {\"node\":\"^24.0.0\"} (current: {\"node\":\"v20.18.0\",\"pnpm\":\"10.33.1\"})\n\n> root@ test /tmp/typebench-validation/trpc-c7360d4-mt3306o3\n> vitest -- packages/tanstack-react-query/test/mutationOptions.test.tsx\n\n ELIFECYCLE  Test failed. See above for more details.",
+    "stderrSnippet": "sh: line 1: vitest: command not found",
+    "isEnvironmentFailure": true
+  },
+  "fixed": {
+    "command": "none",
+    "exitCode": -1,
+    "durationMs": 0,
+    "passed": false,
+    "status": "skipped",
+    "stdoutSnippet": "",
+    "stderrSnippet": ""
+  },
+  "tests": [
+    "packages/tanstack-react-query/test/mutationOptions.test.tsx"
+  ],
+  "durationMs": 57750,
+  "timestamp": "2026-08-21T15:05:43.875Z"
+}
