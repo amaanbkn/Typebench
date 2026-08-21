@@ -1,47 +1,92 @@
 /**
- * Typebench Task Generator (Stub)
- * Scrapes and extracts benchmark task candidates from real GitHub TypeScript repositories.
+ * TypeBench Task Generator Entrypoint (Step 2: Repository Cloning & Git History Discovery)
+ *
+ * Usage:
+ *   npx tsx scripts/generate-tasks.ts --repo <name> [--history-depth <n>] [--verbose]
  */
 
-import * as fs from 'node:fs';
-import * as path from 'node:path';
+import { cloneRepository, getSeedRepos } from './clone-repo.js';
+import { discoverGitHistory, formatCommitSummary } from './git-history.js';
 
-interface SeedRepo {
-  owner: string;
-  name: string;
-  url: string;
-  category: string;
-  description: string;
-  tags: string[];
-}
+async function main() {
+  const args = process.argv.slice(2);
+  let repoQuery: string | undefined;
+  let cloneDepth: number | undefined;
+  let historyDepth = 20;
+  let verbose = false;
 
-export async function generateTasks(): Promise<void> {
-  console.log('⚡ Typebench Task Generator');
-  console.log('==========================');
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (arg === '--repo' || arg === '-r') {
+      repoQuery = args[++i];
+    } else if (arg === '--history-depth') {
+      historyDepth = parseInt(args[++i], 10);
+    } else if (arg === '--clone-depth') {
+      cloneDepth = parseInt(args[++i], 10);
+    } else if (arg === '--depth' || arg === '-d') {
+      historyDepth = parseInt(args[++i], 10);
+    } else if (arg === '--verbose' || arg === '-v') {
+      verbose = true;
+    } else if (arg === '--help' || arg === '-h') {
+      console.log(`
+TypeBench - Git History Discovery
 
-  const seedFilePath = path.resolve(process.cwd(), 'scripts/seed-repos.json');
-  if (!fs.existsSync(seedFilePath)) {
-    console.error(`Seed file not found at: ${seedFilePath}`);
+Usage:
+  npx tsx scripts/generate-tasks.ts --repo <name> [--history-depth <n>] [--verbose]
+
+Options:
+  -r, --repo <name>             Repository name from seed-repos.json or URL (e.g. trpc, zod, prisma, hono, type-challenges)
+  -d, --history-depth <n>       Number of commits to discover (default: 20)
+  --clone-depth <n>             Initial shallow clone depth (default: matches history-depth)
+  -v, --verbose                 Show detailed commit information (author, parent SHA, full commit message, files list)
+  -h, --help                    Show help
+
+Available repositories in seed-repos.json:
+${getSeedRepos().map((r) => `  - ${r.name} (${r.url})`).join('\n')}
+`);
+      process.exit(0);
+    } else if (!arg.startsWith('-') && !repoQuery) {
+      repoQuery = arg;
+    }
+  }
+
+  if (!repoQuery) {
+    console.error('Error: Please specify a repository using --repo <name>');
+    console.log('Available seed repositories: trpc, zod, prisma, hono, type-challenges');
     process.exit(1);
   }
 
-  const raw = fs.readFileSync(seedFilePath, 'utf-8');
-  const seedRepos: SeedRepo[] = JSON.parse(raw);
-
-  console.log(`Loaded ${seedRepos.length} candidate repositories.`);
-  console.log('Fetching closed pull requests with resolved bug/feature tests...');
-
-  // TODO: Implement GitHub API scraping, commit checkout, verify script generation
-  for (const repo of seedRepos) {
-    console.log(` -> [Candidate] ${repo.owner}/${repo.name} (${repo.category})`);
+  // 1. Clone repository into temporary isolated workspace
+  const cloneResult = await cloneRepository(repoQuery, { depth: cloneDepth ?? historyDepth });
+  if (!cloneResult.success || !cloneResult.workspacePath) {
+    process.exit(1);
   }
 
-  console.log('\n[Stub] Task generation completed. No new tasks created yet.');
+  // 2. Discover Git history
+  console.log('\n[TypeBench] Discovering Git history...\n');
+  const historyResult = await discoverGitHistory(cloneResult.workspacePath, {
+    depth: historyDepth,
+    verbose,
+  });
+
+  if (!historyResult.success) {
+    console.error(`[TypeBench] Error reading Git history: ${historyResult.error}`);
+    process.exit(1);
+  }
+
+  if (historyResult.warning) {
+    console.log(historyResult.warning);
+  }
+
+  console.log(`[TypeBench] Commits discovered: ${historyResult.totalDiscovered}\n`);
+
+  // 3. Display formatted summary of commits
+  console.log(formatCommitSummary(historyResult.commits, verbose));
 }
 
 if (process.argv[1]?.includes('generate-tasks')) {
-  generateTasks().catch((err) => {
-    console.error('Task generation failed:', err);
+  main().catch((err) => {
+    console.error('Fatal error:', err);
     process.exit(1);
   });
 }

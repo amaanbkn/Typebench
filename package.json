@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "build": "tsc --build",
-    "typebench": "node --loader ts-node/esm harness/src/index.ts",
-    "generate:tasks": "node --loader ts-node/esm scripts/generate-tasks.ts",
-    "leaderboard:generate": "node --loader ts-node/esm results/leaderboard/generate.ts",
+    "typebench": "tsx harness/src/index.ts",
+    "generate:tasks": "tsx scripts/generate-tasks.ts",
+    "leaderboard:generate": "tsx results/leaderboard/generate.ts",
     "lint": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
@@ -28,6 +28,10 @@
   "devDependencies": {
     "@types/node": "^20.11.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.23.12",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "simple-git": "^3.36.0"
   }
 }
