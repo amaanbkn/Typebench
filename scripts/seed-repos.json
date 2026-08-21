@@ -1,0 +1,42 @@
+[
+  {
+    "owner": "trpc",
+    "name": "trpc",
+    "url": "https://github.com/trpc/trpc",
+    "category": "Framework & API",
+    "description": "End-to-end typesafe APIs made easy",
+    "tags": ["generics", "type-inference", "routing", "rpc"]
+  },
+  {
+    "owner": "colinhacks",
+    "name": "zod",
+    "url": "https://github.com/colinhacks/zod",
+    "category": "Schema & Validation",
+    "description": "TypeScript-first schema validation with static type inference",
+    "tags": ["runtime-types", "inference", "complex-types"]
+  },
+  {
+    "owner": "prisma",
+    "name": "prisma",
+    "url": "https://github.com/prisma/prisma",
+    "category": "Database & ORM",
+    "description": "Next-generation ORM for Node.js & TypeScript",
+    "tags": ["code-generation", "type-safety", "database", "orm"]
+  },
+  {
+    "owner": "honojs",
+    "name": "hono",
+    "url": "https://github.com/honojs/hono",
+    "category": "Web Framework",
+    "description": "Fast, lightweight, Web-standard framework",
+    "tags": ["middleware", "routing", "web-standards"]
+  },
+  {
+    "owner": "type-challenges",
+    "name": "type-challenges",
+    "url": "https://github.com/type-challenges/type-challenges",
+    "category": "Type System",
+    "description": "Collection of TypeScript type challenges with an online judge",
+    "tags": ["advanced-types", "puzzles", "generics"]
+  }
+]

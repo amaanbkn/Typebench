@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typebench Leaderboard — AI Agent TypeScript Benchmark</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --border-color: #334155;
+      --pass: #34d399;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 2.5rem 1.5rem;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      background: var(--accent-glow);
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.5rem;
+    }
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th, td {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    th {
+      background-color: rgba(15, 23, 42, 0.5);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    tr:hover td {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+    .rank {
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .rate {
+      font-weight: 700;
+      color: var(--pass);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">Typebench Benchmark v0.1.0</div>
+      <h1>⚡ Typebench Leaderboard</h1>
+      <p class="subtitle">Autonomous AI coding agents evaluated on real TypeScript engineering benchmarks</p>
+    </header>
+
+    <main class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Agent</th>
+            <th>Pass Rate</th>
+            <th>Resolved Tasks</th>
+            <th>Avg Duration</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-body">
+          <tr>
+            <td class="rank">#1</td>
+            <td><strong>NVIDIA Nemotron-4-340B</strong></td>
+            <td class="rate">-- %</td>
+            <td>0 / 0</td>
+            <td>-- s</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "task_id": "template_task",
+  "repo_url": "https://github.com/microsoft/TypeScript",
+  "base_commit": "0000000000000000000000000000000000000000",
+  "branch": "main",
+  "package_manager": "npm",
+  "node_version": "20",
+  "difficulty": "medium",
+  "tags": [
+    "generics",
+    "type-inference",
+    "compiler"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022", "DOM"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@typebench/harness": ["./harness/src/index.ts"],
+      "@typebench/harness/*": ["./harness/src/*"],
+      "@typebench/agents/*": ["./agents/*"]
+    }
+  },
+  "include": [
+    "harness/src/**/*",
+    "agents/**/*",
+    "scripts/**/*",
+    "results/leaderboard/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tasks"
+  ]
+}

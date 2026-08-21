@@ -1,0 +1,33 @@
+{
+  "name": "typebench",
+  "version": "0.1.0",
+  "description": "Benchmark for evaluating AI coding agents on real TypeScript engineering tasks",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --build",
+    "typebench": "node --loader ts-node/esm harness/src/index.ts",
+    "generate:tasks": "node --loader ts-node/esm scripts/generate-tasks.ts",
+    "leaderboard:generate": "node --loader ts-node/esm results/leaderboard/generate.ts",
+    "lint": "tsc --noEmit",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "workspaces": [
+    "harness"
+  ],
+  "keywords": [
+    "benchmark",
+    "typescript",
+    "ai-agents",
+    "evaluation",
+    "llm",
+    "coding-benchmark"
+  ],
+  "author": "Typebench Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
