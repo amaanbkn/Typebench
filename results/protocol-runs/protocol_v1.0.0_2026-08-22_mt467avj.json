@@ -1,0 +1,57 @@
+{
+  "protocolRunId": "protocol_v1.0.0_2026-08-22_mt467avj",
+  "protocolVersion": "1.0.0",
+  "releaseVersion": "0.1.0",
+  "datasetFingerprint": "sha256:ef94518a80402a7fb0b5b988872b20da2f974e74b59dfca2bc4f5c005e9acf6e",
+  "timestamp": "2026-08-22T09:23:21.538Z",
+  "config": {
+    "protocolVersion": "1.0.0",
+    "releaseVersion": "0.1.0",
+    "releaseCheckpointPath": "dataset/releases/v0.1.0.json",
+    "timeoutSecPerTask": 300,
+    "evalTimeoutSec": 300,
+    "trialsPerTask": 2,
+    "enforceAntiContamination": true,
+    "scoringWeights": {
+      "benchmark": 0.7,
+      "typecheck": 0.15,
+      "regression": 0.15
+    }
+  },
+  "evaluatedAgents": [
+    "mock",
+    "nemotron"
+  ],
+  "totalTasks": 2,
+  "trialsPerAgent": 2,
+  "agentSummaries": {
+    "mock": {
+      "agentName": "mock",
+      "passAt1": 0,
+      "meanScore": 0,
+      "scoreStdDev": 0,
+      "confidenceInterval95": [
+        0,
+        0
+      ],
+      "consistencyRate": 100,
+      "flakyTasksCount": 0,
+      "totalDurationMs": 10392,
+      "reliabilityReportId": "reliability_v0.1.0_mock_2x_2026-08-22_mt467iw9"
+    },
+    "nemotron": {
+      "agentName": "nemotron",
+      "passAt1": 0,
+      "meanScore": 0,
+      "scoreStdDev": 0,
+      "confidenceInterval95": [
+        0,
+        0
+      ],
+      "consistencyRate": 100,
+      "flakyTasksCount": 0,
+      "totalDurationMs": 10201,
+      "reliabilityReportId": "reliability_v0.1.0_nemotron_2x_2026-08-22_mt467qrm"
+    }
+  }
+}

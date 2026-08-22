@@ -1,0 +1,20 @@
+{
+  "runId": "fixture-protocol-task_test-protocol-solver_mt462uvy",
+  "taskId": "fixture-protocol-task",
+  "agentName": "test-protocol-solver",
+  "status": "solved",
+  "benchmarkTests": {
+    "command": "node test.cjs",
+    "exitCode": 0,
+    "passed": true,
+    "durationMs": 18,
+    "status": "passed",
+    "stdoutSnippet": "",
+    "stderrSnippet": ""
+  },
+  "changedFiles": [
+    "calc.cjs"
+  ],
+  "durationMs": 89,
+  "timestamp": "2026-08-22T09:19:33.767Z"
+}

@@ -1,0 +1,32 @@
+{
+  "runId": "hono-1096d66_mock_mt463b7r",
+  "taskId": "hono-1096d66",
+  "agentName": "mock",
+  "score": 0,
+  "maxScore": 100,
+  "components": {
+    "benchmarkTests": {
+      "weight": 70,
+      "score": 0,
+      "maxScore": 70,
+      "status": "no_changes"
+    },
+    "regressionTests": {
+      "weight": 15,
+      "score": 0,
+      "maxScore": 15,
+      "status": "no_changes"
+    },
+    "typecheck": {
+      "weight": 15,
+      "score": 0,
+      "maxScore": 15,
+      "status": "no_changes"
+    }
+  },
+  "status": "no_changes",
+  "isAvailable": true,
+  "evaluationStatus": "no_changes",
+  "durationMs": 0,
+  "timestamp": "2026-08-22T09:19:56.733Z"
+}

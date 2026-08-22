@@ -1,0 +1,45 @@
+{
+  "benchmarkRunId": "benchmark_v0.1.0_mock_2026-08-22_mt4637qc",
+  "releaseVersion": "0.1.0",
+  "datasetFingerprint": "sha256:ef94518a80402a7fb0b5b988872b20da2f974e74b59dfca2bc4f5c005e9acf6e",
+  "agentName": "mock",
+  "timestamp": "2026-08-22T09:19:54.758Z",
+  "totalTasks": 2,
+  "evaluatedTasks": 2,
+  "solvedTasks": 0,
+  "failedTasks": 2,
+  "infrastructureFailures": 0,
+  "passRate": 0,
+  "meanScore": 0,
+  "totalDurationMs": 4514,
+  "tasks": [
+    {
+      "taskId": "hono-1096d66",
+      "runId": "hono-1096d66_mock_mt4637qd",
+      "repository": "hono",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "baseCommit": "c4a44071eee614c7317403f3534cd213d3f0e0b3",
+      "status": "no_changes",
+      "score": 0,
+      "maxScore": 100,
+      "isAvailable": true,
+      "durationMs": 2187,
+      "patchLines": 0
+    },
+    {
+      "taskId": "hono-28a9c12",
+      "runId": "hono-28a9c12_mock_mt4639f7",
+      "repository": "hono",
+      "category": "type_fix",
+      "difficulty": "medium",
+      "baseCommit": "1096d66e03a3fd16a5cc5f912c2d5e8fd6d990b0",
+      "status": "no_changes",
+      "score": 0,
+      "maxScore": 100,
+      "isAvailable": true,
+      "durationMs": 2322,
+      "patchLines": 0
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "reportId": "reliability_v0.0.1-proto_mock_2x_2026-08-22_mt462veb",
+  "releaseVersion": "0.0.1-proto",
+  "datasetFingerprint": "sha256:0456507bdb58fca836dac5815ff7c0d6db139d13065f01d84c7fa9abd58c4206",
+  "agentName": "mock",
+  "trialsCount": 2,
+  "totalTasks": 1,
+  "passAt1": 0,
+  "meanScore": 0,
+  "scoreStdDev": 0,
+  "confidenceInterval95": [
+    0,
+    0
+  ],
+  "consistencyRate": 100,
+  "flakyTasksCount": 0,
+  "flakyTaskIds": [],
+  "totalDurationMs": 320,
+  "timestamp": "2026-08-22T09:19:34.259Z",
+  "tasks": {
+    "fixture-protocol-task": {
+      "taskId": "fixture-protocol-task",
+      "repository": "calc",
+      "trialsCount": 2,
+      "solvedTrials": 0,
+      "failedTrials": 2,
+      "passRate": 0,
+      "passAt1": 0,
+      "isConsistent": true,
+      "isFlaky": false,
+      "scores": [
+        0,
+        0
+      ],
+      "meanScore": 0,
+      "scoreStdDev": 0
+    }
+  },
+  "runReportIds": [
+    "benchmark_v0.0.1-proto_mock_2026-08-22_mt462v5f",
+    "benchmark_v0.0.1-proto_mock_2026-08-22_mt462va2"
+  ]
+}

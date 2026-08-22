@@ -1,0 +1,60 @@
+{
+  "reportId": "reliability_v0.1.0_mock_2x_2026-08-22_mt463fka",
+  "releaseVersion": "0.1.0",
+  "datasetFingerprint": "sha256:ef94518a80402a7fb0b5b988872b20da2f974e74b59dfca2bc4f5c005e9acf6e",
+  "agentName": "mock",
+  "trialsCount": 2,
+  "totalTasks": 2,
+  "passAt1": 0,
+  "meanScore": 0,
+  "scoreStdDev": 0,
+  "confidenceInterval95": [
+    0,
+    0
+  ],
+  "consistencyRate": 100,
+  "flakyTasksCount": 0,
+  "flakyTaskIds": [],
+  "totalDurationMs": 10150,
+  "timestamp": "2026-08-22T09:20:00.394Z",
+  "tasks": {
+    "hono-1096d66": {
+      "taskId": "hono-1096d66",
+      "repository": "hono",
+      "trialsCount": 2,
+      "solvedTrials": 0,
+      "failedTrials": 2,
+      "passRate": 0,
+      "passAt1": 0,
+      "isConsistent": true,
+      "isFlaky": false,
+      "scores": [
+        0,
+        0
+      ],
+      "meanScore": 0,
+      "scoreStdDev": 0
+    },
+    "hono-28a9c12": {
+      "taskId": "hono-28a9c12",
+      "repository": "hono",
+      "trialsCount": 2,
+      "solvedTrials": 0,
+      "failedTrials": 2,
+      "passRate": 0,
+      "passAt1": 0,
+      "isConsistent": true,
+      "isFlaky": false,
+      "scores": [
+        0,
+        0
+      ],
+      "meanScore": 0,
+      "scoreStdDev": 0
+    }
+  },
+  "runReportIds": [
+    "benchmark_v0.1.0_mock_2026-08-22_mt4637qc",
+    "benchmark_v0.1.0_mock_2026-08-22_mt463b7r"
+  ]
+}
