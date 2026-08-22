@@ -2,7 +2,7 @@
   "datasetVersion": "0.1.0",
   "name": "TypeBench TypeScript Benchmark Dataset",
   "description": "Curated real-world TypeScript engineering benchmark tasks evaluating AI coding agents on type safety, bug fixes, and feature implementations.",
-  "createdAt": "2026-08-22T08:59:30.640Z",
+  "createdAt": "2026-08-22T09:04:01.055Z",
   "repositories": [
     {
       "name": "hono",
@@ -261,5 +261,7 @@
       "trpc": 3,
       "zod": 3
     }
-  }
+  },
+  "datasetFingerprint": "sha256:ef94518a80402a7fb0b5b988872b20da2f974e74b59dfca2bc4f5c005e9acf6e",
+  "releaseVersion": "0.1.0"
 }

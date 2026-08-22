@@ -50,6 +50,7 @@ export interface EvaluateRunOptions {
   verbose?: boolean;
   keepWorkspace?: boolean;
   outputEvaluationsDir?: string;
+  tasksDir?: string;
 }
 
 export interface AgentRunData {
@@ -101,10 +102,11 @@ export function loadRunData(runDirOrId: string): AgentRunData {
   }
 
   if (!fs.existsSync(resultJsonPath)) {
-    throw new Error(`result.json not found at: ${resultJsonPath}`);
+    throw new Error(`Run result file not found at: ${resultJsonPath}`);
   }
 
-  const resultData: AgentRunData = JSON.parse(fs.readFileSync(resultJsonPath, 'utf-8'));
+  const raw = fs.readFileSync(resultJsonPath, 'utf-8');
+  const resultData: AgentRunData = JSON.parse(raw);
 
   // Load patch.diff if present
   const patchPath = path.join(runDir, 'patch.diff');
@@ -118,9 +120,11 @@ export function loadRunData(runDirOrId: string): AgentRunData {
 /**
  * Loads task.json from tasks/<taskId>/
  */
-export function loadTaskData(taskId: string): TaskData {
+export function loadTaskData(taskId: string, tasksDir?: string): TaskData {
   let taskPath = path.resolve(process.cwd(), taskId);
-  if (!fs.existsSync(taskPath) || !fs.statSync(taskPath).isDirectory()) {
+  if (tasksDir && fs.existsSync(path.join(tasksDir, taskId))) {
+    taskPath = path.join(tasksDir, taskId);
+  } else if (!fs.existsSync(taskPath) || !fs.statSync(taskPath).isDirectory()) {
     taskPath = path.resolve(process.cwd(), 'tasks', taskId);
   }
 
@@ -223,9 +227,9 @@ export async function evaluateRun(
   // 2. Load task data
   let taskData: TaskData;
   try {
-    taskData = loadTaskData(runData.taskId);
+    taskData = loadTaskData(runData.taskId, options.tasksDir);
   } catch (err: any) {
-    return {
+    const errorResult: EvaluationResult = {
       runId: runData.runId,
       taskId: runData.taskId,
       agentName: runData.agentName,
@@ -243,6 +247,8 @@ export async function evaluateRun(
       error: `Failed to load task definition: ${err.message || String(err)}`,
       timestamp: new Date().toISOString(),
     };
+    saveEvaluationResult(errorResult, evaluationsBaseDir);
+    return errorResult;
   }
 
   const evalOutputDir = path.join(evaluationsBaseDir, runData.runId);

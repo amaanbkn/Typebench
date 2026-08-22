@@ -1,0 +1,227 @@
+{
+  "version": "0.1.0",
+  "datasetName": "TypeBench TypeScript Benchmark Dataset",
+  "description": "Curated real-world TypeScript engineering benchmark tasks evaluating AI coding agents on type safety, bug fixes, and feature implementations.",
+  "releaseDate": "2026-08-22T09:04:01.056Z",
+  "datasetFingerprint": "sha256:ef94518a80402a7fb0b5b988872b20da2f974e74b59dfca2bc4f5c005e9acf6e",
+  "totalTasks": 9,
+  "repositories": [
+    {
+      "name": "hono",
+      "owner": "honojs",
+      "url": "https://github.com/honojs/hono",
+      "taskCount": 3,
+      "baseCommits": [
+        "0293343dbf8f0bca52b210a98bcef31cc61395ee",
+        "1096d66e03a3fd16a5cc5f912c2d5e8fd6d990b0",
+        "c4a44071eee614c7317403f3534cd213d3f0e0b3"
+      ]
+    },
+    {
+      "name": "trpc",
+      "owner": "trpc",
+      "url": "https://github.com/trpc/trpc",
+      "taskCount": 3,
+      "baseCommits": [
+        "774b244ca97518b86489d7b3c02c5f7b5e0de3ee",
+        "c188dab0822caf3615199e4ac95147bc7560d26f",
+        "cdbc28049889a9da9ea2abb6bd6519afe2279ead"
+      ]
+    },
+    {
+      "name": "zod",
+      "owner": "colinhacks",
+      "url": "https://github.com/colinhacks/zod",
+      "taskCount": 3,
+      "baseCommits": [
+        "28e1ebd89d26147bacb164af988da6ed6de738d4",
+        "463ebb30512e7b244f2dde197c5a188162b7c78a",
+        "937b5d01a143c36bb53591fffb29c44412ac9fef"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "hono-1096d66",
+      "repository": "hono",
+      "title": "Support Custom BuildSearchParams and Filter Undefined Query in $ws()",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "packageManager": "npm",
+      "testCommand": "npm test -- src/client/client.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "c4a44071eee614c7317403f3534cd213d3f0e0b3",
+      "checksums": {
+        "taskJson": "sha256:b770b721b2191ffa67061fec09aae264e7cae668ef3f420c9a4a6dda71f931b7",
+        "promptMd": "sha256:2f58015e105590c17871bf8f98403b2bca254c84dfa97f05608d0d4fe40fc2ef",
+        "metadataJson": "sha256:35d9266e4381fd505dec7e4a117c0e08594160ca3e384f6fbcaf3a238e8046e9",
+        "composite": "sha256:83d27f59bc1d2ad034c29776b661365892b795afeeee40cb7d964301db96b78f"
+      },
+      "createdAt": "2026-08-22T08:59:24.755Z"
+    },
+    {
+      "taskId": "hono-28a9c12",
+      "repository": "hono",
+      "title": "Support Wildcard Media Types and Specificity Ordering in DefaultMatch",
+      "category": "type_fix",
+      "difficulty": "medium",
+      "packageManager": "npm",
+      "testCommand": "npm test -- src/helper/accepts/accepts.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "1096d66e03a3fd16a5cc5f912c2d5e8fd6d990b0",
+      "checksums": {
+        "taskJson": "sha256:68e6c840d5222d1d2c908c7ee7e79c7e25188fed22fedcb2d8475b05efb44af4",
+        "promptMd": "sha256:8d662077328d11d424382b59c6c6b91c649da4260a4df229b85800d99657af97",
+        "metadataJson": "sha256:412358c33407b0de7ee70797d2d90dd34cfa3c87f35db56b30870082887e7e85",
+        "composite": "sha256:bd3a48b8c3c00cd2918f660de888d56e6be67b91a647dc301c5df4274e4570e1"
+      },
+      "createdAt": "2026-08-22T08:59:24.695Z"
+    },
+    {
+      "taskId": "hono-7967760",
+      "repository": "hono",
+      "title": "Handle Params on Unmatched Requests",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "packageManager": "npm",
+      "testCommand": "npm test -- src/request.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "0293343dbf8f0bca52b210a98bcef31cc61395ee",
+      "checksums": {
+        "taskJson": "sha256:67d4f716b6118fdfc3df4634c2b4cc8fedd436f642ca559790f47135b136c3ed",
+        "promptMd": "sha256:ef631841b563bc54e0de4243c88a8465748b95afaba95591f0136f33f54ef1a9",
+        "metadataJson": "sha256:efbf82e93e08ad268609314dd30805fd03cd45e1c0f99688fb7c2a801a5d1025",
+        "composite": "sha256:63fda726dbe5e2ac5a776a646c8e142170de8fb597779ea919d5e23399135bdf"
+      },
+      "createdAt": "2026-08-22T08:59:24.820Z"
+    },
+    {
+      "taskId": "trpc-2c5b6a8",
+      "repository": "trpc",
+      "title": "Handle React 19 Proxy Coercion in CreateInnerProxy",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "packageManager": "pnpm",
+      "testCommand": "pnpm test -- packages/server/src/unstable-core-do-not-import/createProxy.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "c188dab0822caf3615199e4ac95147bc7560d26f",
+      "checksums": {
+        "taskJson": "sha256:4245d1777f76bc76fb9cd0143d6acccea9dff0f08b43626849286fac027a6f37",
+        "promptMd": "sha256:e540d2b6deabe42b4e66bcf29aa5e65d947704a53d652c92c3281816145e664b",
+        "metadataJson": "sha256:c4a3f128f9ddffcda7fce46aef3badc4a65ddebe8a76fb1b17f5f721eec8a53f",
+        "composite": "sha256:aeef135ebd0c46656979f8767e220a7d6f34d0fca3209424a763cabdc4713869"
+      },
+      "createdAt": "2026-08-22T08:56:55.076Z"
+    },
+    {
+      "taskId": "trpc-c7360d4",
+      "repository": "trpc",
+      "title": "Add Prefix Support for Mutation Options",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "packageManager": "pnpm",
+      "testCommand": "pnpm test -- packages/tanstack-react-query/test/mutationOptions.test.tsx",
+      "taskStatus": "needs-review",
+      "baseCommit": "774b244ca97518b86489d7b3c02c5f7b5e0de3ee",
+      "checksums": {
+        "taskJson": "sha256:b6d3e3b488c19d0bf2311050e220ea35d163aad8945dc1492b9ca3db250f201b",
+        "promptMd": "sha256:f6746c66562ba2a9850863ff050fb0db5f366b2f4804e41eb4a30339f13fbb27",
+        "metadataJson": "sha256:ffee7db300a7846a38935dd81d50a6dd2bf99529e240bd47b0ae4097d4417801",
+        "composite": "sha256:55d169d8c5a60bf57d4045df437f523a77764d04c3bfa7de61a0959cc4c2c1a6"
+      },
+      "createdAt": "2026-08-22T08:56:20.791Z"
+    },
+    {
+      "taskId": "trpc-dfbafa8",
+      "repository": "trpc",
+      "title": "Abort JSONL Stream on HttpBatchStreamLink Unsubscribe",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "packageManager": "pnpm",
+      "testCommand": "pnpm test -- packages/tests/server/links.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "cdbc28049889a9da9ea2abb6bd6519afe2279ead",
+      "checksums": {
+        "taskJson": "sha256:783258a115568cec93db34db0ff540171180ed1b78ee10b6d729c1c5c85b6967",
+        "promptMd": "sha256:20d7dd9653369a5bf4eb162d99b5949835c7abc7a306c9e026a67180837cac71",
+        "metadataJson": "sha256:cb11685189c9c66063c75b3ec38307072deccc816f34505d923596c91c901111",
+        "composite": "sha256:5977946e5d710da2f5ae1812757a32cbd68ec4e78e82d6f325f07070b702b410"
+      },
+      "createdAt": "2026-08-22T08:57:26.306Z"
+    },
+    {
+      "taskId": "zod-6574e78",
+      "repository": "zod",
+      "title": "Stop Catch Resurrecting Issues an Optional Already Resolved",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "packageManager": "pnpm",
+      "testCommand": "pnpm test -- packages/zod/src/v4/classic/tests/catch.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "937b5d01a143c36bb53591fffb29c44412ac9fef",
+      "checksums": {
+        "taskJson": "sha256:49becdcac332ec6540557a0ea4be097464b708d9ceba394985f11a3c81544188",
+        "promptMd": "sha256:923b0d0597dd3f9258cf8cc9b81de745a7a2fe993367a65c3784cf3c2dfff1f8",
+        "metadataJson": "sha256:261773f7cb688aaf7d6b9a6e0ebb6b2db2c363be6b4674e67bb98008a9d2d759",
+        "composite": "sha256:85af3b465ea0b8a8cdad31a5ae006100794012d2afa13491ec8188faac1b96e3"
+      },
+      "createdAt": "2026-08-22T08:55:52.357Z"
+    },
+    {
+      "taskId": "zod-6c77d02",
+      "repository": "zod",
+      "title": "Compact Simple AnyOf Unions to Type Array in ToJSONSchema",
+      "category": "type_fix",
+      "difficulty": "hard",
+      "packageManager": "pnpm",
+      "testCommand": "pnpm test -- packages/zod/src/v4/classic/tests/to-json-schema.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "28e1ebd89d26147bacb164af988da6ed6de738d4",
+      "checksums": {
+        "taskJson": "sha256:8c6f4d80136984b8f30edf63a4aff50df8778d34616d92033c644f0d3ad9bcb0",
+        "promptMd": "sha256:bc448d9beabdbbafe2dd017566a868d2af24e6ad0b4fa9acb902c381f1bec433",
+        "metadataJson": "sha256:ba882ba670c68776d0e9a871f8886be83e06aeadb3317333b212a22961cc55d6",
+        "composite": "sha256:6545e07f05b3b6eb0ef8b8190b82be04cb7f60c144b352e737a01dc3e9520da5"
+      },
+      "createdAt": "2026-08-22T08:55:49.791Z"
+    },
+    {
+      "taskId": "zod-b63db24",
+      "repository": "zod",
+      "title": "Keep a Memoized Node's Cached Issues Private to the Cache",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "packageManager": "pnpm",
+      "testCommand": "pnpm test -- packages/zod/src/v4/classic/tests/cyclic-data.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "463ebb30512e7b244f2dde197c5a188162b7c78a",
+      "checksums": {
+        "taskJson": "sha256:394b4facd066606898279ac7b9478b844ffa17e91dbe4233358e3b304b7fe44c",
+        "promptMd": "sha256:aeed67e67207eb00ddaf9dd22ddb3c158d48a3c6ee34c00efb0629064ffcaf72",
+        "metadataJson": "sha256:0fb154fbdec4d8869d9b480296ff4322d5e764729a011a5cb71ef32a1b08d599",
+        "composite": "sha256:9ec65848c1e68d3e64477b74ce8990116c8b27549a0305fe0b7ec3fdd8788715"
+      },
+      "createdAt": "2026-08-22T08:55:54.887Z"
+    }
+  ],
+  "statistics": {
+    "totalTasks": 9,
+    "byStatus": {
+      "needs-review": 9
+    },
+    "byCategory": {
+      "bug_fix": 7,
+      "type_fix": 2
+    },
+    "byDifficulty": {
+      "easy": 6,
+      "medium": 2,
+      "hard": 1
+    },
+    "byRepository": {
+      "hono": 3,
+      "trpc": 3,
+      "zod": 3
+    }
+  }
+}
