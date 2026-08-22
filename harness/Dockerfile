@@ -1,3 +1,4 @@
+
 # Typebench Evaluation Sandbox
 FROM node:20-bookworm-slim
 
@@ -11,10 +12,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     && rm -rf /var/lib/apt/lists/*
 
-# Install modern package managers
-RUN npm install -g pnpm@latest yarn@latest
+# Enable Corepack for deterministic packageManager (pnpm / yarn) auto-switching
+RUN corepack enable && corepack prepare pnpm@latest --activate && corepack prepare yarn@stable --activate
 
 WORKDIR /workspace
 
 # Default entrypoint runs bash
 ENTRYPOINT ["/bin/bash"]
+

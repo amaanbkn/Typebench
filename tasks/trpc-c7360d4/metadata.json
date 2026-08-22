@@ -1,0 +1,30 @@
+{
+  "taskId": "trpc-c7360d4",
+  "repository": "trpc",
+  "repositoryUrl": "https://github.com/trpc/trpc",
+  "commitSha": "c7360d4eb3c89c336468809a293e5cda4b302d4b",
+  "parentSha": "774b244ca97518b86489d7b3c02c5f7b5e0de3ee",
+  "category": "bug_fix",
+  "difficulty": "easy",
+  "title": "Issue in Trpc",
+  "description": "Task for trpc: Issue in Trpc",
+  "changedFiles": [
+    "packages/tanstack-react-query/test/mutationOptions.test.tsx"
+  ],
+  "sourceFiles": [],
+  "testFiles": [
+    "packages/tanstack-react-query/test/mutationOptions.test.tsx"
+  ],
+  "validationStatus": "unvalidated",
+  "validationReason": "Environment failure during baseline test execution: sh: line 1: vitest: command not found",
+  "taskStatus": "needs-review",
+  "candidateScore": 5,
+  "signals": {
+    "positive": [
+      "validated-commit"
+    ],
+    "negative": []
+  },
+  "originalCommitMessage": "Fix issue in trpc",
+  "createdAt": "2026-08-22T08:22:48.374Z"
+}

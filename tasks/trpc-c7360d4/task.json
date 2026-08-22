@@ -1,0 +1,17 @@
+{
+  "taskId": "trpc-c7360d4",
+  "repository": "trpc",
+  "repositoryUrl": "https://github.com/trpc/trpc",
+  "baseCommit": "774b244ca97518b86489d7b3c02c5f7b5e0de3ee",
+  "category": "bug_fix",
+  "difficulty": "easy",
+  "title": "Issue in Trpc",
+  "description": "Task for trpc: Issue in Trpc",
+  "packageManager": "pnpm",
+  "testCommand": "pnpm test -- packages/tanstack-react-query/test/mutationOptions.test.tsx",
+  "targetedTests": [
+    "packages/tanstack-react-query/test/mutationOptions.test.tsx"
+  ],
+  "taskStatus": "needs-review",
+  "createdAt": "2026-08-22T08:22:48.374Z"
+}

@@ -14,6 +14,7 @@ import {
   formatValidationSummary,
   ValidationReport,
 } from './validate-candidate.js';
+import { createBenchmarkTask, CreateTaskResult } from './create-task.js';
 
 async function main() {
   const args = process.argv.slice(2);
@@ -22,6 +23,7 @@ async function main() {
   let historyDepth = 20;
   let verbose = false;
   let validate = false;
+  let createTasks = false;
   let validateCount: number | undefined;
 
   for (let i = 0; i < args.length; i++) {
@@ -36,23 +38,26 @@ async function main() {
       historyDepth = parseInt(args[++i], 10);
     } else if (arg === '--validate') {
       validate = true;
+    } else if (arg === '--create-tasks' || arg === '--create-task') {
+      createTasks = true;
     } else if (arg === '--validate-count' || arg === '--limit') {
       validateCount = parseInt(args[++i], 10);
     } else if (arg === '--verbose' || arg === '-v') {
       verbose = true;
     } else if (arg === '--help' || arg === '-h') {
       console.log(`
-TypeBench - Candidate Discovery & Validation
+TypeBench - Candidate Discovery, Validation & Task Creation
 
 Usage:
-  npx tsx scripts/generate-tasks.ts --repo <name> [--history-depth <n>] [--validate] [--validate-count <n>] [--verbose]
+  npx tsx scripts/generate-tasks.ts --repo <name> [--history-depth <n>] [--validate] [--create-tasks] [--validate-count <n>] [--verbose]
 
 Options:
   -r, --repo <name>             Repository name from seed-repos.json or URL (e.g. trpc, zod, prisma, hono, type-challenges)
   -d, --history-depth <n>       Number of commits to discover (default: 20)
   --clone-depth <n>             Initial shallow clone depth (default: matches history-depth)
   --validate                    Validate discovered candidate commits in isolated test workspaces
-  --validate-count, --limit <n> Number of top candidates to validate (default: all discovered)
+  --create-tasks, --create-task Package candidate(s) into benchmark task directories under tasks/<task-id>/
+  --validate-count, --limit <n> Number of top candidates to process (default: all discovered)
   -v, --verbose                 Show detailed candidate scoring, signals, and test execution output
   -h, --help                    Show help
 
@@ -101,19 +106,20 @@ ${getSeedRepos().map((r) => `  - ${r.name} (${r.url})`).join('\n')}
   // 4. Output candidate summary
   console.log(formatCandidateSummary(discoveryResult, verbose));
 
-  // 5. Candidate Validation (only when --validate is explicitly provided)
-  if (validate) {
-    const candidatesToValidate = validateCount
+  // 5. Candidate Validation & Task Creation
+  if (validate || createTasks) {
+    const candidatesToProcess = validateCount
       ? discoveryResult.candidates.slice(0, validateCount)
       : discoveryResult.candidates;
 
-    console.log(`\n[TypeBench] Validating ${candidatesToValidate.length} candidate commit(s)...`);
+    console.log(`\n[TypeBench] Validating ${candidatesToProcess.length} candidate commit(s)...`);
 
     const reports: ValidationReport[] = [];
+    const taskResults: CreateTaskResult[] = [];
 
-    for (let i = 0; i < candidatesToValidate.length; i++) {
-      const candidate = candidatesToValidate[i];
-      console.log(`\n-> Validating [${i + 1}/${candidatesToValidate.length}] ${candidate.shortSha}: "${candidate.message.split('\n')[0]}"`);
+    for (let i = 0; i < candidatesToProcess.length; i++) {
+      const candidate = candidatesToProcess[i];
+      console.log(`\n-> Validating [${i + 1}/${candidatesToProcess.length}] ${candidate.shortSha}: "${candidate.message.split('\n')[0]}"`);
 
       const report = await validateCandidate(
         cloneResult.repoName,
@@ -126,10 +132,43 @@ ${getSeedRepos().map((r) => `  - ${r.name} (${r.url})`).join('\n')}
       reports.push(report);
 
       console.log(`   Status: ${report.status} | Reason: ${report.validationReason}`);
+
+      // 6. Benchmark Task Creation (if --create-tasks is enabled)
+      if (createTasks) {
+        if (report.status === 'invalid') {
+          console.log(`   [Task] Skipped task creation for invalid candidate ${candidate.shortSha}`);
+        } else {
+          console.log(`   [Task] Creating benchmark task package...`);
+          const taskResult = await createBenchmarkTask(candidate, report, {
+            workspacePath: cloneResult.workspacePath,
+          });
+
+          if (taskResult.success) {
+            taskResults.push(taskResult);
+            console.log(`   [Task] Created: ${taskResult.taskId} (${taskResult.taskConfig.taskStatus}) at ${taskResult.taskDir}`);
+          } else {
+            console.error(`   [Task] Failed to create task: ${taskResult.error}`);
+          }
+        }
+      }
     }
 
     // Print final validation summary table
     console.log(formatValidationSummary(reports));
+
+    // Print task creation summary if requested
+    if (createTasks && taskResults.length > 0) {
+      console.log('\n========================================');
+      console.log('[TypeBench] Benchmark Tasks Created');
+      console.log('========================================\n');
+      taskResults.forEach((t, index) => {
+        console.log(`${index + 1}. Task ID: ${t.taskId}`);
+        console.log(`   Title      : ${t.taskConfig.title}`);
+        console.log(`   Status     : ${t.taskConfig.taskStatus}`);
+        console.log(`   Base Commit: ${t.taskConfig.baseCommit.slice(0, 7)}`);
+        console.log(`   Location   : ${t.taskDir}\n`);
+      });
+    }
   }
 }
 

@@ -1,0 +1,20 @@
+{
+  "runId": "fixture_fail_mt44omc1",
+  "taskId": "_fixture_calc",
+  "agentName": "broken-agent",
+  "status": "failed",
+  "benchmarkTests": {
+    "command": "node test.cjs",
+    "exitCode": 1,
+    "passed": false,
+    "durationMs": 29,
+    "status": "failed",
+    "stdoutSnippet": "",
+    "stderrSnippet": "Test Failed: expected 2 + 3 = 5, got 6"
+  },
+  "changedFiles": [
+    "calc.cjs"
+  ],
+  "durationMs": 98,
+  "timestamp": "2026-08-22T08:40:29.812Z"
+}

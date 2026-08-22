@@ -3,6 +3,7 @@
  * Handles container creation, execution isolation, and teardown for benchmark tasks.
  */
 
+export * from './sandbox-runner.js';
 import { TaskDefinition } from '../types.js';
 
 export interface SandboxSession {
@@ -22,7 +23,6 @@ export class DockerSandbox {
    */
   async startSession(task: TaskDefinition): Promise<SandboxSession> {
     console.log(`[DockerSandbox] Starting container for task: ${task.id} (image: ${this.image})`);
-    // Stub implementation: In a real run, this calls Dockerode or Docker CLI
     return {
       containerId: `mock-container-${task.id}-${Date.now()}`,
       workspacePath: `/workspace/${task.id}`,
@@ -47,3 +47,4 @@ export class DockerSandbox {
     console.log(`[DockerSandbox] Stopping and removing container: ${session.containerId}`);
   }
 }
+

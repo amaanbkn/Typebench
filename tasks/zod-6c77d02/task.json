@@ -1,0 +1,17 @@
+{
+  "taskId": "zod-6c77d02",
+  "repository": "zod",
+  "repositoryUrl": "https://github.com/colinhacks/zod",
+  "baseCommit": "28e1ebd89d26147bacb164af988da6ed6de738d4",
+  "category": "type_fix",
+  "difficulty": "hard",
+  "title": "Compact Simple AnyOf Unions to Type Array in ToJSONSchema",
+  "description": "Task for zod: Compact Simple AnyOf Unions to Type Array in ToJSONSchema",
+  "packageManager": "pnpm",
+  "testCommand": "pnpm test -- packages/zod/src/v4/classic/tests/to-json-schema.test.ts",
+  "targetedTests": [
+    "packages/zod/src/v4/classic/tests/to-json-schema.test.ts"
+  ],
+  "taskStatus": "needs-review",
+  "createdAt": "2026-08-22T08:22:48.019Z"
+}

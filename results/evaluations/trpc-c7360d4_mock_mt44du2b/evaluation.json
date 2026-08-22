@@ -1,0 +1,27 @@
+{
+  "runId": "trpc-c7360d4_mock_mt44du2b",
+  "taskId": "trpc-c7360d4",
+  "agentName": "mock",
+  "status": "infrastructure_failure",
+  "benchmarkTests": {
+    "command": "pnpm test -- packages/tanstack-react-query/test/mutationOptions.test.tsx",
+    "exitCode": 1,
+    "passed": false,
+    "durationMs": 503,
+    "status": "failed",
+    "stdoutSnippet": "WARN  Unsupported engine: wanted: {\"node\":\"^24.0.0\"} (current: {\"node\":\"v20.18.0\",\"pnpm\":\"10.33.1\"})\n\n> root@ test /tmp/typebench-eval-workspaces/eval_trpc-c7360d4_mock_mt44du2b_mt44ocew\n> vitest -- packages/tanstack-react-query/test/mutationOptions.test.tsx\n\n ELIFECYCLE  Test failed. See above for more details.\n WARN   Local package.json exists, but node_modules missing, did you mean to install?",
+    "stderrSnippet": "sh: line 1: vitest: command not found"
+  },
+  "regressionTests": {
+    "command": "pnpm test",
+    "exitCode": 1,
+    "passed": false,
+    "durationMs": 503,
+    "status": "failed"
+  },
+  "changedFiles": [
+    "TYPEBENCH_AGENT_SOLUTION.md"
+  ],
+  "durationMs": 12319,
+  "timestamp": "2026-08-22T08:40:29.175Z"
+}

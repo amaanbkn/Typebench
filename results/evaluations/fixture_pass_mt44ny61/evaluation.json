@@ -1,0 +1,20 @@
+{
+  "runId": "fixture_pass_mt44ny61",
+  "taskId": "_fixture_calc",
+  "agentName": "correct-agent",
+  "status": "solved",
+  "benchmarkTests": {
+    "command": "node test.cjs",
+    "exitCode": 0,
+    "passed": true,
+    "durationMs": 29,
+    "status": "passed",
+    "stdoutSnippet": "Test Passed: 2 + 3 = 5",
+    "stderrSnippet": ""
+  },
+  "changedFiles": [
+    "calc.cjs"
+  ],
+  "durationMs": 94,
+  "timestamp": "2026-08-22T08:39:58.487Z"
+}

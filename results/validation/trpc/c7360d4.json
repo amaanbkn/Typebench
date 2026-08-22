@@ -8,10 +8,10 @@
   "baseline": {
     "command": "pnpm test -- packages/tanstack-react-query/test/mutationOptions.test.tsx",
     "exitCode": 1,
-    "durationMs": 530,
+    "durationMs": 497,
     "passed": false,
     "status": "error",
-    "stdoutSnippet": "WARN  Unsupported engine: wanted: {\"node\":\"^24.0.0\"} (current: {\"node\":\"v20.18.0\",\"pnpm\":\"10.33.1\"})\n\n> root@ test /tmp/typebench-validation/trpc-c7360d4-mt3306o3\n> vitest -- packages/tanstack-react-query/test/mutationOptions.test.tsx\n\n ELIFECYCLE  Test failed. See above for more details.",
+    "stdoutSnippet": "WARN  Unsupported engine: wanted: {\"node\":\"^24.0.0\"} (current: {\"node\":\"v20.18.0\",\"pnpm\":\"10.33.1\"})\n\n> root@ test /tmp/typebench-validation/trpc-c7360d4-mt441ece\n> vitest -- packages/tanstack-react-query/test/mutationOptions.test.tsx\n\n ELIFECYCLE  Test failed. See above for more details.",
     "stderrSnippet": "sh: line 1: vitest: command not found",
     "isEnvironmentFailure": true
   },
@@ -27,6 +27,6 @@
   "tests": [
     "packages/tanstack-react-query/test/mutationOptions.test.tsx"
   ],
-  "durationMs": 57750,
-  "timestamp": "2026-08-21T15:05:43.875Z"
+  "durationMs": 14818,
+  "timestamp": "2026-08-22T08:22:26.270Z"
 }

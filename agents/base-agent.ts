@@ -1,13 +1,50 @@
 /**
- * Base Agent Interface
- * All agent adapters in Typebench implement this interface.
+ * Standardized Coding-Agent Interface
+ * Defines generic agent interfaces, contexts, and results for Typebench evaluations.
  */
 
-import { AgentContext, AgentResponse } from '../harness/src/types.js';
+export type AgentStatus =
+  | 'completed'
+  | 'failed'
+  | 'timeout'
+  | 'infrastructure_failure';
 
-export interface BaseAgent {
+export interface AgentEnvironmentInfo {
+  nodeVersion?: string;
+  packageManager?: string;
+  packageManagerVersion?: string;
+}
+
+export interface AgentContext {
+  taskId: string;
+  taskPrompt: string;
+  repository: string;
+  repositoryUrl: string;
+  baseCommit: string;
+  workspacePath: string;
+  timeoutMs: number;
+  environment: AgentEnvironmentInfo;
+}
+
+export interface AgentResult {
+  runId: string;
+  taskId: string;
+  agentName: string;
+  status: AgentStatus;
+  exitCode: number;
+  durationMs: number;
+  changedFiles: string[];
+  patch: string;
+  stdout: string;
+  stderr: string;
+  tokensUsed?: number;
+  error?: string;
+  timestamp: string;
+}
+
+export interface CodingAgent {
   /**
-   * Unique name of the agent wrapper (e.g. 'nemotron', 'claude-3-5-sonnet', 'gpt-4o')
+   * Unique name of the agent (e.g. 'mock', 'nemotron', 'claude-3-5-sonnet')
    */
   readonly name: string;
 
@@ -17,10 +54,14 @@ export interface BaseAgent {
   initialize?(): Promise<void>;
 
   /**
-   * Executes the coding task in the specified workspace context
-   * @param context Target workspace path, instructions, and timeout details
+   * Executes the coding agent on the task context inside the isolated workspace
    */
-  solveTask(context: AgentContext): Promise<AgentResponse>;
+  run(context: AgentContext): Promise<Omit<AgentResult, 'runId' | 'taskId' | 'changedFiles' | 'patch' | 'timestamp'>>;
+
+  /**
+   * Backward-compatible solveTask alias
+   */
+  solveTask?(context: any): Promise<any>;
 
   /**
    * Optional teardown/cleanup logic after task completes
@@ -28,14 +69,20 @@ export interface BaseAgent {
   cleanup?(): Promise<void>;
 }
 
-export abstract class AbstractBaseAgent implements BaseAgent {
+export abstract class AbstractCodingAgent implements CodingAgent {
   abstract readonly name: string;
 
   async initialize(): Promise<void> {
     // Default no-op
   }
 
-  abstract solveTask(context: AgentContext): Promise<AgentResponse>;
+  abstract run(
+    context: AgentContext
+  ): Promise<Omit<AgentResult, 'runId' | 'taskId' | 'changedFiles' | 'patch' | 'timestamp'>>;
+
+  async solveTask(context: AgentContext): Promise<any> {
+    return this.run(context);
+  }
 
   async cleanup(): Promise<void> {
     // Default no-op
