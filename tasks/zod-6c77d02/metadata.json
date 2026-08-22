@@ -22,7 +22,7 @@
     "packages/zod/src/v4/classic/tests/to-json-schema.test.ts"
   ],
   "validationStatus": "unvalidated",
-  "validationReason": "Environment failure during baseline test execution: \u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\u001b[31mfailed to load config from /tmp/typebench-validation/zod-6c77d02-mt441t1f/packages/docs/vitest.config.ts\u001b[39m\n\n\u001b[31m⎯⎯⎯⎯⎯⎯⎯\u001b[39m\u001b[1m\u001b[41m Startup Error \u001b[49m\u001b[22m\u001b[31m⎯⎯⎯⎯⎯⎯⎯⎯\u001b[39m\nAggregateError: Failed to initialize projects. There were errors during projects setup. See below for more details.\n    at resolveProjects (file:///tmp/typebench-validation/zod-6c77d02-mt441t1f/node_modules/.pnpm/vitest@4.1.5_@opentelemetry+api@1.9.0_@types+node@22.13.13_vite@7.3.2_@types+node@22.13_16a806e5e53cf775cc8de614dde74a84/node_modules/vitest/dist/chunks/cli-api.Cjt90eJu.js:11149:27)\n    at Vitest._setServer (file:///tmp/typebench-validation/zod-6c77d02-mt441t1f/node_modules/.pnpm/vit",
+  "validationReason": "Environment failure during baseline test execution: \u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\u001b[31mfailed to load config from /tmp/typebench-validation/zod-6c77d02-mt458a6s/packages/docs/vitest.config.ts\u001b[39m\n\u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\n\u001b[31m⎯⎯⎯⎯⎯⎯⎯\u001b[39m\u001b[1m\u001b[41m Startup Error \u001b[49m\u001b[22m\u001b[31m⎯⎯⎯⎯⎯⎯⎯⎯\u001b[39m\nAggregateError: Failed to initialize projects. There were errors during projects setup. See below for more details.\n    at resolveProjects (file:///tmp/typebench-validation/zod-6c77d02-mt458a6s/node_modules/.pnpm/vitest@4.1.5_@opentelemetry+api@1.9.0_@types+node@22.13.13_vite@7.3.2_@types+node@22.13_16a806e5e53cf775cc8de614dde74a84/node_modules/vitest/dist/chunks/cli-api.Cjt90eJu.js:11149:27)\n    at Vitest._setServer (file:///tmp/typebench-validation/zod-6c77d02-mt458a6s/node_modules/.pnpm/vit",
   "taskStatus": "needs-review",
   "candidateScore": 12,
   "signals": {
@@ -37,5 +37,5 @@
     "negative": []
   },
   "originalCommitMessage": "feat: compact simple anyOf unions to type array in toJSONSchema (#6339)",
-  "createdAt": "2026-08-22T08:22:48.019Z"
+  "createdAt": "2026-08-22T08:55:49.791Z"
 }

@@ -1,0 +1,17 @@
+{
+  "taskId": "hono-1096d66",
+  "repository": "hono",
+  "repositoryUrl": "https://github.com/honojs/hono",
+  "baseCommit": "c4a44071eee614c7317403f3534cd213d3f0e0b3",
+  "category": "bug_fix",
+  "difficulty": "easy",
+  "title": "Support Custom BuildSearchParams and Filter Undefined Query in $ws()",
+  "description": "Task for hono: Support Custom BuildSearchParams and Filter Undefined Query in $ws()",
+  "packageManager": "npm",
+  "testCommand": "npm test -- src/client/client.test.ts",
+  "targetedTests": [
+    "src/client/client.test.ts"
+  ],
+  "taskStatus": "needs-review",
+  "createdAt": "2026-08-22T08:59:24.755Z"
+}

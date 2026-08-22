@@ -1,13 +1,13 @@
-# Task: Issue in Trpc
+# Task: Add Prefix Support for Mutation Options
 
 ## Problem Overview
-An issue has been identified in **trpc** affecting the core repository modules. The current codebase exhibits unexpected behavior or lacks full support for this feature under specific TypeScript configurations and usage patterns.
+An issue has been identified in **trpc** affecting packages/tanstack-react-query. The current codebase exhibits unexpected behavior or lacks full support for this feature under specific TypeScript configurations and usage patterns.
 
 ## Problem Description
 When interacting with the affected module(s), the expected behavior or type resolution is not properly maintained. You are tasked with resolving this bug fix in the codebase.
 
 ## Expected Behavior
-1. Ensure all relevant typings and runtime implementations satisfy the intended capability: **Issue in Trpc**.
+1. Ensure all relevant typings and runtime implementations satisfy the intended capability: **Add Prefix Support for Mutation Options**.
 2. Preserve correct TypeScript type inference without introducing `any` casts or regressions.
 3. Maintain full backwards compatibility across related APIs.
 

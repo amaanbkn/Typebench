@@ -1,0 +1,32 @@
+{
+  "repository": "trpc",
+  "commitSha": "dfbafa8ef178a5a3d23ef9461caa9494b3ef7f95",
+  "shortSha": "dfbafa8",
+  "parentSha": "cdbc28049889a9da9ea2abb6bd6519afe2279ead",
+  "status": "unvalidated",
+  "validationReason": "Environment failure during baseline test execution: sh: line 1: vitest: command not found",
+  "baseline": {
+    "command": "pnpm test -- packages/tests/server/links.test.ts",
+    "exitCode": 1,
+    "durationMs": 495,
+    "passed": false,
+    "status": "error",
+    "stdoutSnippet": "WARN  Unsupported engine: wanted: {\"node\":\"^24.0.0\"} (current: {\"node\":\"v20.18.0\",\"pnpm\":\"10.33.1\"})\n\n> root@ test /tmp/typebench-validation/trpc-dfbafa8-mt459qn9\n> vitest -- packages/tests/server/links.test.ts\n\n ELIFECYCLE  Test failed. See above for more details.",
+    "stderrSnippet": "sh: line 1: vitest: command not found",
+    "isEnvironmentFailure": true
+  },
+  "fixed": {
+    "command": "none",
+    "exitCode": -1,
+    "durationMs": 0,
+    "passed": false,
+    "status": "skipped",
+    "stdoutSnippet": "",
+    "stderrSnippet": ""
+  },
+  "tests": [
+    "packages/tests/server/links.test.ts"
+  ],
+  "durationMs": 30433,
+  "timestamp": "2026-08-22T08:56:55.077Z"
+}

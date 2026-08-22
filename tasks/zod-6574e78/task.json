@@ -1,0 +1,17 @@
+{
+  "taskId": "zod-6574e78",
+  "repository": "zod",
+  "repositoryUrl": "https://github.com/colinhacks/zod",
+  "baseCommit": "937b5d01a143c36bb53591fffb29c44412ac9fef",
+  "category": "bug_fix",
+  "difficulty": "easy",
+  "title": "Stop Catch Resurrecting Issues an Optional Already Resolved",
+  "description": "Task for zod: Stop Catch Resurrecting Issues an Optional Already Resolved",
+  "packageManager": "pnpm",
+  "testCommand": "pnpm test -- packages/zod/src/v4/classic/tests/catch.test.ts",
+  "targetedTests": [
+    "packages/zod/src/v4/classic/tests/catch.test.ts"
+  ],
+  "taskStatus": "needs-review",
+  "createdAt": "2026-08-22T08:55:52.357Z"
+}

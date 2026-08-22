@@ -1,0 +1,17 @@
+{
+  "taskId": "trpc-dfbafa8",
+  "repository": "trpc",
+  "repositoryUrl": "https://github.com/trpc/trpc",
+  "baseCommit": "cdbc28049889a9da9ea2abb6bd6519afe2279ead",
+  "category": "bug_fix",
+  "difficulty": "easy",
+  "title": "Abort JSONL Stream on HttpBatchStreamLink Unsubscribe",
+  "description": "Task for trpc: Abort JSONL Stream on HttpBatchStreamLink Unsubscribe",
+  "packageManager": "pnpm",
+  "testCommand": "pnpm test -- packages/tests/server/links.test.ts",
+  "targetedTests": [
+    "packages/tests/server/links.test.ts"
+  ],
+  "taskStatus": "needs-review",
+  "createdAt": "2026-08-22T08:57:26.306Z"
+}

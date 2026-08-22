@@ -1,0 +1,265 @@
+{
+  "datasetVersion": "0.1.0",
+  "name": "TypeBench TypeScript Benchmark Dataset",
+  "description": "Curated real-world TypeScript engineering benchmark tasks evaluating AI coding agents on type safety, bug fixes, and feature implementations.",
+  "createdAt": "2026-08-22T08:59:30.640Z",
+  "repositories": [
+    {
+      "name": "hono",
+      "owner": "honojs",
+      "url": "https://github.com/honojs/hono",
+      "category": "Web Framework",
+      "taskCount": 3
+    },
+    {
+      "name": "trpc",
+      "owner": "trpc",
+      "url": "https://github.com/trpc/trpc",
+      "category": "Framework & API",
+      "taskCount": 3
+    },
+    {
+      "name": "zod",
+      "owner": "colinhacks",
+      "url": "https://github.com/colinhacks/zod",
+      "category": "Schema & Validation",
+      "taskCount": 3
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "hono-1096d66",
+      "repository": "hono",
+      "title": "Support Custom BuildSearchParams and Filter Undefined Query in $ws()",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "packageManager": "npm",
+      "testCommand": "npm test -- src/client/client.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "c4a44071eee614c7317403f3534cd213d3f0e0b3",
+      "changedFilesCount": 2,
+      "signals": {
+        "positive": [
+          "fix-keyword",
+          "feature-keyword",
+          "tests-modified (1 files)",
+          "source-modified (1 files)",
+          "co-located-source-and-test",
+          "focused-atomic-scope"
+        ],
+        "negative": []
+      },
+      "createdAt": "2026-08-22T08:59:24.755Z"
+    },
+    {
+      "taskId": "hono-28a9c12",
+      "repository": "hono",
+      "title": "Support Wildcard Media Types and Specificity Ordering in DefaultMatch",
+      "category": "type_fix",
+      "difficulty": "medium",
+      "packageManager": "npm",
+      "testCommand": "npm test -- src/helper/accepts/accepts.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "1096d66e03a3fd16a5cc5f912c2d5e8fd6d990b0",
+      "changedFilesCount": 2,
+      "signals": {
+        "positive": [
+          "fix-keyword",
+          "feature-keyword",
+          "typescript-type-signal",
+          "tests-modified (1 files)",
+          "source-modified (1 files)",
+          "co-located-source-and-test",
+          "focused-atomic-scope"
+        ],
+        "negative": []
+      },
+      "createdAt": "2026-08-22T08:59:24.695Z"
+    },
+    {
+      "taskId": "hono-7967760",
+      "repository": "hono",
+      "title": "Handle Params on Unmatched Requests",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "packageManager": "npm",
+      "testCommand": "npm test -- src/request.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "0293343dbf8f0bca52b210a98bcef31cc61395ee",
+      "changedFilesCount": 2,
+      "signals": {
+        "positive": [
+          "fix-keyword",
+          "feature-keyword",
+          "tests-modified (1 files)",
+          "source-modified (1 files)",
+          "co-located-source-and-test",
+          "focused-atomic-scope"
+        ],
+        "negative": []
+      },
+      "createdAt": "2026-08-22T08:59:24.820Z"
+    },
+    {
+      "taskId": "trpc-2c5b6a8",
+      "repository": "trpc",
+      "title": "Handle React 19 Proxy Coercion in CreateInnerProxy",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "packageManager": "pnpm",
+      "testCommand": "pnpm test -- packages/server/src/unstable-core-do-not-import/createProxy.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "c188dab0822caf3615199e4ac95147bc7560d26f",
+      "changedFilesCount": 2,
+      "signals": {
+        "positive": [
+          "fix-keyword",
+          "feature-keyword",
+          "tests-modified (1 files)",
+          "source-modified (1 files)",
+          "co-located-source-and-test",
+          "focused-atomic-scope"
+        ],
+        "negative": []
+      },
+      "createdAt": "2026-08-22T08:56:55.076Z"
+    },
+    {
+      "taskId": "trpc-c7360d4",
+      "repository": "trpc",
+      "title": "Add Prefix Support for Mutation Options",
+      "category": "bug_fix",
+      "difficulty": "medium",
+      "packageManager": "pnpm",
+      "testCommand": "pnpm test -- packages/tanstack-react-query/test/mutationOptions.test.tsx",
+      "taskStatus": "needs-review",
+      "baseCommit": "774b244ca97518b86489d7b3c02c5f7b5e0de3ee",
+      "changedFilesCount": 3,
+      "signals": {
+        "positive": [
+          "fix-keyword",
+          "feature-keyword",
+          "tests-modified (1 files)",
+          "source-modified (2 files)",
+          "co-located-source-and-test",
+          "focused-atomic-scope"
+        ],
+        "negative": []
+      },
+      "createdAt": "2026-08-22T08:56:20.791Z"
+    },
+    {
+      "taskId": "trpc-dfbafa8",
+      "repository": "trpc",
+      "title": "Abort JSONL Stream on HttpBatchStreamLink Unsubscribe",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "packageManager": "pnpm",
+      "testCommand": "pnpm test -- packages/tests/server/links.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "cdbc28049889a9da9ea2abb6bd6519afe2279ead",
+      "changedFilesCount": 2,
+      "signals": {
+        "positive": [
+          "fix-keyword",
+          "tests-modified (1 files)",
+          "source-modified (1 files)",
+          "co-located-source-and-test",
+          "focused-atomic-scope"
+        ],
+        "negative": []
+      },
+      "createdAt": "2026-08-22T08:57:26.306Z"
+    },
+    {
+      "taskId": "zod-6574e78",
+      "repository": "zod",
+      "title": "Stop Catch Resurrecting Issues an Optional Already Resolved",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "packageManager": "pnpm",
+      "testCommand": "pnpm test -- packages/zod/src/v4/classic/tests/catch.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "937b5d01a143c36bb53591fffb29c44412ac9fef",
+      "changedFilesCount": 2,
+      "signals": {
+        "positive": [
+          "fix-keyword",
+          "tests-modified (1 files)",
+          "source-modified (1 files)",
+          "co-located-source-and-test",
+          "focused-atomic-scope"
+        ],
+        "negative": []
+      },
+      "createdAt": "2026-08-22T08:55:52.357Z"
+    },
+    {
+      "taskId": "zod-6c77d02",
+      "repository": "zod",
+      "title": "Compact Simple AnyOf Unions to Type Array in ToJSONSchema",
+      "category": "type_fix",
+      "difficulty": "hard",
+      "packageManager": "pnpm",
+      "testCommand": "pnpm test -- packages/zod/src/v4/classic/tests/to-json-schema.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "28e1ebd89d26147bacb164af988da6ed6de738d4",
+      "changedFilesCount": 4,
+      "signals": {
+        "positive": [
+          "feature-keyword",
+          "typescript-type-signal",
+          "tests-modified (1 files)",
+          "source-modified (2 files)",
+          "co-located-source-and-test",
+          "focused-atomic-scope"
+        ],
+        "negative": []
+      },
+      "createdAt": "2026-08-22T08:55:49.791Z"
+    },
+    {
+      "taskId": "zod-b63db24",
+      "repository": "zod",
+      "title": "Keep a Memoized Node's Cached Issues Private to the Cache",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "packageManager": "pnpm",
+      "testCommand": "pnpm test -- packages/zod/src/v4/classic/tests/cyclic-data.test.ts",
+      "taskStatus": "needs-review",
+      "baseCommit": "463ebb30512e7b244f2dde197c5a188162b7c78a",
+      "changedFilesCount": 2,
+      "signals": {
+        "positive": [
+          "fix-keyword",
+          "tests-modified (1 files)",
+          "source-modified (1 files)",
+          "co-located-source-and-test",
+          "focused-atomic-scope"
+        ],
+        "negative": []
+      },
+      "createdAt": "2026-08-22T08:55:54.887Z"
+    }
+  ],
+  "statistics": {
+    "totalTasks": 9,
+    "byStatus": {
+      "needs-review": 9
+    },
+    "byCategory": {
+      "bug_fix": 7,
+      "type_fix": 2
+    },
+    "byDifficulty": {
+      "easy": 6,
+      "medium": 2,
+      "hard": 1
+    },
+    "byRepository": {
+      "hono": 3,
+      "trpc": 3,
+      "zod": 3
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "taskId": "trpc-2c5b6a8",
+  "repository": "trpc",
+  "repositoryUrl": "https://github.com/trpc/trpc",
+  "baseCommit": "c188dab0822caf3615199e4ac95147bc7560d26f",
+  "category": "bug_fix",
+  "difficulty": "easy",
+  "title": "Handle React 19 Proxy Coercion in CreateInnerProxy",
+  "description": "Task for trpc: Handle React 19 Proxy Coercion in CreateInnerProxy",
+  "packageManager": "pnpm",
+  "testCommand": "pnpm test -- packages/server/src/unstable-core-do-not-import/createProxy.test.ts",
+  "targetedTests": [
+    "packages/server/src/unstable-core-do-not-import/createProxy.test.ts"
+  ],
+  "taskStatus": "needs-review",
+  "createdAt": "2026-08-22T08:56:55.076Z"
+}

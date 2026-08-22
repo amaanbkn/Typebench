@@ -1,0 +1,18 @@
+{
+  "runId": "_fixture_multiagent_test-noop-agent_mt44ygdl",
+  "taskId": "_fixture_multiagent",
+  "agentName": "test-noop-agent",
+  "status": "no_changes",
+  "benchmarkTests": {
+    "command": "node test.cjs",
+    "exitCode": 1,
+    "passed": false,
+    "durationMs": 0,
+    "status": "skipped",
+    "stderrSnippet": "Agent produced no changes in the workspace repository."
+  },
+  "changedFiles": [],
+  "durationMs": 0,
+  "error": "No changes were made to the repository by the agent.",
+  "timestamp": "2026-08-22T08:48:08.676Z"
+}

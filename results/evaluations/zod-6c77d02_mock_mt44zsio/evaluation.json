@@ -1,0 +1,27 @@
+{
+  "runId": "zod-6c77d02_mock_mt44zsio",
+  "taskId": "zod-6c77d02",
+  "agentName": "mock",
+  "status": "infrastructure_failure",
+  "benchmarkTests": {
+    "command": "pnpm test -- packages/zod/src/v4/classic/tests/to-json-schema.test.ts",
+    "exitCode": 1,
+    "passed": false,
+    "durationMs": 523,
+    "status": "failed",
+    "stdoutSnippet": "> @ test /tmp/typebench-eval-workspaces/eval_zod-6c77d02_mock_mt44zsio_mt44zygw\n> vitest run -- packages/zod/src/v4/classic/tests/to-json-schema.test.ts\n\n ELIFECYCLE  Test failed. See above for more details.\n WARN   Local package.json exists, but node_modules missing, did you mean to install?",
+    "stderrSnippet": "sh: line 1: vitest: command not found"
+  },
+  "regressionTests": {
+    "command": "pnpm test",
+    "exitCode": 1,
+    "passed": false,
+    "durationMs": 523,
+    "status": "failed"
+  },
+  "changedFiles": [
+    "TYPEBENCH_AGENT_SOLUTION.md"
+  ],
+  "durationMs": 12495,
+  "timestamp": "2026-08-22T08:49:31.151Z"
+}

@@ -1,0 +1,17 @@
+{
+  "taskId": "hono-28a9c12",
+  "repository": "hono",
+  "repositoryUrl": "https://github.com/honojs/hono",
+  "baseCommit": "1096d66e03a3fd16a5cc5f912c2d5e8fd6d990b0",
+  "category": "type_fix",
+  "difficulty": "medium",
+  "title": "Support Wildcard Media Types and Specificity Ordering in DefaultMatch",
+  "description": "Task for hono: Support Wildcard Media Types and Specificity Ordering in DefaultMatch",
+  "packageManager": "npm",
+  "testCommand": "npm test -- src/helper/accepts/accepts.test.ts",
+  "targetedTests": [
+    "src/helper/accepts/accepts.test.ts"
+  ],
+  "taskStatus": "needs-review",
+  "createdAt": "2026-08-22T08:59:24.695Z"
+}

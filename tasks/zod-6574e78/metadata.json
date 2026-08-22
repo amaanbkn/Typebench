@@ -1,0 +1,37 @@
+{
+  "taskId": "zod-6574e78",
+  "repository": "zod",
+  "repositoryUrl": "https://github.com/colinhacks/zod",
+  "commitSha": "6574e7842b1a030f6987c80c268d713767df8b06",
+  "parentSha": "937b5d01a143c36bb53591fffb29c44412ac9fef",
+  "category": "bug_fix",
+  "difficulty": "easy",
+  "title": "Stop Catch Resurrecting Issues an Optional Already Resolved",
+  "description": "Task for zod: Stop Catch Resurrecting Issues an Optional Already Resolved",
+  "changedFiles": [
+    "packages/zod/src/v4/classic/tests/catch.test.ts",
+    "packages/zod/src/v4/core/schemas.ts"
+  ],
+  "sourceFiles": [
+    "packages/zod/src/v4/core/schemas.ts"
+  ],
+  "testFiles": [
+    "packages/zod/src/v4/classic/tests/catch.test.ts"
+  ],
+  "validationStatus": "unvalidated",
+  "validationReason": "Environment failure during baseline test execution: \u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\u001b[31mfailed to load config from /tmp/typebench-validation/zod-6574e78-mt458c9r/packages/docs/vitest.config.ts\u001b[39m\n\u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\n\u001b[31m⎯⎯⎯⎯⎯⎯⎯\u001b[39m\u001b[1m\u001b[41m Startup Error \u001b[49m\u001b[22m\u001b[31m⎯⎯⎯⎯⎯⎯⎯⎯\u001b[39m\nAggregateError: Failed to initialize projects. There were errors during projects setup. See below for more details.\n    at resolveProjects (file:///tmp/typebench-validation/zod-6574e78-mt458c9r/node_modules/.pnpm/vitest@4.1.5_@opentelemetry+api@1.9.0_@types+node@22.13.13_vite@7.3.2_@types+node@22.13_16a806e5e53cf775cc8de614dde74a84/node_modules/vitest/dist/chunks/cli-api.Cjt90eJu.js:11149:27)\n    at Vitest._setServer (file:///tmp/typebench-validation/zod-6574e78-mt458c9r/node_modules/.pnpm/vit",
+  "taskStatus": "needs-review",
+  "candidateScore": 11,
+  "signals": {
+    "positive": [
+      "fix-keyword",
+      "tests-modified (1 files)",
+      "source-modified (1 files)",
+      "co-located-source-and-test",
+      "focused-atomic-scope"
+    ],
+    "negative": []
+  },
+  "originalCommitMessage": "fix(v4): stop catch resurrecting issues an optional already resolved (#6440)",
+  "createdAt": "2026-08-22T08:55:52.357Z"
+}

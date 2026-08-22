@@ -1,0 +1,37 @@
+{
+  "taskId": "trpc-dfbafa8",
+  "repository": "trpc",
+  "repositoryUrl": "https://github.com/trpc/trpc",
+  "commitSha": "dfbafa8ef178a5a3d23ef9461caa9494b3ef7f95",
+  "parentSha": "cdbc28049889a9da9ea2abb6bd6519afe2279ead",
+  "category": "bug_fix",
+  "difficulty": "easy",
+  "title": "Abort JSONL Stream on HttpBatchStreamLink Unsubscribe",
+  "description": "Task for trpc: Abort JSONL Stream on HttpBatchStreamLink Unsubscribe",
+  "changedFiles": [
+    "packages/client/src/links/httpBatchStreamLink.ts",
+    "packages/tests/server/links.test.ts"
+  ],
+  "sourceFiles": [
+    "packages/client/src/links/httpBatchStreamLink.ts"
+  ],
+  "testFiles": [
+    "packages/tests/server/links.test.ts"
+  ],
+  "validationStatus": "unvalidated",
+  "validationReason": "Environment failure during baseline test execution: sh: line 1: vitest: command not found",
+  "taskStatus": "needs-review",
+  "candidateScore": 11,
+  "signals": {
+    "positive": [
+      "fix-keyword",
+      "tests-modified (1 files)",
+      "source-modified (1 files)",
+      "co-located-source-and-test",
+      "focused-atomic-scope"
+    ],
+    "negative": []
+  },
+  "originalCommitMessage": "fix(client): abort JSONL stream on httpBatchStreamLink unsubscribe (#7390)",
+  "createdAt": "2026-08-22T08:57:26.306Z"
+}

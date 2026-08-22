@@ -5,26 +5,36 @@
   "commitSha": "c7360d4eb3c89c336468809a293e5cda4b302d4b",
   "parentSha": "774b244ca97518b86489d7b3c02c5f7b5e0de3ee",
   "category": "bug_fix",
-  "difficulty": "easy",
-  "title": "Issue in Trpc",
-  "description": "Task for trpc: Issue in Trpc",
+  "difficulty": "medium",
+  "title": "Add Prefix Support for Mutation Options",
+  "description": "Task for trpc: Add Prefix Support for Mutation Options",
   "changedFiles": [
+    "packages/tanstack-react-query/src/internals/createOptionsProxy.ts",
+    "packages/tanstack-react-query/src/internals/mutationOptions.ts",
     "packages/tanstack-react-query/test/mutationOptions.test.tsx"
   ],
-  "sourceFiles": [],
+  "sourceFiles": [
+    "packages/tanstack-react-query/src/internals/createOptionsProxy.ts",
+    "packages/tanstack-react-query/src/internals/mutationOptions.ts"
+  ],
   "testFiles": [
     "packages/tanstack-react-query/test/mutationOptions.test.tsx"
   ],
   "validationStatus": "unvalidated",
   "validationReason": "Environment failure during baseline test execution: sh: line 1: vitest: command not found",
   "taskStatus": "needs-review",
-  "candidateScore": 5,
+  "candidateScore": 12,
   "signals": {
     "positive": [
-      "validated-commit"
+      "fix-keyword",
+      "feature-keyword",
+      "tests-modified (1 files)",
+      "source-modified (2 files)",
+      "co-located-source-and-test",
+      "focused-atomic-scope"
     ],
     "negative": []
   },
-  "originalCommitMessage": "Fix issue in trpc",
-  "createdAt": "2026-08-22T08:22:48.374Z"
+  "originalCommitMessage": "fix(tanstack-react-query): add prefix support for mutation options (#7370)",
+  "createdAt": "2026-08-22T08:56:20.791Z"
 }

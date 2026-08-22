@@ -1,0 +1,17 @@
+{
+  "taskId": "zod-b63db24",
+  "repository": "zod",
+  "repositoryUrl": "https://github.com/colinhacks/zod",
+  "baseCommit": "463ebb30512e7b244f2dde197c5a188162b7c78a",
+  "category": "bug_fix",
+  "difficulty": "easy",
+  "title": "Keep a Memoized Node's Cached Issues Private to the Cache",
+  "description": "Task for zod: Keep a Memoized Node's Cached Issues Private to the Cache",
+  "packageManager": "pnpm",
+  "testCommand": "pnpm test -- packages/zod/src/v4/classic/tests/cyclic-data.test.ts",
+  "targetedTests": [
+    "packages/zod/src/v4/classic/tests/cyclic-data.test.ts"
+  ],
+  "taskStatus": "needs-review",
+  "createdAt": "2026-08-22T08:55:54.887Z"
+}

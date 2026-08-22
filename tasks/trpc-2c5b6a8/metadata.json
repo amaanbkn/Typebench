@@ -1,0 +1,38 @@
+{
+  "taskId": "trpc-2c5b6a8",
+  "repository": "trpc",
+  "repositoryUrl": "https://github.com/trpc/trpc",
+  "commitSha": "2c5b6a8c6366c005508c0f481ad3ae344653a6f8",
+  "parentSha": "c188dab0822caf3615199e4ac95147bc7560d26f",
+  "category": "bug_fix",
+  "difficulty": "easy",
+  "title": "Handle React 19 Proxy Coercion in CreateInnerProxy",
+  "description": "Task for trpc: Handle React 19 Proxy Coercion in CreateInnerProxy",
+  "changedFiles": [
+    "packages/server/src/unstable-core-do-not-import/createProxy.test.ts",
+    "packages/server/src/unstable-core-do-not-import/createProxy.ts"
+  ],
+  "sourceFiles": [
+    "packages/server/src/unstable-core-do-not-import/createProxy.ts"
+  ],
+  "testFiles": [
+    "packages/server/src/unstable-core-do-not-import/createProxy.test.ts"
+  ],
+  "validationStatus": "unvalidated",
+  "validationReason": "Environment failure during baseline test execution: sh: line 1: vitest: command not found",
+  "taskStatus": "needs-review",
+  "candidateScore": 12,
+  "signals": {
+    "positive": [
+      "fix-keyword",
+      "feature-keyword",
+      "tests-modified (1 files)",
+      "source-modified (1 files)",
+      "co-located-source-and-test",
+      "focused-atomic-scope"
+    ],
+    "negative": []
+  },
+  "originalCommitMessage": "fix(server): handle React 19 proxy coercion in createInnerProxy (#7336)",
+  "createdAt": "2026-08-22T08:56:55.076Z"
+}

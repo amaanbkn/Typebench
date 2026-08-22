@@ -1,0 +1,77 @@
+{
+  "sessionId": "typebench_2026-08-22_mt44yvby",
+  "timestamp": "2026-08-22T08:49:38.391Z",
+  "taskIds": [
+    "trpc-c7360d4",
+    "zod-6c77d02"
+  ],
+  "agentNames": [
+    "mock",
+    "nemotron"
+  ],
+  "agents": {
+    "mock": {
+      "agentName": "mock",
+      "totalTasks": 2,
+      "evaluatedTasks": 0,
+      "solvedTasks": 0,
+      "failedTasks": 0,
+      "infrastructureFailures": 2,
+      "passRate": 0,
+      "meanScore": 0,
+      "totalDurationMs": 46749,
+      "tasks": {
+        "trpc-c7360d4": {
+          "taskId": "trpc-c7360d4",
+          "runId": "trpc-c7360d4_mock_mt44yvbz",
+          "status": "infrastructure_failure",
+          "score": null,
+          "maxScore": 100,
+          "isAvailable": false,
+          "durationMs": 26547
+        },
+        "zod-6c77d02": {
+          "taskId": "zod-6c77d02",
+          "runId": "zod-6c77d02_mock_mt44zsio",
+          "status": "infrastructure_failure",
+          "score": null,
+          "maxScore": 100,
+          "isAvailable": false,
+          "durationMs": 20202
+        }
+      }
+    },
+    "nemotron": {
+      "agentName": "nemotron",
+      "totalTasks": 2,
+      "evaluatedTasks": 2,
+      "solvedTasks": 0,
+      "failedTasks": 2,
+      "infrastructureFailures": 0,
+      "passRate": 0,
+      "meanScore": 0,
+      "totalDurationMs": 23613,
+      "tasks": {
+        "trpc-c7360d4": {
+          "taskId": "trpc-c7360d4",
+          "runId": "trpc-c7360d4_nemotron_mt44zful",
+          "status": "no_changes",
+          "score": 0,
+          "maxScore": 100,
+          "isAvailable": true,
+          "durationMs": 16395
+        },
+        "zod-6c77d02": {
+          "taskId": "zod-6c77d02",
+          "runId": "zod-6c77d02_nemotron_mt450845",
+          "status": "no_changes",
+          "score": 0,
+          "maxScore": 100,
+          "isAvailable": true,
+          "durationMs": 7218
+        }
+      }
+    }
+  },
+  "durationMs": 70457
+}

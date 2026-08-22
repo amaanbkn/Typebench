@@ -4,15 +4,15 @@
   "shortSha": "b63db24",
   "parentSha": "463ebb30512e7b244f2dde197c5a188162b7c78a",
   "status": "unvalidated",
-  "validationReason": "Environment failure during baseline test execution: \u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\u001b[31mfailed to load config from /tmp/typebench-validation/zod-b63db24-mt331sl4/packages/docs/vitest.config.ts\u001b[39m\n\u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\n\u001b[31m⎯⎯⎯⎯⎯⎯⎯\u001b[39m\u001b[1m\u001b[41m Startup Error \u001b[49m\u001b[22m\u001b[31m⎯⎯⎯⎯⎯⎯⎯⎯\u001b[39m\nAggregateError: Failed to initialize projects. There were errors during projects setup. See below for more details.\n    at resolveProjects (file:///tmp/typebench-validation/zod-b63db24-mt331sl4/node_modules/.pnpm/vitest@4.1.5_@opentelemetry+api@1.9.0_@types+node@22.13.13_vite@7.3.2_@types+node@22.13_16a806e5e53cf775cc8de614dde74a84/node_modules/vitest/dist/chunks/cli-api.Cjt90eJu.js:11149:27)\n    at Vitest._setServer (file:///tmp/typebench-validation/zod-b63db24-mt331sl4/node_modules/.pnpm/vit",
+  "validationReason": "Environment failure during baseline test execution: \u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\u001b[31mfailed to load config from /tmp/typebench-validation/zod-b63db24-mt458e91/packages/docs/vitest.config.ts\u001b[39m\n\u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\n\u001b[31m⎯⎯⎯⎯⎯⎯⎯\u001b[39m\u001b[1m\u001b[41m Startup Error \u001b[49m\u001b[22m\u001b[31m⎯⎯⎯⎯⎯⎯⎯⎯\u001b[39m\nAggregateError: Failed to initialize projects. There were errors during projects setup. See below for more details.\n    at resolveProjects (file:///tmp/typebench-validation/zod-b63db24-mt458e91/node_modules/.pnpm/vitest@4.1.5_@opentelemetry+api@1.9.0_@types+node@22.13.13_vite@7.3.2_@types+node@22.13_16a806e5e53cf775cc8de614dde74a84/node_modules/vitest/dist/chunks/cli-api.Cjt90eJu.js:11149:27)\n    at Vitest._setServer (file:///tmp/typebench-validation/zod-b63db24-mt458e91/node_modules/.pnpm/vit",
   "baseline": {
     "command": "pnpm test -- packages/zod/src/v4/classic/tests/cyclic-data.test.ts",
     "exitCode": 1,
-    "durationMs": 729,
+    "durationMs": 728,
     "passed": false,
     "status": "error",
-    "stdoutSnippet": "> @ test /tmp/typebench-validation/zod-b63db24-mt331sl4\n> vitest run -- packages/zod/src/v4/classic/tests/cyclic-data.test.ts\n\n ELIFECYCLE  Test failed. See above for more details.",
-    "stderrSnippet": "\u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\u001b[31mfailed to load config from /tmp/typebench-validation/zod-b63db24-mt331sl4/packages/docs/vitest.config.ts\u001b[39m\n\u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\n\u001b[31m⎯⎯⎯⎯⎯⎯⎯\u001b[39m\u001b[1m\u001b[41m Startup Error \u001b[49m\u001b[22m\u001b[31m⎯⎯⎯⎯⎯⎯⎯⎯\u001b[39m\nAggregateError: Failed to initialize projects. There were errors during projects setup. See below for more details.\n    at resolveProjects (file:///tmp/typebench-validation/zod-b63db24-mt331sl4/node_modules/.pnpm/vitest@4.1.5_@opentelemetry+api@1.9.0_@types+node@22.13.13_vite@7.3.2_@types+node@22.13_16a806e5e53cf775cc8de614dde74a84/node_modules/vitest/dist/chunks/cli-api.Cjt90eJu.js:11149:27)\n    at Vitest._setServer (file:///tmp/typebench-validation/zod-b63db24-mt331sl4/node_modules/.pnpm/vit",
+    "stdoutSnippet": "> @ test /tmp/typebench-validation/zod-b63db24-mt458e91\n> vitest run -- packages/zod/src/v4/classic/tests/cyclic-data.test.ts\n\n ELIFECYCLE  Test failed. See above for more details.",
+    "stderrSnippet": "\u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\u001b[31mfailed to load config from /tmp/typebench-validation/zod-b63db24-mt458e91/packages/docs/vitest.config.ts\u001b[39m\n\u001b[33mTesting types with tsc and vue-tsc is an experimental feature.\nBreaking changes might not follow SemVer, please pin Vitest's version when using it.\u001b[39m\n\n\u001b[31m⎯⎯⎯⎯⎯⎯⎯\u001b[39m\u001b[1m\u001b[41m Startup Error \u001b[49m\u001b[22m\u001b[31m⎯⎯⎯⎯⎯⎯⎯⎯\u001b[39m\nAggregateError: Failed to initialize projects. There were errors during projects setup. See below for more details.\n    at resolveProjects (file:///tmp/typebench-validation/zod-b63db24-mt458e91/node_modules/.pnpm/vitest@4.1.5_@opentelemetry+api@1.9.0_@types+node@22.13.13_vite@7.3.2_@types+node@22.13_16a806e5e53cf775cc8de614dde74a84/node_modules/vitest/dist/chunks/cli-api.Cjt90eJu.js:11149:27)\n    at Vitest._setServer (file:///tmp/typebench-validation/zod-b63db24-mt458e91/node_modules/.pnpm/vit",
     "isEnvironmentFailure": true
   },
   "fixed": {
@@ -27,6 +27,6 @@
   "tests": [
     "packages/zod/src/v4/classic/tests/cyclic-data.test.ts"
   ],
-  "durationMs": 2276,
-  "timestamp": "2026-08-21T15:06:58.936Z"
+  "durationMs": 2287,
+  "timestamp": "2026-08-22T08:55:52.357Z"
 }
