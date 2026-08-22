@@ -36,9 +36,43 @@ Candidate tasks are extracted from popular open-source TypeScript repositories (
 
 ---
 
-## 4. Scoring & Metrics
+## 4. Scoring Methodology & Metrics
 
-1. **Pass Rate (Resolved@1)**: Percentage of tasks where `verify.sh` exits with code `0`.
-2. **Typecheck Pass Rate**: Percentage of tasks where `tsc --noEmit` succeeds without type errors.
-3. **Token Efficiency**: Number of prompt, output, and reasoning tokens consumed.
-4. **Execution Time**: Total wall-clock time spent by the agent.
+Typebench evaluates task runs deterministically using objective test execution metrics. The evaluation layer produces an `EvaluationResult`, which the scoring engine transforms into a standardized numerical score ($0 \le \text{Score} \le 100$).
+
+### 4.1 Task Score Formulation
+
+Each individual task score is composed of three weighted components totaling **100 points**:
+
+$$\text{Final Score} = S_{\text{benchmark}} + S_{\text{typecheck}} + S_{\text{regression}}$$
+
+| Component | Weight | Max Score | Description |
+| :--- | :---: | :---: | :--- |
+| **Benchmark Correctness** ($S_{\text{benchmark}}$) | **70%** | **70 pts** | Primary metric evaluating whether the targeted issue was resolved (`benchmarkTests.passed`). |
+| **Typecheck Soundness** ($S_{\text{typecheck}}$) | **15%** | **15 pts** | Evaluates whether static type checking passes without compiler errors (`typecheck.passed`). |
+| **Regression Prevention** ($S_{\text{regression}}$) | **15%** | **15 pts** | Evaluates whether existing broader test suites continue to pass without regressions. |
+
+### 4.2 Gating & Weight Rationale
+- **Dominant Correctness (70%)**: The primary objective is solving the requested engineering problem. An agent that cannot pass the targeted benchmark tests receives **0 points** for the benchmark component.
+- **Static Type Integrity (15%)**: In TypeScript engineering, a runtime fix that introduces compile-time type errors is incomplete. The 15% allocation penalizes type breakages while still recognizing runtime improvements.
+- **Regression Soundness (15%)**: Ensures fixes do not break existing functionality across the repository.
+
+### 4.3 Evaluation Status Handling Rules
+The scoring system handles different execution states explicitly:
+- **`solved`**: Benchmark tests passed; total score is computed from component sum (up to `100/100`).
+- **`failed`**: Benchmark tests failed; $S_{\text{benchmark}} = 0$, yielding total score `0/100`.
+- **`no_changes`**: Agent made no repository modifications; score is strictly **0**.
+- **`timeout`**: Execution exceeded the time limit; score is strictly **0**.
+- **`infrastructure_failure`**: Environment errors (Docker missing, git clone failure) are **NOT** scored as 0; they are recorded as `score: null` (`isAvailable: false`) to avoid unfairly penalizing agent capability.
+- **`invalid_task`**: Corrupt task configurations are marked as `score: null` (`isAvailable: false`).
+
+---
+
+## 5. Aggregate Benchmark Metrics (Future Step)
+
+Task scores are separate from aggregate multi-task metrics:
+1. **Pass Rate (Resolved@1)**: Percentage of benchmark tasks where `status === 'solved'`.
+2. **Mean Score**: Average score across all valid tasks.
+3. **Typecheck Pass Rate**: Percentage of runs where `typecheck.passed === true`.
+4. **Token Efficiency**: Average token consumption per resolved task.
+

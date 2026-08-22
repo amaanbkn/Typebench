@@ -1,0 +1,32 @@
+{
+  "runId": "fixture_fail_mt44omc1",
+  "taskId": "_fixture_calc",
+  "agentName": "broken-agent",
+  "score": 0,
+  "maxScore": 100,
+  "components": {
+    "benchmarkTests": {
+      "weight": 70,
+      "score": 0,
+      "maxScore": 70,
+      "status": "failed"
+    },
+    "regressionTests": {
+      "weight": 15,
+      "score": 0,
+      "maxScore": 15,
+      "status": "unavailable"
+    },
+    "typecheck": {
+      "weight": 15,
+      "score": 0,
+      "maxScore": 15,
+      "status": "unavailable"
+    }
+  },
+  "status": "failed",
+  "isAvailable": true,
+  "evaluationStatus": "failed",
+  "durationMs": 98,
+  "timestamp": "2026-08-22T08:44:01.050Z"
+}

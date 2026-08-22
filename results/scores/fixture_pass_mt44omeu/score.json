@@ -1,0 +1,32 @@
+{
+  "runId": "fixture_pass_mt44omeu",
+  "taskId": "_fixture_calc",
+  "agentName": "correct-agent",
+  "score": 100,
+  "maxScore": 100,
+  "components": {
+    "benchmarkTests": {
+      "weight": 70,
+      "score": 70,
+      "maxScore": 70,
+      "status": "passed"
+    },
+    "regressionTests": {
+      "weight": 15,
+      "score": 15,
+      "maxScore": 15,
+      "status": "unavailable"
+    },
+    "typecheck": {
+      "weight": 15,
+      "score": 15,
+      "maxScore": 15,
+      "status": "unavailable"
+    }
+  },
+  "status": "solved",
+  "isAvailable": true,
+  "evaluationStatus": "solved",
+  "durationMs": 94,
+  "timestamp": "2026-08-22T08:44:00.743Z"
+}

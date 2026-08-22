@@ -1,0 +1,32 @@
+{
+  "runId": "trpc-c7360d4_mock_mt44du2b",
+  "taskId": "trpc-c7360d4",
+  "agentName": "mock",
+  "score": null,
+  "maxScore": 100,
+  "components": {
+    "benchmarkTests": {
+      "weight": 70,
+      "score": 0,
+      "maxScore": 70,
+      "status": "failed"
+    },
+    "regressionTests": {
+      "weight": 15,
+      "score": 0,
+      "maxScore": 15,
+      "status": "failed"
+    },
+    "typecheck": {
+      "weight": 15,
+      "score": 0,
+      "maxScore": 15,
+      "status": "unavailable"
+    }
+  },
+  "status": "infrastructure_failure",
+  "isAvailable": false,
+  "evaluationStatus": "infrastructure_failure",
+  "durationMs": 12319,
+  "timestamp": "2026-08-22T08:44:00.439Z"
+}
