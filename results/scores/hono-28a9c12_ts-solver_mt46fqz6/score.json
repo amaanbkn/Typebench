@@ -1,0 +1,32 @@
+{
+  "runId": "hono-28a9c12_ts-solver_mt46fqz6",
+  "taskId": "hono-28a9c12",
+  "agentName": "ts-solver",
+  "score": 0,
+  "maxScore": 100,
+  "components": {
+    "benchmarkTests": {
+      "weight": 70,
+      "score": 0,
+      "maxScore": 70,
+      "status": "no_changes"
+    },
+    "regressionTests": {
+      "weight": 15,
+      "score": 0,
+      "maxScore": 15,
+      "status": "no_changes"
+    },
+    "typecheck": {
+      "weight": 15,
+      "score": 0,
+      "maxScore": 15,
+      "status": "no_changes"
+    }
+  },
+  "status": "no_changes",
+  "isAvailable": true,
+  "evaluationStatus": "no_changes",
+  "durationMs": 0,
+  "timestamp": "2026-08-22T09:29:36.031Z"
+}

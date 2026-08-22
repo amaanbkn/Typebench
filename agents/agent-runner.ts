@@ -11,6 +11,7 @@ import { simpleGit, SimpleGit } from 'simple-git';
 import { CodingAgent, AgentContext, AgentResult, AgentStatus } from './base-agent.js';
 import mockAgent from './mock/index.js';
 import nemotronAgent from './nemotron/index.js';
+import tsSolverAgent from './ts-solver/index.js';
 
 export interface TaskDefinitionInput {
   taskId: string;
@@ -35,6 +36,7 @@ export interface AgentRunnerOptions {
 const AGENT_REGISTRY: Record<string, CodingAgent> = {
   mock: mockAgent,
   nemotron: nemotronAgent,
+  'ts-solver': tsSolverAgent,
 };
 
 export function registerAgent(agent: CodingAgent): void {

@@ -1,0 +1,30 @@
+{
+  "validationId": "validation_ts-solver_v0.1.0_2026-08-22_mt46ev1w",
+  "agentName": "ts-solver",
+  "protocolVersion": "1.0.0",
+  "releaseVersion": "0.1.0",
+  "datasetFingerprint": "sha256:ef94518a80402a7fb0b5b988872b20da2f974e74b59dfca2bc4f5c005e9acf6e",
+  "timestamp": "2026-08-22T09:28:53.684Z",
+  "totalTasksAttempted": 2,
+  "trialsPerTask": 2,
+  "passAt1": 0,
+  "meanScore": 0,
+  "scoreStdDev": 0,
+  "confidenceInterval95": [
+    0,
+    0
+  ],
+  "consistencyRate": 100,
+  "flakyTasksCount": 0,
+  "totalDurationMs": 9724,
+  "protocolRunId": "protocol_v1.0.0_2026-08-22_mt46enjq",
+  "reliabilityReportId": "reliability_v0.1.0_ts-solver_2x_2026-08-22_mt46ev1v",
+  "isEndToEndValid": true,
+  "validationNotes": [
+    "Verified release SHA-256 fingerprint: sha256:ef94518a80402a7fb0b5b988872b20da2f974e74b59dfca2bc4f5c005e9acf6e",
+    "Standardized Protocol v1.0.0 enforced with 70/15/15 scoring",
+    "Agent attempted 2 task(s) across 2 independent trial(s)",
+    "Pass@1: 0.0% | Mean Score: 0.0/100 | Score StdDev: ±0.00",
+    "Consistency Rate: 100.0% | Flaky Tasks: 0"
+  ]
+}
