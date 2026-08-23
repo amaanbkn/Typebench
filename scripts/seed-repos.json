@@ -16,20 +16,76 @@
     "tags": ["runtime-types", "inference", "complex-types"]
   },
   {
-    "owner": "prisma",
-    "name": "prisma",
-    "url": "https://github.com/prisma/prisma",
-    "category": "Database & ORM",
-    "description": "Next-generation ORM for Node.js & TypeScript",
-    "tags": ["code-generation", "type-safety", "database", "orm"]
-  },
-  {
     "owner": "honojs",
     "name": "hono",
     "url": "https://github.com/honojs/hono",
     "category": "Web Framework",
     "description": "Fast, lightweight, Web-standard framework",
     "tags": ["middleware", "routing", "web-standards"]
+  },
+  {
+    "owner": "TanStack",
+    "name": "query",
+    "url": "https://github.com/TanStack/query",
+    "category": "State & Data Fetching",
+    "description": "Powerful asynchronous state management and data fetching for TypeScript",
+    "tags": ["async-state", "caching", "generics", "data-fetching"]
+  },
+  {
+    "owner": "vitest-dev",
+    "name": "vitest",
+    "url": "https://github.com/vitest-dev/vitest",
+    "category": "Testing & Tooling",
+    "description": "Next generation testing framework powered by Vite",
+    "tags": ["test-runner", "vite", "typescript", "ast"]
+  },
+  {
+    "owner": "drizzle-team",
+    "name": "drizzle-orm",
+    "url": "https://github.com/drizzle-team/drizzle-orm",
+    "category": "Database & ORM",
+    "description": "TypeScript ORM that feels like writing SQL with extreme type safety",
+    "tags": ["sql", "type-inference", "schema", "relations"]
+  },
+  {
+    "owner": "Effect-TS",
+    "name": "effect",
+    "url": "https://github.com/Effect-TS/effect",
+    "category": "Functional & Type System",
+    "description": "A fully-fledged functional effect system for TypeScript with advanced types",
+    "tags": ["functional-programming", "effects", "advanced-types", "runtime"]
+  },
+  {
+    "owner": "fastify",
+    "name": "fastify",
+    "url": "https://github.com/fastify/fastify",
+    "category": "Web Framework",
+    "description": "Fast and low overhead web framework for Node.js with TypeScript support",
+    "tags": ["http-server", "middleware", "type-definitions", "plugins"]
+  },
+  {
+    "owner": "nestjs",
+    "name": "nest",
+    "url": "https://github.com/nestjs/nest",
+    "category": "Backend Framework",
+    "description": "A progressive Node.js framework for building efficient and scalable server-side applications",
+    "tags": ["decorators", "dependency-injection", "architecture", "microservices"]
+  },
+  {
+    "owner": "TanStack",
+    "name": "router",
+    "url": "https://github.com/TanStack/router",
+    "category": "Routing & Navigation",
+    "description": "Type-safe routing with built-in search param validation and loaders",
+    "tags": ["type-safe-routing", "search-params", "loaders", "react"]
+  },
+  {
+    "owner": "prisma",
+    "name": "prisma",
+    "url": "https://github.com/prisma/prisma",
+    "category": "Database & ORM",
+    "description": "Next-generation ORM for Node.js & TypeScript",
+    "tags": ["code-generation", "type-safety", "database", "orm"]
   },
   {
     "owner": "type-challenges",
