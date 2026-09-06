@@ -1,37 +1,45 @@
 {
   "name": "typebench",
-  "version": "0.1.0",
-  "description": "Benchmark for evaluating AI coding agents on real TypeScript engineering tasks",
-  "private": true,
+  "version": "1.0.0",
+  "description": "TypeScript-specific benchmark for AI coding agents",
   "type": "module",
-  "scripts": {
-    "build": "tsc --build",
-    "typebench": "tsx harness/src/index.ts",
-    "generate:tasks": "tsx scripts/generate-tasks.ts",
-    "leaderboard:generate": "tsx results/leaderboard/generate.ts",
-    "lint": "tsc --noEmit",
-    "test": "echo \"Error: no test specified\" && exit 0"
+  "main": "./dist/index.js",
+  "bin": {
+    "typebench": "./dist/cli/index.js"
   },
-  "workspaces": [
-    "harness"
-  ],
-  "keywords": [
-    "benchmark",
-    "typescript",
-    "ai-agents",
-    "evaluation",
-    "llm",
-    "coding-benchmark"
-  ],
-  "author": "Typebench Team",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^20.11.0",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.23.12",
-    "typescript": "^5.3.3"
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx cli/index.ts",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepare-dataset": "tsx scripts/expand-dataset.ts",
+    "validate": "tsx scripts/validate-dataset.ts",
+    "release": "tsx scripts/prepare-release.ts",
+    "ingest": "tsx scripts/ingest-repos.ts",
+    "discover": "tsx scripts/discover-candidates.ts",
+    "generate-tasks": "tsx scripts/generate-tasks.ts",
+    "run-benchmark": "tsx cli/run.ts",
+    "evaluate": "tsx cli/eval.ts",
+    "leaderboard": "tsx cli/leaderboard.ts"
   },
   "dependencies": {
-    "simple-git": "^3.36.0"
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "execa": "^8.0.1",
+    "fs-extra": "^11.2.0",
+    "ora": "^7.0.1",
+    "semver": "^7.5.4",
+    "simple-git": "^3.22.0",
+    "yaml": "^2.3.4"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.10.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

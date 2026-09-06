@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "generatedAt": "2026-09-06T10:46:54.128Z",
+  "taskCount": 45,
+  "repositories": [
+    "axios",
+    "nestjs",
+    "vite",
+    "typescript-eslint",
+    "prisma"
+  ],
+  "fingerprint": "fde83d6868070d77ac5b955ca17d379639febd080ba8759d5bb71374d389c78b"
+}

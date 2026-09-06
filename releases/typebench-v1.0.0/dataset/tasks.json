@@ -1,0 +1,28 @@
+[
+  {
+    "id": "nestjs-typefix-0",
+    "version": "0.2.0",
+    "repository": {
+      "name": "nestjs",
+      "url": "https://github.com/nestjs/nest.git",
+      "category": "backend-framework"
+    },
+    "baseCommit": "b763af173694d620e3f233dc0fc8f39e2e7b7326",
+    "hiddenFixCommit": "39fbddae51281ca56bf2fed9123d98e61509066c",
+    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(ws): stop discarding parser and handler lookup failures silently\n\nFiles affected: packages/platform-ws/adapters/ws-adapter.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
+    "testCommand": "npm test",
+    "typecheckCommand": "npm run typecheck",
+    "metadata": {
+      "category": "typefix",
+      "difficulty": "medium",
+      "filesChanged": [
+        "packages/platform-ws/adapters/ws-adapter.ts"
+      ],
+      "linesChanged": 34
+    },
+    "validation": {
+      "hiddenTests": [],
+      "expectedPatch": ""
+    }
+  }
+]
