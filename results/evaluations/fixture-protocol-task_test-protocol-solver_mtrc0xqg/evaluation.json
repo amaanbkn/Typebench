@@ -1,0 +1,20 @@
+{
+  "runId": "fixture-protocol-task_test-protocol-solver_mtrc0xqg",
+  "taskId": "fixture-protocol-task",
+  "agentName": "test-protocol-solver",
+  "status": "solved",
+  "benchmarkTests": {
+    "command": "node test.cjs",
+    "exitCode": 0,
+    "passed": true,
+    "durationMs": 24,
+    "status": "passed",
+    "stdoutSnippet": "",
+    "stderrSnippet": ""
+  },
+  "changedFiles": [
+    "calc.cjs"
+  ],
+  "durationMs": 103,
+  "timestamp": "2026-09-07T14:24:43.907Z"
+}

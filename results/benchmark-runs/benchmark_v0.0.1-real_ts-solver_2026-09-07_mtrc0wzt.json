@@ -1,0 +1,31 @@
+{
+  "benchmarkRunId": "benchmark_v0.0.1-real_ts-solver_2026-09-07_mtrc0wzt",
+  "releaseVersion": "0.0.1-real",
+  "datasetFingerprint": "sha256:116b154b29cd7f4d13e4eeb41cfb2f74acb1d58bd5fcee260604a1e70638770e",
+  "agentName": "ts-solver",
+  "timestamp": "2026-09-07T14:24:42.972Z",
+  "totalTasks": 1,
+  "evaluatedTasks": 1,
+  "solvedTasks": 1,
+  "failedTasks": 0,
+  "infrastructureFailures": 0,
+  "passRate": 100,
+  "meanScore": 100,
+  "totalDurationMs": 211,
+  "tasks": [
+    {
+      "taskId": "fixture-real-calc-task",
+      "runId": "fixture-real-calc-task_ts-solver_mtrc0wzu",
+      "repository": "calc",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "baseCommit": "ba2a6598847d004da50e744d8ada75d398923413",
+      "status": "solved",
+      "score": 100,
+      "maxScore": 100,
+      "isAvailable": true,
+      "durationMs": 204,
+      "patchLines": 8
+    }
+  ]
+}

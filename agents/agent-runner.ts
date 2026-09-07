@@ -1,5 +1,6 @@
 /**
  * TypeBench Agent Runner & Abstraction Engine
+ *
  * Coordinates agent context setup, isolated workspace checkout, agent execution,
  * Git patch extraction, and run results persistence.
  */
@@ -8,7 +9,12 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
 import { simpleGit, SimpleGit } from 'simple-git';
-import { CodingAgent, AgentContext, AgentResult, AgentStatus } from './base-agent.js';
+import {
+  CodingAgent,
+  AgentContext,
+  AgentResult,
+  AgentStatus,
+} from './base-agent.js';
 import mockAgent from './mock/index.js';
 import nemotronAgent from './nemotron/index.js';
 import tsSolverAgent from './ts-solver/index.js';
@@ -31,7 +37,7 @@ export interface AgentRunnerOptions {
 }
 
 /**
- * Registry of available coding agents in Typebench.
+ * Registry of available coding agents in TypeBench.
  */
 const AGENT_REGISTRY: Record<string, CodingAgent> = {
   mock: mockAgent,
@@ -73,11 +79,15 @@ export function loadAgentTask(taskDirOrJson: string): {
   }
 
   const promptPath = path.join(taskDir, 'prompt.md');
+
   if (!fs.existsSync(promptPath)) {
     throw new Error(`prompt.md not found at: ${promptPath}`);
   }
 
-  const taskConfig: TaskDefinitionInput = JSON.parse(fs.readFileSync(taskJsonPath, 'utf-8'));
+  const taskConfig: TaskDefinitionInput = JSON.parse(
+    fs.readFileSync(taskJsonPath, 'utf-8'),
+  );
+
   const prompt = fs.readFileSync(promptPath, 'utf-8');
 
   return { taskConfig, prompt };
@@ -86,7 +96,9 @@ export function loadAgentTask(taskDirOrJson: string): {
 /**
  * Captures changed files and full unified Git diff from an isolated workspace.
  */
-export async function captureWorkspacePatch(workspacePath: string): Promise<{
+export async function captureWorkspacePatch(
+  workspacePath: string,
+): Promise<{
   changedFiles: string[];
   patch: string;
 }> {
@@ -98,6 +110,7 @@ export async function captureWorkspacePatch(workspacePath: string): Promise<{
 
     // Capture modified / added files
     const status = await git.status();
+
     const changedFiles = [
       ...status.modified,
       ...status.created,
@@ -126,18 +139,24 @@ export async function captureWorkspacePatch(workspacePath: string): Promise<{
 export async function executeAgentOnTask(
   taskPath: string,
   agentName: string,
-  options: AgentRunnerOptions = {}
+  options: AgentRunnerOptions = {},
 ): Promise<AgentResult> {
   const startTime = Date.now();
   const timeoutSec = options.timeoutSec ?? 300;
   const timeoutMs = timeoutSec * 1000;
-  const runsBaseDir = options.outputRunsDir ?? path.resolve(process.cwd(), 'results/runs');
-  const tempBaseDir = path.join(os.tmpdir(), 'typebench-agent-workspaces');
+  const runsBaseDir =
+    options.outputRunsDir ?? path.resolve(process.cwd(), 'results/runs');
+  const tempBaseDir = path.join(
+    os.tmpdir(),
+    'typebench-agent-workspaces',
+  );
 
   // 1. Resolve agent
   const agent = getAgent(agentName);
+
   if (!agent) {
     const runId = `run_${Date.now().toString(36)}`;
+
     return {
       runId,
       taskId: 'unknown',
@@ -157,12 +176,15 @@ export async function executeAgentOnTask(
   // 2. Load task
   let taskConfig: TaskDefinitionInput;
   let prompt: string;
+
   try {
     const loaded = loadAgentTask(taskPath);
+
     taskConfig = loaded.taskConfig;
     prompt = loaded.prompt;
   } catch (err: any) {
     const runId = `run_${Date.now().toString(36)}`;
+
     return {
       runId,
       taskId: 'unknown',
@@ -187,30 +209,47 @@ export async function executeAgentOnTask(
 
   try {
     if (options.verbose) {
-      console.log(`[AgentRunner] Initializing agent "${agent.name}"...`);
+      console.log(
+        `[AgentRunner] Initializing agent "${agent.name}"...`,
+      );
     }
+
     if (agent.initialize) {
       await agent.initialize();
     }
 
     // 3. Clone repository and checkout baseCommit in isolated workspace
     if (options.verbose) {
-      console.log(`[AgentRunner] Cloning repository ${taskConfig.repositoryUrl} to ${workspacePath}...`);
+      console.log(
+        `[AgentRunner] Cloning repository ${taskConfig.repositoryUrl} to ${workspacePath}...`,
+      );
     }
 
     const hostGit = simpleGit();
-    await hostGit.clone(taskConfig.repositoryUrl, workspacePath);
+
+    await hostGit.clone(
+      taskConfig.repositoryUrl,
+      workspacePath,
+    );
 
     const workspaceGit = simpleGit(workspacePath);
+
     await workspaceGit.checkout(taskConfig.baseCommit);
 
-    const headSha = (await workspaceGit.raw(['rev-parse', 'HEAD'])).trim();
+    const headSha = (
+      await workspaceGit.raw(['rev-parse', 'HEAD'])
+    ).trim();
+
     if (!headSha.startsWith(taskConfig.baseCommit.slice(0, 7))) {
-      throw new Error(`Checked out SHA (${headSha}) does not match expected baseCommit (${taskConfig.baseCommit})`);
+      throw new Error(
+        `Checked out SHA (${headSha}) does not match expected baseCommit (${taskConfig.baseCommit})`,
+      );
     }
 
     if (options.verbose) {
-      console.log(`[AgentRunner] Verified workspace at baseCommit: ${headSha.slice(0, 7)}`);
+      console.log(
+        `[AgentRunner] Verified workspace at baseCommit: ${headSha.slice(0, 7)}`,
+      );
     }
 
     // 4. Construct Agent Context (Strictly agent-facing)
@@ -230,10 +269,15 @@ export async function executeAgentOnTask(
 
     // 5. Run agent with timeout race
     if (options.verbose) {
-      console.log(`[AgentRunner] Launching agent "${agent.name}"...`);
+      console.log(
+        `[AgentRunner] Launching agent "${agent.name}"...`,
+      );
     }
 
     const agentPromise = agent.run(context);
+
+    let timeoutHandle: ReturnType<typeof setTimeout> | undefined;
+
     const timeoutPromise = new Promise<{
       agentName: string;
       status: AgentStatus;
@@ -244,7 +288,7 @@ export async function executeAgentOnTask(
       tokensUsed?: number;
       error?: string;
     }>((resolve) => {
-      setTimeout(() => {
+      timeoutHandle = setTimeout(() => {
         resolve({
           agentName: agent.name,
           status: 'timeout',
@@ -257,10 +301,19 @@ export async function executeAgentOnTask(
       }, timeoutMs);
     });
 
-    const agentOutput = await Promise.race([agentPromise, timeoutPromise]);
+    const agentOutput = await Promise.race([
+      agentPromise,
+      timeoutPromise,
+    ]);
+
+    // Cancel the timeout if the agent finished before it expired.
+    if (timeoutHandle !== undefined) {
+      clearTimeout(timeoutHandle);
+    }
 
     // 6. Capture Git modifications and unified patch
-    const { changedFiles, patch } = await captureWorkspacePatch(workspacePath);
+    const { changedFiles, patch } =
+      await captureWorkspacePatch(workspacePath);
 
     const durationMs = Date.now() - startTime;
 
@@ -286,22 +339,25 @@ export async function executeAgentOnTask(
     fs.writeFileSync(
       path.join(runOutputDir, 'result.json'),
       JSON.stringify(finalResult, null, 2),
-      'utf-8'
+      'utf-8',
     );
 
     fs.writeFileSync(
       path.join(runOutputDir, 'patch.diff'),
       patch,
-      'utf-8'
+      'utf-8',
     );
 
     if (options.verbose) {
-      console.log(`[AgentRunner] Run artifacts saved to: ${runOutputDir}`);
+      console.log(
+        `[AgentRunner] Run artifacts saved to: ${runOutputDir}`,
+      );
     }
 
     return finalResult;
   } catch (err: any) {
     const durationMs = Date.now() - startTime;
+
     const finalResult: AgentResult = {
       runId,
       taskId: taskConfig ? taskConfig.taskId : 'unknown',
@@ -319,23 +375,30 @@ export async function executeAgentOnTask(
 
     try {
       fs.mkdirSync(runOutputDir, { recursive: true });
+
       fs.writeFileSync(
         path.join(runOutputDir, 'result.json'),
         JSON.stringify(finalResult, null, 2),
-        'utf-8'
+        'utf-8',
       );
     } catch {
-      // ignore
+      // Ignore artifact write errors.
     }
 
     return finalResult;
   } finally {
     // 8. Cleanup temporary workspace
-    if (!options.keepWorkspace && fs.existsSync(workspacePath)) {
+    if (
+      !options.keepWorkspace &&
+      fs.existsSync(workspacePath)
+    ) {
       try {
-        fs.rmSync(workspacePath, { recursive: true, force: true });
+        fs.rmSync(workspacePath, {
+          recursive: true,
+          force: true,
+        });
       } catch {
-        // ignore cleanup error
+        // Ignore cleanup errors.
       }
     }
 
@@ -343,7 +406,7 @@ export async function executeAgentOnTask(
       try {
         await agent.cleanup();
       } catch {
-        // ignore cleanup error
+        // Ignore agent cleanup errors.
       }
     }
   }

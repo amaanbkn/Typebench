@@ -1,0 +1,32 @@
+{
+  "repository": "axios",
+  "commitSha": "62f62816608823e1b152b27d3209092adc77b454",
+  "shortSha": "62f6281",
+  "parentSha": "c44f4d728b89584cbabbc6f92a5aec543a489b8b",
+  "status": "unvalidated",
+  "validationReason": "Environment failure during baseline test execution: \u001b[31m⎯⎯⎯⎯⎯⎯⎯\u001b[39m\u001b[1m\u001b[41m Startup Error \u001b[49m\u001b[22m\u001b[31m⎯⎯⎯⎯⎯⎯⎯⎯\u001b[39m\nError: Cannot find native binding. npm has a bug related to optional dependencies (https://github.com/npm/cli/issues/4828). Please try `npm i` again after removing both package-lock.json and node_modules directory.\n    at file:///tmp/typebench-validation/axios-62f6281-mtq3fus4/node_modules/rolldown/dist/shared/binding-Rc5vBspi.mjs:507:36\n    at file:///tmp/typebench-validation/axios-62f6281-mtq3fus4/node_modules/rolldown/dist/shared/binding-Rc5vBspi.mjs:9:48\n    ... 2 lines matching cause stack trace ...\n    at async ModuleLoader.import (node:internal/modules/esm/loader:473:24)\n    at async start (file:///tmp/typebench-validation/axios-62f6281-mtq3fus4/node_modules/vitest/dist/chunks/cac.DRKYQDPl.js:2327:27)\n    at async CAC.run (file:///tmp/typebench-validation/axios-62f6281-mtq3fus4/node_modules/vitest/dist/chunks/cac.DRKYQDPl.js:2306:2) {\n  [cause]: Error: Cannot find module '@rolldown/binding-linux-x64-gnu'\n  Req",
+  "baseline": {
+    "command": "npm test -- tests/unit/adapters/fetch.test.js",
+    "exitCode": 1,
+    "durationMs": 304,
+    "passed": false,
+    "status": "error",
+    "stdoutSnippet": "> axios@1.15.0 test\n> npm run test:vitest tests/unit/adapters/fetch.test.js\n\n\n> axios@1.15.0 test:vitest\n> vitest run tests/unit/adapters/fetch.test.js",
+    "stderrSnippet": "\u001b[31m⎯⎯⎯⎯⎯⎯⎯\u001b[39m\u001b[1m\u001b[41m Startup Error \u001b[49m\u001b[22m\u001b[31m⎯⎯⎯⎯⎯⎯⎯⎯\u001b[39m\nError: Cannot find native binding. npm has a bug related to optional dependencies (https://github.com/npm/cli/issues/4828). Please try `npm i` again after removing both package-lock.json and node_modules directory.\n    at file:///tmp/typebench-validation/axios-62f6281-mtq3fus4/node_modules/rolldown/dist/shared/binding-Rc5vBspi.mjs:507:36\n    at file:///tmp/typebench-validation/axios-62f6281-mtq3fus4/node_modules/rolldown/dist/shared/binding-Rc5vBspi.mjs:9:48\n    ... 2 lines matching cause stack trace ...\n    at async ModuleLoader.import (node:internal/modules/esm/loader:473:24)\n    at async start (file:///tmp/typebench-validation/axios-62f6281-mtq3fus4/node_modules/vitest/dist/chunks/cac.DRKYQDPl.js:2327:27)\n    at async CAC.run (file:///tmp/typebench-validation/axios-62f6281-mtq3fus4/node_modules/vitest/dist/chunks/cac.DRKYQDPl.js:2306:2) {\n  [cause]: Error: Cannot find module '@rolldown/binding-linux-x64-gnu'\n  Req",
+    "isEnvironmentFailure": true
+  },
+  "fixed": {
+    "command": "none",
+    "exitCode": -1,
+    "durationMs": 0,
+    "passed": false,
+    "status": "skipped",
+    "stdoutSnippet": "",
+    "stderrSnippet": ""
+  },
+  "tests": [
+    "tests/unit/adapters/fetch.test.js"
+  ],
+  "durationMs": 2095,
+  "timestamp": "2026-09-06T17:36:37.012Z"
+}

@@ -1,0 +1,42 @@
+{
+  "protocolRunId": "protocol_v1.0.0_2026-09-07_mtrc0wzs",
+  "protocolVersion": "1.0.0",
+  "releaseVersion": "0.1.0",
+  "datasetFingerprint": "sha256:116b154b29cd7f4d13e4eeb41cfb2f74acb1d58bd5fcee260604a1e70638770e",
+  "timestamp": "2026-09-07T14:24:43.158Z",
+  "config": {
+    "protocolVersion": "1.0.0",
+    "releaseVersion": "0.1.0",
+    "releaseCheckpointPath": "/tmp/typebench-real-agent-test-mtrc0wu9/releases/v0.0.1-real.json",
+    "timeoutSecPerTask": 300,
+    "evalTimeoutSec": 300,
+    "trialsPerTask": 2,
+    "enforceAntiContamination": true,
+    "scoringWeights": {
+      "benchmark": 0.7,
+      "typecheck": 0.15,
+      "regression": 0.15
+    }
+  },
+  "evaluatedAgents": [
+    "ts-solver"
+  ],
+  "totalTasks": 1,
+  "trialsPerAgent": 2,
+  "agentSummaries": {
+    "ts-solver": {
+      "agentName": "ts-solver",
+      "passAt1": 100,
+      "meanScore": 100,
+      "scoreStdDev": 0,
+      "confidenceInterval95": [
+        100,
+        100
+      ],
+      "consistencyRate": 100,
+      "flakyTasksCount": 0,
+      "totalDurationMs": 395,
+      "reliabilityReportId": "reliability_v0.0.1-real_ts-solver_2x_2026-09-07_mtrc0xat"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "sessionId": "test_session_mtrc0yl1",
+  "timestamp": "2026-09-07T14:24:45.158Z",
+  "taskIds": [
+    "_fixture_multiagent"
+  ],
+  "agentNames": [
+    "test-perfect-agent",
+    "test-noop-agent"
+  ],
+  "agents": {
+    "test-perfect-agent": {
+      "agentName": "test-perfect-agent",
+      "totalTasks": 1,
+      "evaluatedTasks": 1,
+      "solvedTasks": 1,
+      "failedTasks": 0,
+      "infrastructureFailures": 0,
+      "passRate": 100,
+      "meanScore": 100,
+      "totalDurationMs": 195,
+      "tasks": {
+        "_fixture_multiagent": {
+          "taskId": "_fixture_multiagent",
+          "runId": "_fixture_multiagent_test-perfect-agent_mtrc0yl2",
+          "status": "solved",
+          "score": 100,
+          "maxScore": 100,
+          "isAvailable": true,
+          "durationMs": 195
+        }
+      }
+    },
+    "test-noop-agent": {
+      "agentName": "test-noop-agent",
+      "totalTasks": 1,
+      "evaluatedTasks": 1,
+      "solvedTasks": 0,
+      "failedTasks": 1,
+      "infrastructureFailures": 0,
+      "passRate": 0,
+      "meanScore": 0,
+      "totalDurationMs": 131,
+      "tasks": {
+        "_fixture_multiagent": {
+          "taskId": "_fixture_multiagent",
+          "runId": "_fixture_multiagent_test-noop-agent_mtrc0yqm",
+          "status": "no_changes",
+          "score": 0,
+          "maxScore": 100,
+          "isAvailable": true,
+          "durationMs": 131
+        }
+      }
+    }
+  },
+  "durationMs": 337
+}

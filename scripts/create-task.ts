@@ -251,7 +251,13 @@ export async function createBenchmarkTask(
 
   if (options.workspacePath && fs.existsSync(options.workspacePath)) {
     const testConfig = detectTestCommand(options.workspacePath, candidate.testFiles);
-    packageManager = testConfig.packageManager;
+    if (testConfig.packageManager === 'unknown') {
+  throw new Error(
+    `Unable to detect package manager for the candidate commit.`,
+  );
+}
+
+packageManager = testConfig.packageManager;
     testCommand = testConfig.targetedCommand || testConfig.testCommand;
   } else if (validationReport.baseline && validationReport.baseline.command && validationReport.baseline.command !== 'none') {
     testCommand = validationReport.baseline.command;

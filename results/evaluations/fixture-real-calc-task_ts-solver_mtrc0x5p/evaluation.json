@@ -1,0 +1,20 @@
+{
+  "runId": "fixture-real-calc-task_ts-solver_mtrc0x5p",
+  "taskId": "fixture-real-calc-task",
+  "agentName": "ts-solver",
+  "status": "solved",
+  "benchmarkTests": {
+    "command": "node test.cjs",
+    "exitCode": 0,
+    "passed": true,
+    "durationMs": 27,
+    "status": "passed",
+    "stdoutSnippet": "Arithmetic verification passed.",
+    "stderrSnippet": ""
+  },
+  "changedFiles": [
+    "calc.cjs"
+  ],
+  "durationMs": 102,
+  "timestamp": "2026-09-07T14:24:43.156Z"
+}

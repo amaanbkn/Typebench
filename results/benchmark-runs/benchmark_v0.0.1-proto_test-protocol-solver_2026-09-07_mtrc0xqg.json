@@ -1,0 +1,31 @@
+{
+  "benchmarkRunId": "benchmark_v0.0.1-proto_test-protocol-solver_2026-09-07_mtrc0xqg",
+  "releaseVersion": "0.0.1-proto",
+  "datasetFingerprint": "sha256:f0a3a56d573a34740404aa75ec041901c8d9df14fa4af81b3470fc248bc476fb",
+  "agentName": "test-protocol-solver",
+  "timestamp": "2026-09-07T14:24:43.908Z",
+  "totalTasks": 1,
+  "evaluatedTasks": 1,
+  "solvedTasks": 1,
+  "failedTasks": 0,
+  "infrastructureFailures": 0,
+  "passRate": 100,
+  "meanScore": 100,
+  "totalDurationMs": 188,
+  "tasks": [
+    {
+      "taskId": "fixture-protocol-task",
+      "runId": "fixture-protocol-task_test-protocol-solver_mtrc0xqg",
+      "repository": "calc",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "baseCommit": "eeb16e12cac0b1fd579a379ec66f7386e42664ed",
+      "status": "solved",
+      "score": 100,
+      "maxScore": 100,
+      "isAvailable": true,
+      "durationMs": 184,
+      "patchLines": 8
+    }
+  ]
+}

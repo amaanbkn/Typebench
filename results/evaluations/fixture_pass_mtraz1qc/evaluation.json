@@ -1,0 +1,20 @@
+{
+  "runId": "fixture_pass_mtraz1qc",
+  "taskId": "_fixture_calc",
+  "agentName": "correct-agent",
+  "status": "solved",
+  "benchmarkTests": {
+    "command": "node test.cjs",
+    "exitCode": 0,
+    "passed": true,
+    "durationMs": 24,
+    "status": "passed",
+    "stdoutSnippet": "Test Passed: 2 + 3 = 5",
+    "stderrSnippet": ""
+  },
+  "changedFiles": [
+    "calc.cjs"
+  ],
+  "durationMs": 93,
+  "timestamp": "2026-09-07T13:55:16.065Z"
+}

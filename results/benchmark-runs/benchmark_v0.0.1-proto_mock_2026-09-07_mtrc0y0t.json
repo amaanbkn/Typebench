@@ -1,0 +1,31 @@
+{
+  "benchmarkRunId": "benchmark_v0.0.1-proto_mock_2026-09-07_mtrc0y0t",
+  "releaseVersion": "0.0.1-proto",
+  "datasetFingerprint": "sha256:f0a3a56d573a34740404aa75ec041901c8d9df14fa4af81b3470fc248bc476fb",
+  "agentName": "mock",
+  "timestamp": "2026-09-07T14:24:44.276Z",
+  "totalTasks": 1,
+  "evaluatedTasks": 1,
+  "solvedTasks": 0,
+  "failedTasks": 1,
+  "infrastructureFailures": 0,
+  "passRate": 0,
+  "meanScore": 0,
+  "totalDurationMs": 183,
+  "tasks": [
+    {
+      "taskId": "fixture-protocol-task",
+      "runId": "fixture-protocol-task_mock_mtrc0y0t",
+      "repository": "calc",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "baseCommit": "eeb16e12cac0b1fd579a379ec66f7386e42664ed",
+      "status": "failed",
+      "score": 0,
+      "maxScore": 100,
+      "isAvailable": true,
+      "durationMs": 179,
+      "patchLines": 18
+    }
+  ]
+}

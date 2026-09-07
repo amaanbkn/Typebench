@@ -1,6 +1,17 @@
 /**
- * TypeBench Candidate Validation Utility
- * Verifies whether historical candidate commits exhibit reproducible fail-to-pass or passing test behaviors in isolated workspaces.
+ * TypeBench Candidate Validation
+ *
+ * Validates a historical candidate commit by comparing:
+ *
+ *   parent commit
+ *        ↓
+ *   baseline tests
+ *        ↓
+ *   candidate/fix commit
+ *        ↓
+ *   fixed tests
+ *
+ * Validation is performed inside an isolated temporary workspace.
  */
 
 import * as fs from 'node:fs';
@@ -8,502 +19,1248 @@ import * as path from 'node:path';
 import * as os from 'node:os';
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
-import { simpleGit, SimpleGit } from 'simple-git';
-import { CandidateCommit } from './candidate-discovery.js';
+
+import { simpleGit, type SimpleGit } from 'simple-git';
+
+import type { CandidateCommit } from './candidate-discovery.js';
 
 const execAsync = promisify(exec);
 
+/**
+ * Possible validation outcomes.
+ */
 export type ValidationStatus =
   | 'baseline-fails-fixed-passes'
   | 'validated-no-regression-test'
   | 'unvalidated'
   | 'invalid';
 
+/**
+ * Result of executing a test command.
+ */
 export interface TestExecutionResult {
   command: string;
   exitCode: number;
-  durationMs: number;
   passed: boolean;
-  status: 'passed' | 'failed' | 'timeout' | 'error' | 'skipped';
-  stdoutSnippet: string;
-  stderrSnippet: string;
-  isEnvironmentFailure?: boolean;
+  timedOut: boolean;
+  stdout: string;
+  stderr: string;
+  durationMs: number;
+  error?: string;
 }
 
+/**
+ * Complete candidate validation report.
+ */
 export interface ValidationReport {
   repository: string;
   commitSha: string;
   shortSha: string;
   parentSha: string | null;
+
   status: ValidationStatus;
   validationReason: string;
+
   baseline: TestExecutionResult;
   fixed: TestExecutionResult;
+
   tests: string[];
+
   durationMs: number;
   timestamp: string;
+
   workspacePath?: string;
+
   error?: string;
 }
 
+/**
+ * Validation configuration.
+ */
 export interface ValidationOptions {
   timeoutMs?: number;
   installDependencies?: boolean;
-  verbose?: boolean;
   keepWorkspace?: boolean;
-  tempDir?: string;
+  workspaceRoot?: string;
+  verbose?: boolean;
 }
 
 /**
- * Detects the package manager and optimal test command for a repository.
+ * Information returned by test-command detection.
+ *
+ * This shape is intentionally compatible with create-task.ts.
+ */
+export interface TestCommandDetection {
+  packageManager:
+    | 'npm'
+    | 'pnpm'
+    | 'yarn'
+    | 'unknown';
+
+  testCommand: string;
+
+  targetedCommand?: string;
+
+  /**
+   * Alias retained for compatibility with callers that expect
+   * a generic command field.
+   */
+  command: string;
+}
+
+const DEFAULT_TIMEOUT_MS =
+  10 * 60 * 1000;
+
+const DEFAULT_WORKSPACE_ROOT =
+  path.join(
+    os.tmpdir(),
+    'typebench-validation',
+  );
+
+const VALIDATION_REPORTS_DIR =
+  path.resolve(
+    process.cwd(),
+    'data',
+    'validation-reports',
+  );
+
+/**
+ * Detect the package manager used by a repository.
+ */
+function detectPackageManager(
+  workspacePath: string,
+): TestCommandDetection['packageManager'] {
+  if (
+    fs.existsSync(
+      path.join(
+        workspacePath,
+        'pnpm-lock.yaml',
+      ),
+    )
+  ) {
+    return 'pnpm';
+  }
+
+  if (
+    fs.existsSync(
+      path.join(
+        workspacePath,
+        'yarn.lock',
+      ),
+    ) ||
+    fs.existsSync(
+      path.join(
+        workspacePath,
+        'yarn.lock.yml',
+      ),
+    )
+  ) {
+    return 'yarn';
+  }
+
+  if (
+    fs.existsSync(
+      path.join(
+        workspacePath,
+        'package-lock.json',
+      ),
+    ) ||
+    fs.existsSync(
+      path.join(
+        workspacePath,
+        'npm-shrinkwrap.json',
+      ),
+    )
+  ) {
+    return 'npm';
+  }
+
+  if (
+    fs.existsSync(
+      path.join(
+        workspacePath,
+        'package.json',
+      ),
+    )
+  ) {
+    return 'npm';
+  }
+
+  return 'unknown';
+}
+
+/**
+ * Read package.json safely.
+ */
+function readPackageJson(
+  workspacePath: string,
+): Record<string, unknown> | null {
+  const packagePath =
+    path.join(
+      workspacePath,
+      'package.json',
+    );
+
+  if (!fs.existsSync(packagePath)) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(
+      fs.readFileSync(
+        packagePath,
+        'utf8',
+      ),
+    ) as Record<string, unknown>;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Quote a shell argument.
+ */
+function quoteShellArgument(
+  value: string,
+): string {
+  if (
+    /^[a-zA-Z0-9_./:@+-]+$/.test(value)
+  ) {
+    return value;
+  }
+
+  return `'${value.replaceAll(
+    "'",
+    "'\\''",
+  )}'`;
+}
+
+/**
+ * Build the normal test command for a package manager.
+ */
+function buildTestCommand(
+  packageManager:
+    | 'npm'
+    | 'pnpm'
+    | 'yarn'
+    | 'unknown',
+): string {
+  switch (packageManager) {
+    case 'pnpm':
+      return 'pnpm test';
+
+    case 'yarn':
+      return 'yarn test';
+
+    case 'npm':
+      return 'npm test';
+
+    default:
+      return 'npm test';
+  }
+}
+
+/**
+ * Build a targeted test command.
+ */
+function buildTargetedCommand(
+  packageManager:
+    | 'npm'
+    | 'pnpm'
+    | 'yarn'
+    | 'unknown',
+  testFiles: string[],
+): string | undefined {
+  if (testFiles.length === 0) {
+    return undefined;
+  }
+
+  const paths =
+    testFiles
+      .map(quoteShellArgument)
+      .join(' ');
+
+  switch (packageManager) {
+    case 'pnpm':
+      return `pnpm test -- ${paths}`;
+
+    case 'yarn':
+      return `yarn test ${paths}`;
+
+    case 'npm':
+      return `npm test -- ${paths}`;
+
+    default:
+      return `npm test -- ${paths}`;
+  }
+}
+
+/**
+ * Detect the appropriate repository test command.
+ *
+ * IMPORTANT:
+ * This returns an object because create-task.ts expects:
+ *
+ *   testConfig.packageManager
+ *   testConfig.targetedCommand
+ *   testConfig.testCommand
  */
 export function detectTestCommand(
   workspacePath: string,
-  testFiles: string[] = []
-): {
-  packageManager: 'npm' | 'pnpm' | 'yarn';
-  testCommand: string;
-  targetedCommand?: string;
-} {
-  let packageManager: 'npm' | 'pnpm' | 'yarn' = 'npm';
+  targetedTests: string[] = [],
+): TestCommandDetection {
+  const packageJson =
+    readPackageJson(workspacePath);
+
+  const scriptsValue =
+    packageJson?.scripts;
+
+  const scripts =
+    scriptsValue &&
+    typeof scriptsValue === 'object'
+      ? scriptsValue as Record<
+          string,
+          unknown
+        >
+      : {};
+
+  const packageManager =
+    detectPackageManager(
+      workspacePath,
+    );
+
+  let testCommand =
+    buildTestCommand(
+      packageManager,
+    );
+
+  /**
+   * Prefer the repository's standard test script.
+   */
   if (
-    fs.existsSync(path.join(workspacePath, 'pnpm-lock.yaml')) ||
-    fs.existsSync(path.join(workspacePath, 'pnpm-workspace.yaml'))
+    typeof scripts.test === 'string'
   ) {
-    packageManager = 'pnpm';
-  } else if (fs.existsSync(path.join(workspacePath, 'yarn.lock'))) {
-    packageManager = 'yarn';
-  }
+    testCommand =
+      buildTestCommand(
+        packageManager,
+      );
+  } else if (
+    typeof scripts['test:unit'] ===
+    'string'
+  ) {
+    switch (packageManager) {
+      case 'pnpm':
+        testCommand =
+          'pnpm run test:unit';
+        break;
 
-  let testCommand = `${packageManager} test`;
-  let targetedCommand: string | undefined;
+      case 'yarn':
+        testCommand =
+          'yarn test:unit';
+        break;
 
-  const pkgJsonPath = path.join(workspacePath, 'package.json');
-  if (fs.existsSync(pkgJsonPath)) {
-    try {
-      const pkg = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf-8'));
-      if (pkg.scripts && pkg.scripts.test) {
-        testCommand = `${packageManager} test`;
-      }
-    } catch {
-      // fallback to npm test
+      default:
+        testCommand =
+          'npm run test:unit';
+        break;
+    }
+  } else if (
+    typeof scripts.jest === 'string'
+  ) {
+    switch (packageManager) {
+      case 'pnpm':
+        testCommand =
+          'pnpm run jest';
+        break;
+
+      case 'yarn':
+        testCommand =
+          'yarn jest';
+        break;
+
+      default:
+        testCommand =
+          'npm run jest';
+        break;
     }
   }
 
-  // If specific test files are present, formulate targeted test command if feasible
-  if (testFiles.length > 0) {
-    // Prioritize unit/spec test files over bundle-size/benchmark tests
-    const sortedTests = [...testFiles].sort((a, b) => {
-      const aScore = a.includes('/tests/') || a.includes('.spec.') ? 1 : 0;
-      const bScore = b.includes('/tests/') || b.includes('.spec.') ? 1 : 0;
-      return bScore - aScore;
-    });
-
-    const primaryTest = sortedTests[0];
-    if (packageManager === 'pnpm') {
-      targetedCommand = `pnpm test -- ${primaryTest}`;
-    } else if (packageManager === 'yarn') {
-      targetedCommand = `yarn test ${primaryTest}`;
-    } else {
-      targetedCommand = `npm test -- ${primaryTest}`;
-    }
-  }
+  const targetedCommand =
+    buildTargetedCommand(
+      packageManager,
+      targetedTests,
+    );
 
   return {
     packageManager,
     testCommand,
     targetedCommand,
+    command: testCommand,
   };
 }
 
 /**
- * Checks if output indicates an environmental or infrastructure failure rather than a code test failure.
+ * Execute a shell command with a timeout.
  */
-function isEnvironmentError(stderr: string, stdout: string, exitCode: number): boolean {
-  const combined = `${stderr}\n${stdout}`.toLowerCase();
-  if (
-    combined.includes('command not found') ||
-    combined.includes('node_modules missing') ||
-    combined.includes('did you mean to install') ||
-    combined.includes('cannot find module') ||
-    combined.includes('module_not_found') ||
-    combined.includes('enoent') ||
-    combined.includes('unsupported engine') ||
-    combined.includes('startup error') ||
-    combined.includes('failed to initialize projects') ||
-    combined.includes('failed to load config') ||
-    combined.includes('err_pn_no_matching_version') ||
-    combined.includes('econnrefused') ||
-    combined.includes('network is unreachable') ||
-    combined.includes('enotfound')
-  ) {
-    return true;
-  }
-  return false;
-}
-
-/**
- * Ensures dependencies are installed in the workspace if required.
- */
-async function ensureDependencies(
-  workspacePath: string,
-  packageManager: 'npm' | 'pnpm' | 'yarn',
-  timeoutMs = 90000,
-  verbose = false
-): Promise<{ success: boolean; error?: string }> {
-  const nodeModulesPath = path.join(workspacePath, 'node_modules');
-  if (fs.existsSync(nodeModulesPath)) {
-    return { success: true };
-  }
-
-  if (verbose) {
-    console.log(`  [Validator] Installing dependencies with ${packageManager}...`);
-  }
-
-  const env = {
-    ...process.env,
-    PATH: `/home/shaktimaan/.local/bin:${process.env.PATH}`,
-    CI: 'true',
-  };
-
-  let installCmd = `${packageManager} install`;
-  if (packageManager === 'pnpm') {
-    installCmd = `pnpm install --no-frozen-lockfile --ignore-scripts`;
-  } else if (packageManager === 'npm') {
-    installCmd = `npm install --no-audit --no-fund`;
-  }
-
-  try {
-    await execAsync(installCmd, {
-      cwd: workspacePath,
-      timeout: timeoutMs,
-      env,
-    });
-    return { success: true };
-  } catch (err: any) {
-    const errMsg = (err.stderr || err.stdout || err.message || '').trim().slice(0, 500);
-    return {
-      success: false,
-      error: `Dependency installation failed: ${errMsg}`,
-    };
-  }
-}
-
-/**
- * Executes a test command within a workspace with timeout and stdout/stderr capture.
- */
-async function runTestCommand(
-  workspacePath: string,
+async function runCommand(
   command: string,
-  timeoutMs = 60000
+  cwd: string,
+  timeoutMs: number,
+  environment: Record<
+    string,
+    string
+  > = {},
 ): Promise<TestExecutionResult> {
-  const startTime = Date.now();
-  const env = {
-    ...process.env,
-    PATH: `/home/shaktimaan/.local/bin:${process.env.PATH}`,
-    CI: 'true',
-    NODE_ENV: 'test',
-  };
+  const startedAt =
+    Date.now();
 
   try {
-    const { stdout, stderr } = await execAsync(command, {
-      cwd: workspacePath,
-      timeout: timeoutMs,
-      env,
-    });
+    const result =
+      await execAsync(
+        command,
+        {
+          cwd,
+          timeout: timeoutMs,
+          maxBuffer:
+            20 * 1024 * 1024,
+          env: {
+            ...process.env,
+            ...environment,
+          },
+        },
+      );
 
-    const durationMs = Date.now() - startTime;
     return {
       command,
       exitCode: 0,
-      durationMs,
       passed: true,
-      status: 'passed',
-      stdoutSnippet: (stdout || '').trim().slice(0, 1000),
-      stderrSnippet: (stderr || '').trim().slice(0, 1000),
-      isEnvironmentFailure: false,
+      timedOut: false,
+      stdout:
+        result.stdout || '',
+      stderr:
+        result.stderr || '',
+      durationMs:
+        Date.now() - startedAt,
     };
-  } catch (err: any) {
-    const durationMs = Date.now() - startTime;
-    const isTimeout = err.killed && err.signal === 'SIGTERM';
-    const exitCode = typeof err.code === 'number' ? err.code : 1;
-    const stdoutSnippet = (err.stdout || '').trim().slice(0, 1000);
-    const stderrSnippet = (err.stderr || err.message || '').trim().slice(0, 1000);
+  } catch (
+    error: unknown
+  ) {
+    const execError =
+      error as {
+        code?: number | string;
+        stdout?: string;
+        stderr?: string;
+        killed?: boolean;
+        signal?: string;
+        message?: string;
+      };
 
-    const isEnvFailure = isEnvironmentError(stderrSnippet, stdoutSnippet, exitCode);
+    const message =
+      execError?.message ||
+      String(error);
+
+    const timedOut =
+      execError?.killed === true ||
+      execError?.signal ===
+        'SIGTERM' ||
+      message
+        .toLowerCase()
+        .includes('timeout');
+
+    const numericCode =
+      typeof execError?.code ===
+      'number'
+        ? execError.code
+        : 1;
 
     return {
       command,
-      exitCode,
-      durationMs,
+      exitCode:
+        numericCode,
       passed: false,
-      status: isTimeout ? 'timeout' : isEnvFailure ? 'error' : 'failed',
-      stdoutSnippet,
-      stderrSnippet,
-      isEnvironmentFailure: isEnvFailure,
+      timedOut,
+      stdout:
+        execError?.stdout || '',
+      stderr:
+        execError?.stderr || '',
+      durationMs:
+        Date.now() - startedAt,
+      error: message,
     };
   }
 }
 
 /**
- * Creates an empty test execution result placeholder.
+ * Install dependencies for a repository.
  */
-function createSkippedResult(command = 'none', status: 'skipped' | 'error' = 'skipped', error = ''): TestExecutionResult {
-  return {
-    command,
-    exitCode: -1,
-    durationMs: 0,
-    passed: false,
-    status,
-    stdoutSnippet: '',
-    stderrSnippet: error,
-  };
+async function ensureDependencies(
+  workspacePath: string,
+  packageManager:
+    | 'npm'
+    | 'pnpm'
+    | 'yarn'
+    | 'unknown',
+  timeoutMs: number,
+  verbose: boolean,
+): Promise<void> {
+  const nodeModules =
+    path.join(
+      workspacePath,
+      'node_modules',
+    );
+
+  if (
+    fs.existsSync(nodeModules)
+  ) {
+    if (verbose) {
+      console.log(
+        '      Dependencies already installed',
+      );
+    }
+
+    return;
+  }
+
+  let installCommand: string;
+
+  switch (packageManager) {
+    case 'pnpm':
+      installCommand =
+        'pnpm install --frozen-lockfile';
+      break;
+
+    case 'yarn':
+      installCommand =
+        'yarn install --frozen-lockfile';
+      break;
+
+    case 'npm':
+      installCommand =
+        'npm ci';
+      break;
+
+    default:
+      installCommand =
+        'npm install';
+      break;
+  }
+
+  if (verbose) {
+    console.log(
+      `      Installing dependencies: ${installCommand}`,
+    );
+  }
+
+  const result =
+    await runCommand(
+      installCommand,
+      workspacePath,
+      timeoutMs,
+      {
+        CI: 'true',
+        NODE_ENV: 'test',
+      },
+    );
+
+  if (!result.passed) {
+    throw new Error(
+      [
+        'Dependency installation failed.',
+        result.error,
+        result.stderr,
+      ]
+        .filter(Boolean)
+        .join('\n'),
+    );
+  }
 }
 
 /**
- * Validates a single candidate commit in an isolated workspace.
+ * Run a test command.
  */
-export async function validateCandidate(
-  repoName: string,
-  sourceWorkspacePath: string,
-  candidate: CandidateCommit,
-  options: ValidationOptions = {}
-): Promise<ValidationReport> {
-  const startTime = Date.now();
-  const timeoutMs = options.timeoutMs ?? 60000;
-  const shouldInstallDeps = options.installDependencies ?? true;
-  const baseTempDir = options.tempDir ?? path.join(os.tmpdir(), 'typebench-validation');
-  const validationWorkspacePath = path.join(
-    baseTempDir,
-    `${repoName}-${candidate.shortSha}-${Date.now().toString(36)}`
+async function runTestCommand(
+  command: string,
+  workspacePath: string,
+  timeoutMs: number,
+): Promise<TestExecutionResult> {
+  return runCommand(
+    command,
+    workspacePath,
+    timeoutMs,
+    {
+      CI: 'true',
+      NODE_ENV: 'test',
+    },
+  );
+}
+
+/**
+ * Create a unique isolated workspace.
+ */
+async function createWorkspace(
+  repository: string,
+  workspaceRoot: string,
+): Promise<string> {
+  await fs.promises.mkdir(
+    workspaceRoot,
+    {
+      recursive: true,
+    },
   );
 
-  fs.mkdirSync(baseTempDir, { recursive: true });
+  const safeRepository =
+    repository.replace(
+      /[^a-zA-Z0-9._-]/g,
+      '-',
+    );
 
-  const defaultReport: ValidationReport = {
-    repository: repoName,
-    commitSha: candidate.sha,
-    shortSha: candidate.shortSha,
-    parentSha: candidate.parentSha,
-    status: 'unvalidated',
-    validationReason: 'Validation not completed',
-    baseline: createSkippedResult(),
-    fixed: createSkippedResult(),
-    tests: candidate.testFiles || [],
-    durationMs: 0,
-    timestamp: new Date().toISOString(),
-  };
+  return fs.promises.mkdtemp(
+    path.join(
+      workspaceRoot,
+      `${safeRepository}-`,
+    ),
+  );
+}
 
-  // 1. Check parent SHA availability
-  if (!candidate.parentSha) {
-    defaultReport.status = 'unvalidated';
-    defaultReport.validationReason = 'Commit has no parent SHA (root or shallow boundary commit).';
-    defaultReport.durationMs = Date.now() - startTime;
-    return defaultReport;
+/**
+ * Clone a repository into the validation workspace.
+ */
+async function cloneIntoWorkspace(
+  sourceRepositoryPath: string,
+  workspacePath: string,
+): Promise<SimpleGit> {
+  const git =
+    simpleGit();
+
+  await git.clone(
+    sourceRepositoryPath,
+    workspacePath,
+  );
+
+  return simpleGit(
+    workspacePath,
+  );
+}
+
+/**
+ * Checkout a specific commit cleanly.
+ */
+async function checkoutCommit(
+  git: SimpleGit,
+  commitSha: string,
+): Promise<void> {
+  await git.reset([
+    '--hard',
+  ]);
+
+  await git.clean(
+    'f',
+    ['-d'],
+  );
+
+  await git.checkout(
+    commitSha,
+  );
+}
+
+/**
+ * Check whether the workspace contains package.json.
+ */
+function hasPackageManifest(
+  workspacePath: string,
+): boolean {
+  return fs.existsSync(
+    path.join(
+      workspacePath,
+      'package.json',
+    ),
+  );
+}
+
+/**
+ * Validate one historical candidate.
+ */
+export async function validateCandidate(
+  repository: string,
+  sourceRepositoryPath: string,
+  candidate: CandidateCommit,
+  options: ValidationOptions = {},
+): Promise<ValidationReport> {
+  const startedAt =
+    Date.now();
+
+  const timeoutMs =
+    options.timeoutMs ??
+    DEFAULT_TIMEOUT_MS;
+
+  const workspaceRoot =
+    options.workspaceRoot ??
+    DEFAULT_WORKSPACE_ROOT;
+
+  const keepWorkspace =
+    options.keepWorkspace ??
+    false;
+
+  const installDependencies =
+    options.installDependencies ??
+    true;
+
+  const verbose =
+    options.verbose ??
+    false;
+
+  const parentSha =
+    candidate.parentSha ||
+    null;
+
+  const emptyResult =
+    (
+      command: string,
+    ): TestExecutionResult => ({
+      command,
+      exitCode: 1,
+      passed: false,
+      timedOut: false,
+      stdout: '',
+      stderr: '',
+      durationMs: 0,
+    });
+
+  let workspacePath:
+    | string
+    | undefined;
+
+  let baseline =
+    emptyResult('');
+
+  let fixed =
+    emptyResult('');
+
+  /**
+   * A commit without a parent cannot form a benchmark
+   * parent→fix transition.
+   */
+  if (!parentSha) {
+    return {
+      repository,
+      commitSha:
+        candidate.sha,
+      shortSha:
+        candidate.shortSha,
+      parentSha: null,
+
+      status: 'invalid',
+
+      validationReason:
+        'Candidate has no parent commit.',
+
+      baseline,
+      fixed,
+
+      tests:
+        candidate.testFiles || [],
+
+      durationMs:
+        Date.now() - startedAt,
+
+      timestamp:
+        new Date().toISOString(),
+
+      error:
+        'Missing parent commit.',
+    };
   }
-
-  let git: SimpleGit;
 
   try {
-    // 2. Create isolated validation workspace cloned from local source repo
-    if (options.verbose) {
-      console.log(`  [Validator] Creating isolated validation workspace for ${candidate.shortSha}...`);
-    }
-
-    const sourceGit = simpleGit(sourceWorkspacePath);
-    await sourceGit.clone(sourceWorkspacePath, validationWorkspacePath);
-
-    git = simpleGit(validationWorkspacePath);
-
-    // 3. Checkout parent commit (Baseline)
-    if (options.verbose) {
-      console.log(`  [Validator] Checking out baseline parent commit: ${candidate.parentSha.slice(0, 7)}...`);
-    }
-
-    try {
-      await git.checkout(candidate.parentSha);
-      const headSha = (await git.raw(['rev-parse', 'HEAD'])).trim();
-      if (!headSha.startsWith(candidate.parentSha.slice(0, 7))) {
-        throw new Error(`Checked out commit ${headSha} does not match expected parent ${candidate.parentSha}`);
-      }
-    } catch (err: any) {
-      defaultReport.status = 'unvalidated';
-      defaultReport.validationReason = `Parent commit ${candidate.parentSha.slice(0, 7)} unavailable in shallow history: ${err.message || String(err)}`;
-      defaultReport.durationMs = Date.now() - startTime;
-      return defaultReport;
-    }
-
-    // 4. Detect test command
-    const testConfig = detectTestCommand(validationWorkspacePath, candidate.testFiles);
-    const testCmd = testConfig.targetedCommand || testConfig.testCommand;
-
-    if (options.verbose) {
-      console.log(`  [Validator] Detected test runner command: "${testCmd}"`);
-    }
-
-    // 5. Optionally ensure dependencies if requested
-    if (shouldInstallDeps) {
-      const depResult = await ensureDependencies(
-        validationWorkspacePath,
-        testConfig.packageManager,
-        timeoutMs,
-        options.verbose
+    /**
+     * Create isolated workspace.
+     */
+    workspacePath =
+      await createWorkspace(
+        repository,
+        workspaceRoot,
       );
-      if (!depResult.success) {
-        // If installation failed, we still attempt running test command, but flag if test fails due to environment
-        if (options.verbose) {
-          console.warn(`  [Validator] Warning during dependency setup: ${depResult.error}`);
-        }
-      }
+
+    if (verbose) {
+      console.log(
+        `      Workspace: ${workspacePath}`,
+      );
     }
 
-    // 6. Run baseline test on parent commit
-    if (options.verbose) {
-      console.log(`  [Validator] Running baseline tests on pre-fix parent...`);
+    /**
+     * Clone source repository.
+     */
+    const git =
+      await cloneIntoWorkspace(
+        sourceRepositoryPath,
+        workspacePath,
+      );
+
+    /**
+     * -----------------------------------------
+     * BASELINE
+     * -----------------------------------------
+     */
+
+    await checkoutCommit(
+      git,
+      parentSha,
+    );
+
+    if (
+      !hasPackageManifest(
+        workspacePath,
+      )
+    ) {
+      return {
+        repository,
+        commitSha:
+          candidate.sha,
+        shortSha:
+          candidate.shortSha,
+        parentSha,
+
+        status: 'invalid',
+
+        validationReason:
+          'Baseline commit does not contain package.json.',
+
+        baseline,
+        fixed,
+
+        tests:
+          candidate.testFiles || [],
+
+        durationMs:
+          Date.now() - startedAt,
+
+        timestamp:
+          new Date().toISOString(),
+
+        workspacePath:
+          keepWorkspace
+            ? workspacePath
+            : undefined,
+
+        error:
+          'package.json not found.',
+      };
     }
 
-    const baselineResult = await runTestCommand(validationWorkspacePath, testCmd, timeoutMs);
-    defaultReport.baseline = baselineResult;
+    const baselineConfig =
+      detectTestCommand(
+        workspacePath,
+        candidate.testFiles ||
+          [],
+      );
 
-    // Check if baseline failed because of environment
-    if (baselineResult.isEnvironmentFailure) {
-      defaultReport.status = 'unvalidated';
-      defaultReport.validationReason = `Environment failure during baseline test execution: ${baselineResult.stderrSnippet || baselineResult.stdoutSnippet}`;
-      defaultReport.durationMs = Date.now() - startTime;
-      return defaultReport;
+    /**
+     * create-task.ts expects these fields, while the actual
+     * validator uses the selected command for execution.
+     */
+    const baselineTestCommand =
+      baselineConfig.targetedCommand ||
+      baselineConfig.testCommand;
+
+    if (verbose) {
+      console.log(
+        `      Baseline test command: ${baselineTestCommand}`,
+      );
     }
 
-    // 7. Checkout historical fix (Candidate commit)
-    if (options.verbose) {
-      console.log(`  [Validator] Checking out fix commit: ${candidate.shortSha}...`);
+    if (installDependencies) {
+      await ensureDependencies(
+        workspacePath,
+        baselineConfig.packageManager,
+        timeoutMs,
+        verbose,
+      );
     }
 
-    try {
-      await git.checkout(candidate.sha);
-      const headSha = (await git.raw(['rev-parse', 'HEAD'])).trim();
-      if (!headSha.startsWith(candidate.shortSha)) {
-        throw new Error(`Checked out commit ${headSha} does not match candidate ${candidate.sha}`);
-      }
-    } catch (err: any) {
-      defaultReport.status = 'unvalidated';
-      defaultReport.validationReason = `Failed to checkout candidate commit ${candidate.shortSha}: ${err.message || String(err)}`;
-      defaultReport.durationMs = Date.now() - startTime;
-      return defaultReport;
+    /**
+     * Run baseline tests.
+     */
+    baseline =
+      await runTestCommand(
+        baselineTestCommand,
+        workspacePath,
+        timeoutMs,
+      );
+
+    if (verbose) {
+      console.log(
+        `      Baseline result: ${
+          baseline.passed
+            ? 'PASS'
+            : 'FAIL'
+        }`,
+      );
     }
 
-    // 8. Run fixed test on candidate commit
-    if (options.verbose) {
-      console.log(`  [Validator] Running tests on fixed candidate commit...`);
+    /**
+     * -----------------------------------------
+     * FIXED VERSION
+     * -----------------------------------------
+     */
+
+    await checkoutCommit(
+      git,
+      candidate.sha,
+    );
+
+    const fixedConfig =
+      detectTestCommand(
+        workspacePath,
+        candidate.testFiles ||
+          [],
+      );
+
+    const fixedTestCommand =
+      fixedConfig.targetedCommand ||
+      fixedConfig.testCommand;
+
+    /**
+     * If dependency manifests changed as part of the fix,
+     * reinstall dependencies for the fixed revision.
+     */
+    const dependencyFilesChanged =
+      (
+        candidate.changedFiles ||
+        []
+      ).some(
+        (file) =>
+          file ===
+            'package.json' ||
+          file ===
+            'package-lock.json' ||
+          file ===
+            'pnpm-lock.yaml' ||
+          file ===
+            'yarn.lock',
+      );
+
+    if (
+      installDependencies &&
+      dependencyFilesChanged
+    ) {
+      const nodeModules =
+        path.join(
+          workspacePath,
+          'node_modules',
+        );
+
+      await fs.promises.rm(
+        nodeModules,
+        {
+          recursive: true,
+          force: true,
+        },
+      );
+
+      await ensureDependencies(
+        workspacePath,
+        fixedConfig.packageManager,
+        timeoutMs,
+        verbose,
+      );
     }
 
-    const fixedResult = await runTestCommand(validationWorkspacePath, testCmd, timeoutMs);
-    defaultReport.fixed = fixedResult;
-
-    // Check if fixed failed because of environment
-    if (fixedResult.isEnvironmentFailure) {
-      defaultReport.status = 'unvalidated';
-      defaultReport.validationReason = `Environment failure during fixed test execution: ${fixedResult.stderrSnippet || fixedResult.stdoutSnippet}`;
-      defaultReport.durationMs = Date.now() - startTime;
-      return defaultReport;
+    if (verbose) {
+      console.log(
+        `      Fixed test command: ${fixedTestCommand}`,
+      );
     }
 
-    // 9. Analyze and classify validation outcome
-    if (!baselineResult.passed && fixedResult.passed) {
-      defaultReport.status = 'baseline-fails-fixed-passes';
-      defaultReport.validationReason =
-        'Baseline failed on parent commit and fix commit successfully passed tests (Reproducible Fail-to-Pass Fix).';
-    } else if (baselineResult.passed && fixedResult.passed) {
-      defaultReport.status = 'validated-no-regression-test';
-      defaultReport.validationReason =
-        'Both baseline and fix commit passed tests (Valid feature addition or unmanifested baseline regression).';
-    } else if (!fixedResult.passed && baselineResult.passed) {
-      defaultReport.status = 'invalid';
-      defaultReport.validationReason =
-        'Candidate fix commit broke previously passing tests.';
+    /**
+     * Run fixed tests.
+     */
+    fixed =
+      await runTestCommand(
+        fixedTestCommand,
+        workspacePath,
+        timeoutMs,
+      );
+
+    if (verbose) {
+      console.log(
+        `      Fixed result: ${
+          fixed.passed
+            ? 'PASS'
+            : 'FAIL'
+        }`,
+      );
+    }
+
+    /**
+     * -----------------------------------------
+     * CLASSIFICATION
+     * -----------------------------------------
+     */
+
+    let status:
+      ValidationStatus;
+
+    let validationReason:
+      string;
+
+    if (
+      !baseline.passed &&
+      fixed.passed
+    ) {
+      status =
+        'baseline-fails-fixed-passes';
+
+      validationReason =
+        'Baseline parent commit fails the test suite while the historical fix commit passes.';
+    } else if (
+      baseline.passed &&
+      fixed.passed
+    ) {
+      status =
+        'validated-no-regression-test';
+
+      validationReason =
+        'Both baseline and historical fix pass the available test suite; no reproducible regression failure was observed.';
+    } else if (
+      baseline.passed &&
+      !fixed.passed
+    ) {
+      status =
+        'invalid';
+
+      validationReason =
+        'The historical fix commit fails the available test suite.';
     } else {
-      defaultReport.status = 'invalid';
-      defaultReport.validationReason =
-        `Tests failed on both parent (exit ${baselineResult.exitCode}) and candidate (exit ${fixedResult.exitCode}) commits.`;
+      status =
+        'unvalidated';
+
+      validationReason =
+        'Both baseline and historical fix fail the available test suite, so the candidate cannot be established as a valid fix.';
     }
 
-    defaultReport.durationMs = Date.now() - startTime;
-    return defaultReport;
-  } catch (err: any) {
-    defaultReport.status = 'unvalidated';
-    defaultReport.validationReason = `Environment error during validation: ${err.message || String(err)}`;
-    defaultReport.durationMs = Date.now() - startTime;
-    return defaultReport;
+    return {
+      repository,
+      commitSha:
+        candidate.sha,
+      shortSha:
+        candidate.shortSha,
+      parentSha,
+
+      status,
+      validationReason,
+
+      baseline,
+      fixed,
+
+      tests:
+        candidate.testFiles || [],
+
+      durationMs:
+        Date.now() - startedAt,
+
+      timestamp:
+        new Date().toISOString(),
+
+      workspacePath:
+        keepWorkspace
+          ? workspacePath
+          : undefined,
+    };
+  } catch (
+    error: unknown
+  ) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : String(error);
+
+    return {
+      repository,
+      commitSha:
+        candidate.sha,
+      shortSha:
+        candidate.shortSha,
+      parentSha,
+
+      status: 'unvalidated',
+
+      validationReason:
+        `Validation could not be completed: ${message}`,
+
+      baseline,
+      fixed,
+
+      tests:
+        candidate.testFiles || [],
+
+      durationMs:
+        Date.now() - startedAt,
+
+      timestamp:
+        new Date().toISOString(),
+
+      workspacePath:
+        keepWorkspace
+          ? workspacePath
+          : undefined,
+
+      error: message,
+    };
   } finally {
-    // 10. Clean up isolated validation workspace unless explicitly preserved
-    if (!options.keepWorkspace && fs.existsSync(validationWorkspacePath)) {
+    /**
+     * Remove temporary workspace unless explicitly requested.
+     */
+    if (
+      workspacePath &&
+      !keepWorkspace
+    ) {
       try {
-        fs.rmSync(validationWorkspacePath, { recursive: true, force: true });
+        await fs.promises.rm(
+          workspacePath,
+          {
+            recursive: true,
+            force: true,
+          },
+        );
       } catch {
-        // ignore cleanup failure
+        /**
+         * Cleanup failure should not change the validation result.
+         */
       }
     }
   }
 }
 
 /**
- * Saves a validation report to results/validation/<repository>/<commit-sha>.json
+ * Save a validation report to disk.
  */
-export function saveValidationReport(report: ValidationReport, baseDir = path.resolve(process.cwd(), 'results/validation')): string {
-  const repoDir = path.join(baseDir, report.repository);
-  fs.mkdirSync(repoDir, { recursive: true });
+export function saveValidationReport(
+  report: ValidationReport,
+): string {
+  fs.mkdirSync(
+    VALIDATION_REPORTS_DIR,
+    {
+      recursive: true,
+    },
+  );
 
-  const filePath = path.join(repoDir, `${report.shortSha}.json`);
-  fs.writeFileSync(filePath, JSON.stringify(report, null, 2), 'utf-8');
-  return filePath;
+  const repository =
+    report.repository.replace(
+      /[^a-zA-Z0-9._-]/g,
+      '-',
+    );
+
+  const filename =
+    `${repository}-${report.shortSha}.json`;
+
+  const outputPath =
+    path.join(
+      VALIDATION_REPORTS_DIR,
+      filename,
+    );
+
+  fs.writeFileSync(
+    outputPath,
+    JSON.stringify(
+      report,
+      null,
+      2,
+    ),
+    'utf8',
+  );
+
+  return outputPath;
 }
 
 /**
- * Formats a validation summary table and details.
+ * Format one or more validation reports.
+ *
+ * Accepting both a single report and an array preserves compatibility
+ * with the existing generate-tasks.ts caller.
  */
-export function formatValidationSummary(reports: ValidationReport[]): string {
-  const total = reports.length;
-  const failToPass = reports.filter((r) => r.status === 'baseline-fails-fixed-passes').length;
-  const noRegression = reports.filter((r) => r.status === 'validated-no-regression-test').length;
-  const unvalidated = reports.filter((r) => r.status === 'unvalidated').length;
-  const invalid = reports.filter((r) => r.status === 'invalid').length;
+export function formatValidationSummary(
+  reports:
+    | ValidationReport
+    | ValidationReport[],
+): string {
+  const reportList =
+    Array.isArray(reports)
+      ? reports
+      : [reports];
 
-  const shallowCount = reports.filter(
-    (r) => r.status === 'unvalidated' && r.validationReason.toLowerCase().includes('shallow')
-  ).length;
-  const envCount = unvalidated - shallowCount;
+  if (
+    reportList.length === 0
+  ) {
+    return 'No validation reports.';
+  }
 
   const lines: string[] = [];
-  lines.push('\n========================================');
-  lines.push('[TypeBench] Validation Summary');
-  lines.push('========================================\n');
-  lines.push(`Candidates evaluated : ${total}`);
-  lines.push(`\nValidated:`);
-  lines.push(`  baseline-fails-fixed-passes  : ${failToPass}`);
-  lines.push(`  validated-no-regression-test : ${noRegression}`);
-  lines.push(`\nUnvalidated:`);
-  lines.push(`  shallow-history              : ${shallowCount}`);
-  lines.push(`  environment-failure          : ${envCount}`);
-  lines.push(`\nInvalid:`);
-  lines.push(`  failed-tests                 : ${invalid}\n`);
 
-  if (reports.length > 0) {
-    lines.push('Validation Details:\n');
-    reports.forEach((r, i) => {
-      const icon =
-        r.status === 'baseline-fails-fixed-passes'
-          ? '🌟 [REPRODUCIBLE FIX]'
-          : r.status === 'validated-no-regression-test'
-          ? '✅ [VALIDATED]'
-          : r.status === 'unvalidated'
-          ? '⏳ [UNVALIDATED]'
-          : '❌ [INVALID]';
+  lines.push(
+    `Validation reports: ${reportList.length}`,
+  );
 
-      lines.push(`${i + 1}. ${r.shortSha} - ${icon} (${r.status})`);
-      lines.push(`   Parent: ${r.parentSha ? r.parentSha.slice(0, 7) : 'none'}`);
-      lines.push(`   Baseline: ${r.baseline.status} (exit ${r.baseline.exitCode}) | Fixed: ${r.fixed.status} (exit ${r.fixed.exitCode})`);
-      lines.push(`   Reason: ${r.validationReason}`);
-      lines.push(`   Duration: ${(r.durationMs / 1000).toFixed(2)}s\n`);
-    });
+  lines.push('');
+
+  for (
+    const report of reportList
+  ) {
+    const baselineStatus =
+      report.baseline.passed
+        ? 'PASS'
+        : 'FAIL';
+
+    const fixedStatus =
+      report.fixed.passed
+        ? 'PASS'
+        : 'FAIL';
+
+    const durationSeconds =
+      (
+        report.durationMs /
+        1000
+      ).toFixed(1);
+
+    lines.push(
+      `Repository: ${report.repository}`,
+    );
+
+    lines.push(
+      `Commit: ${report.shortSha}`,
+    );
+
+    lines.push(
+      `Parent: ${
+        report.parentSha
+          ? report.parentSha.slice(
+              0,
+              7,
+            )
+          : 'none'
+      }`,
+    );
+
+    lines.push(
+      `Status: ${report.status}`,
+    );
+
+    lines.push(
+      `Baseline: ${baselineStatus}`,
+    );
+
+    lines.push(
+      `Fixed: ${fixedStatus}`,
+    );
+
+    lines.push(
+      `Duration: ${durationSeconds}s`,
+    );
+
+    lines.push(
+      `Reason: ${report.validationReason}`,
+    );
+
+    lines.push('');
   }
 
   return lines.join('\n');

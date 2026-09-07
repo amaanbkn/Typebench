@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsx cli/index.ts",
-    "test": "vitest",
+    "test": "find dataset evaluator harness scoring -type f -name 'test-*.ts' -print0 | xargs -0 -n1 tsx",
     "typecheck": "tsc --noEmit",
     "prepare-dataset": "tsx scripts/expand-dataset.ts",
     "validate": "tsx scripts/validate-dataset.ts",
