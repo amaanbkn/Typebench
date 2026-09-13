@@ -1,0 +1,33 @@
+{
+  "repository": "rxjs",
+  "commitSha": "224e975e886ca5100d4e2ba68893cd05accb681b",
+  "shortSha": "224e975",
+  "parentSha": "882b7493ce6cbb9a71be7fd84d1894d41650b653",
+  "status": "unvalidated",
+  "validationReason": "Both baseline and historical fix fail the available test suite, so the candidate cannot be established as a valid fix.",
+  "baseline": {
+    "command": "yarn test packages/rxjs/spec/observables/fromEvent-spec.ts",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "yarn run v1.22.22\ninfo Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\n",
+    "stderr": "error Command \"test\" not found.\n",
+    "durationMs": 125,
+    "error": "Command failed: yarn test packages/rxjs/spec/observables/fromEvent-spec.ts\nerror Command \"test\" not found.\n"
+  },
+  "fixed": {
+    "command": "yarn test packages/rxjs/spec/observables/fromEvent-spec.ts",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "yarn run v1.22.22\ninfo Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\n",
+    "stderr": "error Command \"test\" not found.\n",
+    "durationMs": 126,
+    "error": "Command failed: yarn test packages/rxjs/spec/observables/fromEvent-spec.ts\nerror Command \"test\" not found.\n"
+  },
+  "tests": [
+    "packages/rxjs/spec/observables/fromEvent-spec.ts"
+  ],
+  "durationMs": 75547,
+  "timestamp": "2026-09-13T15:45:30.138Z"
+}

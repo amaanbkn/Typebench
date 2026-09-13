@@ -1,0 +1,33 @@
+{
+  "repository": "angular",
+  "commitSha": "1fb46782073171ca6f4f05241aaa64deaa40a5d9",
+  "shortSha": "1fb4678",
+  "parentSha": "b178e833074ea636348034b8fb702950d053401f",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/angular-oRu7Tf'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/angular-oRu7Tf/.git/objects/pack/pack-f15d8aa0a721ef393e68cb5b354844c3a245d43a.pack': Disk quota exceeded\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "packages/compiler-cli/test/ngtsc/authoring_inputs_spec.ts",
+    "packages/core/test/authoring/signal_input_signature_test.ts"
+  ],
+  "durationMs": 18,
+  "timestamp": "2026-09-13T16:14:15.421Z",
+  "error": "Cloning into '/tmp/typebench-validation/angular-oRu7Tf'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/angular-oRu7Tf/.git/objects/pack/pack-f15d8aa0a721ef393e68cb5b354844c3a245d43a.pack': Disk quota exceeded\n"
+}

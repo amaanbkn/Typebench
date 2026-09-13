@@ -1,0 +1,42 @@
+{
+  "taskId": "nestjs-16aceab",
+  "repository": "nestjs",
+  "repositoryUrl": "https://github.com/nestjs/nest",
+  "commitSha": "16aceab9b21bf3e4b79e3b1f32a91e139e0e5250",
+  "parentSha": "82ded5dce432d8ebd90b9b6462c00f07d70566c1",
+  "category": "type_fix",
+  "difficulty": "hard",
+  "title": "Include Received Value Type in Invalid-module Error",
+  "description": "Task for nestjs: Include Received Value Type in Invalid-module Error",
+  "changedFiles": [
+    "packages/core/errors/exceptions/invalid-module.exception.ts",
+    "packages/core/errors/messages.ts",
+    "packages/core/scanner.ts",
+    "packages/core/test/errors/test/messages.spec.ts"
+  ],
+  "sourceFiles": [
+    "packages/core/errors/exceptions/invalid-module.exception.ts",
+    "packages/core/errors/messages.ts",
+    "packages/core/scanner.ts"
+  ],
+  "testFiles": [
+    "packages/core/test/errors/test/messages.spec.ts"
+  ],
+  "validationStatus": "validated-no-regression-test",
+  "validationReason": "Both baseline and historical fix pass the available test suite; no reproducible regression failure was observed.",
+  "taskStatus": "ready",
+  "candidateScore": 13,
+  "signals": {
+    "positive": [
+      "fix-keyword",
+      "typescript-type-signal",
+      "tests-modified (1 files)",
+      "source-modified (3 files)",
+      "co-located-source-and-test",
+      "focused-atomic-scope"
+    ],
+    "negative": []
+  },
+  "originalCommitMessage": "fix(core): include received value type in invalid-module error",
+  "createdAt": "2026-09-13T15:54:44.744Z"
+}

@@ -1,0 +1,17 @@
+{
+  "taskId": "nestjs-9226a6f",
+  "repository": "nestjs",
+  "repositoryUrl": "https://github.com/nestjs/nest",
+  "baseCommit": "7adf63c0d4d74c4f13eb3a88cdf9197a0271143c",
+  "category": "bug_fix",
+  "difficulty": "easy",
+  "title": "Add Missing ValidateEach for UsePipes",
+  "description": "Task for nestjs: Add Missing ValidateEach for UsePipes",
+  "packageManager": "npm",
+  "testCommand": "npm test -- packages/common/test/decorators/use-pipes.decorator.spec.ts",
+  "targetedTests": [
+    "packages/common/test/decorators/use-pipes.decorator.spec.ts"
+  ],
+  "taskStatus": "ready",
+  "createdAt": "2026-09-13T15:54:44.744Z"
+}

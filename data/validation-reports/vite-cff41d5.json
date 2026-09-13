@@ -1,0 +1,32 @@
+{
+  "repository": "vite",
+  "commitSha": "cff41d5e7209732dc780bca0a3db4b67090df737",
+  "shortSha": "cff41d5",
+  "parentSha": "c85c9eeb9aaf41f477b48b057146887bd5620797",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Dependency installation failed.\nCommand failed: pnpm install --frozen-lockfile\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "playground/resolve/__tests__/sass-node-builtin-clash/resolve-sass-node-builtin-clash.spec.ts"
+  ],
+  "durationMs": 9407,
+  "timestamp": "2026-09-07T15:10:26.177Z",
+  "error": "Dependency installation failed.\nCommand failed: pnpm install --frozen-lockfile\n"
+}

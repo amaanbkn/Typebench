@@ -1,0 +1,30 @@
+{
+  "repository": "type-challenges",
+  "commitSha": "a69ea79a0e981ce83beedf0f00a3fe11e33aef81",
+  "shortSha": "a69ea79",
+  "parentSha": "21fdaa813f1bbd3a06b68847e9fc4cc0bd7714b3",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/type-challenges-1YEe2d'...\ndone.\nfatal: sha1 file '/tmp/typebench-validation/type-challenges-1YEe2d/.git/index.lock' write error: Disk quota exceeded\nwarning: Clone succeeded, but checkout failed.\nYou can inspect what was checked out with 'git status'\nand retry with 'git restore --source=HEAD :/'\n\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [],
+  "durationMs": 26,
+  "timestamp": "2026-09-13T16:10:54.037Z",
+  "error": "Cloning into '/tmp/typebench-validation/type-challenges-1YEe2d'...\ndone.\nfatal: sha1 file '/tmp/typebench-validation/type-challenges-1YEe2d/.git/index.lock' write error: Disk quota exceeded\nwarning: Clone succeeded, but checkout failed.\nYou can inspect what was checked out with 'git status'\nand retry with 'git restore --source=HEAD :/'\n\n"
+}

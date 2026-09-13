@@ -1,0 +1,33 @@
+{
+  "repository": "rxjs",
+  "commitSha": "9a5fb320c29bce2064878aaf9a44ca2f974eec8e",
+  "shortSha": "9a5fb32",
+  "parentSha": "382dc23fa9d5e34ac2d28f6684b4c39a19b9272c",
+  "status": "unvalidated",
+  "validationReason": "Both baseline and historical fix fail the available test suite, so the candidate cannot be established as a valid fix.",
+  "baseline": {
+    "command": "pnpm test -- packages/rxjs/test/types/usage.ts",
+    "exitCode": 2,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "test: ‘--’: unary operator expected\n",
+    "durationMs": 265,
+    "error": "Command failed: pnpm test -- packages/rxjs/test/types/usage.ts\ntest: ‘--’: unary operator expected\n"
+  },
+  "fixed": {
+    "command": "pnpm test -- packages/rxjs/test/types/usage.ts",
+    "exitCode": 2,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "test: ‘--’: unary operator expected\n",
+    "durationMs": 268,
+    "error": "Command failed: pnpm test -- packages/rxjs/test/types/usage.ts\ntest: ‘--’: unary operator expected\n"
+  },
+  "tests": [
+    "packages/rxjs/test/types/usage.ts"
+  ],
+  "durationMs": 21450,
+  "timestamp": "2026-09-13T15:42:48.113Z"
+}

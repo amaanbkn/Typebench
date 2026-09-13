@@ -1,0 +1,32 @@
+{
+  "repository": "angular",
+  "commitSha": "da9f3e2118688fdc0f00b232c707f04d4caac96f",
+  "shortSha": "da9f3e2",
+  "parentSha": "53fc371142bcf3417bc00bb0f1dd9643aa2ee499",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/angular-ia7Ovb'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/angular-ia7Ovb/.git/objects/pack/pack-f15d8aa0a721ef393e68cb5b354844c3a245d43a.pack': Disk quota exceeded\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "packages/compiler/test/render3/r3_template_transform_spec.ts"
+  ],
+  "durationMs": 17,
+  "timestamp": "2026-09-13T16:14:15.492Z",
+  "error": "Cloning into '/tmp/typebench-validation/angular-ia7Ovb'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/angular-ia7Ovb/.git/objects/pack/pack-f15d8aa0a721ef393e68cb5b354844c3a245d43a.pack': Disk quota exceeded\n"
+}

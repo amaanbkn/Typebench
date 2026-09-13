@@ -1,0 +1,33 @@
+{
+  "repository": "prisma",
+  "commitSha": "43957c6efac25a9501d861c88a2dce311b478cba",
+  "shortSha": "43957c6",
+  "parentSha": "df73f0001a97da2afe103c722b0a20ecd75de211",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/prisma-tPNy0i'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/prisma-tPNy0i/.git/objects/pack/pack-325f36aacfa8b9babf59bfaf9812ab1e0f921f3b.pack': Disk quota exceeded\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "packages/1-framework/3-tooling/emitter/test/assert-single-domain-namespace-for-emission.test.ts",
+    "packages/1-framework/3-tooling/emitter/test/emitter.test.ts"
+  ],
+  "durationMs": 56,
+  "timestamp": "2026-09-13T16:03:30.393Z",
+  "error": "Cloning into '/tmp/typebench-validation/prisma-tPNy0i'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/prisma-tPNy0i/.git/objects/pack/pack-325f36aacfa8b9babf59bfaf9812ab1e0f921f3b.pack': Disk quota exceeded\n"
+}

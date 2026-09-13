@@ -1,0 +1,32 @@
+{
+  "repository": "vue",
+  "commitSha": "4eb46e443f1878199755cb73d481d318a9714392",
+  "shortSha": "4eb46e4",
+  "parentSha": "10ebcef8c870dbc042b0ea49b1424b2e8f692145",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/vue-7eBxdh'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/vue-7eBxdh/.git/objects/pack/pack-430ee9dc432ccb4265f474e344a973dcc77055a3.pack': Disk quota exceeded\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "packages/compiler-sfc/__tests__/compileScript/resolveType.spec.ts"
+  ],
+  "durationMs": 19,
+  "timestamp": "2026-09-13T16:11:16.975Z",
+  "error": "Cloning into '/tmp/typebench-validation/vue-7eBxdh'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/vue-7eBxdh/.git/objects/pack/pack-430ee9dc432ccb4265f474e344a973dcc77055a3.pack': Disk quota exceeded\n"
+}

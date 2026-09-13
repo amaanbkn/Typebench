@@ -1,0 +1,30 @@
+{
+  "repository": "type-challenges",
+  "commitSha": "caccc068db5b88a563c8feff32688c8857b79f76",
+  "shortSha": "caccc06",
+  "parentSha": "8ef518131d563b7edabad2974840c4b7234eb033",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Dependency installation failed.\nCommand failed: pnpm install --frozen-lockfile\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [],
+  "durationMs": 70720,
+  "timestamp": "2026-09-13T16:07:11.149Z",
+  "error": "Dependency installation failed.\nCommand failed: pnpm install --frozen-lockfile\n"
+}

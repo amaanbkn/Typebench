@@ -1,0 +1,42 @@
+{
+  "taskId": "rxjs-b7a4e94",
+  "repository": "rxjs",
+  "repositoryUrl": "https://github.com/rxjs/rxjs",
+  "commitSha": "b7a4e9493d3242a2b07195c134efa2215a0cbb9f",
+  "parentSha": "458cbe957a892e2e14b92553b49c4f7e4e41fb7e",
+  "category": "bug_fix",
+  "difficulty": "medium",
+  "title": "Properly Handle Default ThrottleConfig Values",
+  "description": "Task for rxjs: Properly Handle Default ThrottleConfig Values",
+  "changedFiles": [
+    "spec/operators/throttle-spec.ts",
+    "spec/operators/throttleTime-spec.ts",
+    "src/internal/operators/throttle.ts",
+    "src/internal/operators/throttleTime.ts"
+  ],
+  "sourceFiles": [
+    "src/internal/operators/throttle.ts",
+    "src/internal/operators/throttleTime.ts"
+  ],
+  "testFiles": [
+    "spec/operators/throttle-spec.ts",
+    "spec/operators/throttleTime-spec.ts"
+  ],
+  "validationStatus": "validated-no-regression-test",
+  "validationReason": "Both baseline and historical fix pass the available test suite; no reproducible regression failure was observed.",
+  "taskStatus": "ready",
+  "candidateScore": 12,
+  "signals": {
+    "positive": [
+      "fix-keyword",
+      "feature-keyword",
+      "tests-modified (2 files)",
+      "source-modified (2 files)",
+      "co-located-source-and-test",
+      "focused-atomic-scope"
+    ],
+    "negative": []
+  },
+  "originalCommitMessage": "fix(throttle): properly handle default ThrottleConfig values (#7176)",
+  "createdAt": "2026-09-13T15:48:41.396Z"
+}

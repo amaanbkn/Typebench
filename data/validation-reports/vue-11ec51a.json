@@ -1,0 +1,33 @@
+{
+  "repository": "vue",
+  "commitSha": "11ec51aa5a7914745fee10ed2b9f9464fab4d02c",
+  "shortSha": "11ec51a",
+  "parentSha": "5cf0097f333ae6230cf30052361e88b8637d2b02",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/vue-WCINqR'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/vue-WCINqR/.git/objects/pack/pack-430ee9dc432ccb4265f474e344a973dcc77055a3.pack': Disk quota exceeded\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "packages/compiler-core/__tests__/transforms/__snapshots__/transformExpressions.spec.ts.snap",
+    "packages/compiler-core/__tests__/transforms/transformExpressions.spec.ts"
+  ],
+  "durationMs": 15,
+  "timestamp": "2026-09-13T16:11:16.840Z",
+  "error": "Cloning into '/tmp/typebench-validation/vue-WCINqR'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/vue-WCINqR/.git/objects/pack/pack-430ee9dc432ccb4265f474e344a973dcc77055a3.pack': Disk quota exceeded\n"
+}

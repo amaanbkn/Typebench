@@ -1,0 +1,33 @@
+{
+  "repository": "rxjs",
+  "commitSha": "c66657469dc17fbed992e273d7d121e51c00d671",
+  "shortSha": "c666574",
+  "parentSha": "83ffab1c4852af5072257fcaa07df3cacb8273e2",
+  "status": "unvalidated",
+  "validationReason": "Both baseline and historical fix fail the available test suite, so the candidate cannot be established as a valid fix.",
+  "baseline": {
+    "command": "yarn test packages/rxjs/spec/operators/every-spec.ts",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "yarn run v1.22.22\ninfo Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\n",
+    "stderr": "error Command \"test\" not found.\n",
+    "durationMs": 124,
+    "error": "Command failed: yarn test packages/rxjs/spec/operators/every-spec.ts\nerror Command \"test\" not found.\n"
+  },
+  "fixed": {
+    "command": "yarn test packages/rxjs/spec/operators/every-spec.ts",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "yarn run v1.22.22\ninfo Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\n",
+    "stderr": "error Command \"test\" not found.\n",
+    "durationMs": 124,
+    "error": "Command failed: yarn test packages/rxjs/spec/operators/every-spec.ts\nerror Command \"test\" not found.\n"
+  },
+  "tests": [
+    "packages/rxjs/spec/operators/every-spec.ts"
+  ],
+  "durationMs": 77386,
+  "timestamp": "2026-09-13T15:44:13.656Z"
+}

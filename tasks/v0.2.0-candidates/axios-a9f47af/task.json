@@ -1,0 +1,17 @@
+{
+  "taskId": "axios-a9f47af",
+  "repository": "axios",
+  "repositoryUrl": "https://github.com/axios/axios",
+  "baseCommit": "066b39195a677c95794849236b2f98c7f9e9ff0e",
+  "category": "type_fix",
+  "difficulty": "medium",
+  "title": "Set Correct Content-Type for Node FormData",
+  "description": "Task for axios: Set Correct Content-Type for Node FormData",
+  "packageManager": "npm",
+  "testCommand": "npm test -- test/unit/adapters/fetch.js",
+  "targetedTests": [
+    "test/unit/adapters/fetch.js"
+  ],
+  "taskStatus": "ready",
+  "createdAt": "2026-09-13T15:41:59.703Z"
+}

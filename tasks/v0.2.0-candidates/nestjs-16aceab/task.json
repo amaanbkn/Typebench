@@ -1,0 +1,17 @@
+{
+  "taskId": "nestjs-16aceab",
+  "repository": "nestjs",
+  "repositoryUrl": "https://github.com/nestjs/nest",
+  "baseCommit": "82ded5dce432d8ebd90b9b6462c00f07d70566c1",
+  "category": "type_fix",
+  "difficulty": "hard",
+  "title": "Include Received Value Type in Invalid-module Error",
+  "description": "Task for nestjs: Include Received Value Type in Invalid-module Error",
+  "packageManager": "npm",
+  "testCommand": "npm test -- packages/core/test/errors/test/messages.spec.ts",
+  "targetedTests": [
+    "packages/core/test/errors/test/messages.spec.ts"
+  ],
+  "taskStatus": "ready",
+  "createdAt": "2026-09-13T15:54:44.744Z"
+}

@@ -1,0 +1,32 @@
+{
+  "repository": "prisma",
+  "commitSha": "12bee1ba31e353b52596d4f7a40412a564afd32f",
+  "shortSha": "12bee1b",
+  "parentSha": "f79fe915751c584e167101fb5c1d9abb3c01939f",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/prisma-WbSEur'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/prisma-WbSEur/.git/objects/pack/pack-325f36aacfa8b9babf59bfaf9812ab1e0f921f3b.pack': Disk quota exceeded\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "packages/3-targets/6-adapters/postgres/test/ddl-create-table-lowering.test.ts"
+  ],
+  "durationMs": 59,
+  "timestamp": "2026-09-13T16:03:30.055Z",
+  "error": "Cloning into '/tmp/typebench-validation/prisma-WbSEur'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/prisma-WbSEur/.git/objects/pack/pack-325f36aacfa8b9babf59bfaf9812ab1e0f921f3b.pack': Disk quota exceeded\n"
+}

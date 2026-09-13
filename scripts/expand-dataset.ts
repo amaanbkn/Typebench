@@ -52,6 +52,10 @@ interface RepositoryConfig {
  * Expansion repositories.
  *
  * These repositories are independent from the frozen v0.1.0 dataset.
+ *
+ * We intentionally use more repositories than the minimum validator
+ * requirement so that repositories with poor validation yield do not
+ * prevent the overall dataset from reaching the target.
  */
 const TARGET_REPOS: RepositoryConfig[] = [
   {
@@ -94,13 +98,23 @@ const TARGET_REPOS: RepositoryConfig[] = [
     url: 'https://github.com/vuejs/core.git',
     category: 'frontend-framework',
   },
+  {
+    name: 'angular',
+    url: 'https://github.com/angular/angular.git',
+    category: 'frontend-framework',
+  },
+  {
+    name: 'eslint',
+    url: 'https://github.com/eslint/eslint.git',
+    category: 'linting',
+  },
 ];
 
 /**
  * Dataset target.
  *
- * This is a target rather than a guarantee. Only genuinely validated
- * candidates are allowed into the dataset.
+ * This is a target rather than a guarantee.
+ * Only genuinely validated candidates are allowed into the dataset.
  */
 const TARGET_TASKS = 60;
 
@@ -114,15 +128,18 @@ const TARGET_TASKS = 60;
  *   - baseline test execution
  *   - fixed test execution
  *
- * Therefore this intentionally remains conservative.
+ * We keep this bounded to avoid uncontrolled validation cost.
  */
-const MAX_CANDIDATES_PER_REPO = 8;
+const MAX_CANDIDATES_PER_REPO = 12;
 
 /**
  * Minimum number of validated tasks we would like to obtain
  * from each repository.
+ *
+ * Six tasks per successful repository gives us enough capacity
+ * to reach the 60-task target across ten repositories.
  */
-const MIN_TASKS_PER_REPO = 3;
+const MIN_TASKS_PER_REPO = 6;
 
 /**
  * Maximum time allowed for one candidate validation.
@@ -579,15 +596,15 @@ function sortValidationPreference(
 /**
  * Balance the final expansion dataset.
  *
- * Maximum of 5 tasks per repository/category.
+ * We allow up to six tasks per repository/category.
+ *
+ * This is intentionally higher than the old five-task limit because
+ * the release target is 60 tasks across ten repositories.
  */
 function balanceDataset(
   tasks: ExpansionTask[],
 ): ExpansionTask[] {
-  const counts = new Map<
-    string,
-    number
-  >();
+  const counts = new Map<string, number>();
 
   const selected: ExpansionTask[] = [];
 
@@ -662,7 +679,10 @@ function balanceDataset(
     const count =
       counts.get(key) || 0;
 
-    if (count >= 5) {
+    /**
+     * Allow six tasks for the same repository/category.
+     */
+    if (count >= 6) {
       continue;
     }
 
@@ -755,7 +775,8 @@ async function processRepository(
     console.log(
       chalk.gray(
         `    [${index + 1}/${candidatesToValidate}] ` +
-          `${candidate.shortSha} — ${candidate.category}`,
+          `${candidate.shortSha} — ${candidate.category} ` +
+          `(score ${candidate.score})`,
       ),
     );
 
@@ -816,12 +837,10 @@ async function processRepository(
       }
 
       /**
-       * If we already have enough validated
-       * candidates for this repository, stop.
+       * Stop only after reaching the repository target.
        *
-       * This prevents spending time on weaker
-       * candidates once the repository has enough
-       * usable tasks.
+       * Unlike the previous implementation, we do not stop after
+       * the first three accepted candidates.
        */
       if (
         validationResults.length >=
@@ -1166,6 +1185,22 @@ async function main(): Promise<void> {
         unvalidated: 0,
         invalid: 0,
       });
+    }
+
+    /**
+     * Once the raw validated task pool has reached the target,
+     * there is no reason to process additional repositories.
+     *
+     * We still need balanceDataset() to perform the final selection.
+     */
+    if (allTasks.length >= TARGET_TASKS) {
+      console.log(
+        chalk.green(
+          `\nTarget of ${TARGET_TASKS} validated tasks reached.`,
+        ),
+      );
+
+      break;
     }
   }
 

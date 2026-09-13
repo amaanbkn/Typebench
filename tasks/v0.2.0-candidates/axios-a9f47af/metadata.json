@@ -1,0 +1,38 @@
+{
+  "taskId": "axios-a9f47af",
+  "repository": "axios",
+  "repositoryUrl": "https://github.com/axios/axios",
+  "commitSha": "a9f47afbf3224d2ca987dbd8188789c7ea853c5d",
+  "parentSha": "066b39195a677c95794849236b2f98c7f9e9ff0e",
+  "category": "type_fix",
+  "difficulty": "medium",
+  "title": "Set Correct Content-Type for Node FormData",
+  "description": "Task for axios: Set Correct Content-Type for Node FormData",
+  "changedFiles": [
+    "lib/helpers/resolveConfig.js",
+    "test/unit/adapters/fetch.js"
+  ],
+  "sourceFiles": [
+    "lib/helpers/resolveConfig.js"
+  ],
+  "testFiles": [
+    "test/unit/adapters/fetch.js"
+  ],
+  "validationStatus": "validated-no-regression-test",
+  "validationReason": "Both baseline and historical fix pass the available test suite; no reproducible regression failure was observed.",
+  "taskStatus": "ready",
+  "candidateScore": 13,
+  "signals": {
+    "positive": [
+      "fix-keyword",
+      "typescript-type-signal",
+      "tests-modified (1 files)",
+      "source-modified (1 files)",
+      "co-located-source-and-test",
+      "focused-atomic-scope"
+    ],
+    "negative": []
+  },
+  "originalCommitMessage": "fix(fetch-adapter): set correct Content-Type for Node FormData (#6998)",
+  "createdAt": "2026-09-13T15:41:59.703Z"
+}

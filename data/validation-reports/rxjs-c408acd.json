@@ -1,0 +1,33 @@
+{
+  "repository": "rxjs",
+  "commitSha": "c408acda16d654682596822c118c31a814dae5c9",
+  "shortSha": "c408acd",
+  "parentSha": "27075b6644ec52ac2f9bc1631944e7393187e6e9",
+  "status": "unvalidated",
+  "validationReason": "Both baseline and historical fix fail the available test suite, so the candidate cannot be established as a valid fix.",
+  "baseline": {
+    "command": "yarn test packages/rxjs/spec/observables/dom/webSocket-spec.ts",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "yarn run v1.22.22\ninfo Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\n",
+    "stderr": "error Command \"test\" not found.\n",
+    "durationMs": 121,
+    "error": "Command failed: yarn test packages/rxjs/spec/observables/dom/webSocket-spec.ts\nerror Command \"test\" not found.\n"
+  },
+  "fixed": {
+    "command": "yarn test packages/rxjs/spec/observables/dom/webSocket-spec.ts",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "yarn run v1.22.22\ninfo Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\n",
+    "stderr": "error Command \"test\" not found.\n",
+    "durationMs": 119,
+    "error": "Command failed: yarn test packages/rxjs/spec/observables/dom/webSocket-spec.ts\nerror Command \"test\" not found.\n"
+  },
+  "tests": [
+    "packages/rxjs/spec/observables/dom/webSocket-spec.ts"
+  ],
+  "durationMs": 75674,
+  "timestamp": "2026-09-13T15:46:46.749Z"
+}

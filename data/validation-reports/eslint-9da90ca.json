@@ -1,0 +1,32 @@
+{
+  "repository": "eslint",
+  "commitSha": "9da90ca3c163adb23a9cc52421f59dedfce34fc9",
+  "shortSha": "9da90ca",
+  "parentSha": "7bc6c71ca350fa37531291e1d704be6ed408c5dc",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/eslint-Bg2UkN'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/eslint-Bg2UkN/.git/objects/pack/pack-61ade053c31e6c8fc1ba0f00c6fc9acc11e2ef70.pack': Disk quota exceeded\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "tests/lib/types/types.test.ts"
+  ],
+  "durationMs": 11,
+  "timestamp": "2026-09-13T16:14:42.542Z",
+  "error": "Cloning into '/tmp/typebench-validation/eslint-Bg2UkN'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/eslint-Bg2UkN/.git/objects/pack/pack-61ade053c31e6c8fc1ba0f00c6fc9acc11e2ef70.pack': Disk quota exceeded\n"
+}

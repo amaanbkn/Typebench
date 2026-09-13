@@ -1,0 +1,39 @@
+{
+  "repository": "prisma",
+  "commitSha": "50f628b7205f62ad9fbb815ec9d84216906a85a0",
+  "shortSha": "50f628b",
+  "parentSha": "6ee1f296181cecfca6ae0924fd13bef4fec0cdf8",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/prisma-WGK1Dq'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/prisma-WGK1Dq/.git/objects/pack/pack-325f36aacfa8b9babf59bfaf9812ab1e0f921f3b.pack': Disk quota exceeded\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "packages/2-sql/9-family/test/psl-contract-infer/postgres-type-map.test.ts",
+    "packages/2-sql/9-family/test/psl-contract-infer/print-psl/print-psl.defaults-and-types.test.ts",
+    "packages/2-sql/9-family/test/psl-contract-infer/print-psl/print-psl.enums.test.ts",
+    "packages/2-sql/9-family/test/psl-contract-infer/print-psl/print-psl.naming-and-constraints.test.ts",
+    "packages/2-sql/9-family/test/psl-contract-infer/sql-schema-ir-to-psl-ast.test.ts",
+    "packages/3-targets/3-targets/postgres/test/migrations/enum-collision.test.ts",
+    "packages/3-targets/6-adapters/postgres/test/control-adapter.test.ts",
+    "test/integration/test/cross-package/postgres-issue-planner.test.ts"
+  ],
+  "durationMs": 58,
+  "timestamp": "2026-09-13T16:03:30.223Z",
+  "error": "Cloning into '/tmp/typebench-validation/prisma-WGK1Dq'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/prisma-WGK1Dq/.git/objects/pack/pack-325f36aacfa8b9babf59bfaf9812ab1e0f921f3b.pack': Disk quota exceeded\n"
+}

@@ -1,0 +1,32 @@
+{
+  "repository": "vite",
+  "commitSha": "cccef55dfaa6253929d2cb58d3af53f217efc877",
+  "shortSha": "cccef55",
+  "parentSha": "330e98211d7c3d9153d24f7850981d2f1b01a0f3",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Dependency installation failed.\nCommand failed: pnpm install --frozen-lockfile\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "packages/vite/src/shared/__tests__/utils.spec.ts"
+  ],
+  "durationMs": 16050,
+  "timestamp": "2026-09-13T15:55:28.107Z",
+  "error": "Dependency installation failed.\nCommand failed: pnpm install --frozen-lockfile\n"
+}

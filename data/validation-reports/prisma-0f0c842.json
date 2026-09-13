@@ -1,0 +1,32 @@
+{
+  "repository": "prisma",
+  "commitSha": "0f0c84248467f5d579baa5b314cbf9488d646a81",
+  "shortSha": "0f0c842",
+  "parentSha": "63b3833b3464db6bb3807836c84a54f546cf931d",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/prisma-o6GXik'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/prisma-o6GXik/.git/objects/pack/pack-325f36aacfa8b9babf59bfaf9812ab1e0f921f3b.pack': Disk quota exceeded\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "packages/3-targets/3-targets/postgres/test/psl-infer/infer-psl-contract.enum-adoption.test.ts"
+  ],
+  "durationMs": 52,
+  "timestamp": "2026-09-13T16:03:30.108Z",
+  "error": "Cloning into '/tmp/typebench-validation/prisma-o6GXik'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/prisma-o6GXik/.git/objects/pack/pack-325f36aacfa8b9babf59bfaf9812ab1e0f921f3b.pack': Disk quota exceeded\n"
+}

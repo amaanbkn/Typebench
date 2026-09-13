@@ -1,0 +1,38 @@
+{
+  "taskId": "nestjs-9226a6f",
+  "repository": "nestjs",
+  "repositoryUrl": "https://github.com/nestjs/nest",
+  "commitSha": "9226a6f6134741976144b967585967f3823f755a",
+  "parentSha": "7adf63c0d4d74c4f13eb3a88cdf9197a0271143c",
+  "category": "bug_fix",
+  "difficulty": "easy",
+  "title": "Add Missing ValidateEach for UsePipes",
+  "description": "Task for nestjs: Add Missing ValidateEach for UsePipes",
+  "changedFiles": [
+    "packages/common/decorators/core/use-pipes.decorator.ts",
+    "packages/common/test/decorators/use-pipes.decorator.spec.ts"
+  ],
+  "sourceFiles": [
+    "packages/common/decorators/core/use-pipes.decorator.ts"
+  ],
+  "testFiles": [
+    "packages/common/test/decorators/use-pipes.decorator.spec.ts"
+  ],
+  "validationStatus": "validated-no-regression-test",
+  "validationReason": "Both baseline and historical fix pass the available test suite; no reproducible regression failure was observed.",
+  "taskStatus": "ready",
+  "candidateScore": 12,
+  "signals": {
+    "positive": [
+      "fix-keyword",
+      "feature-keyword",
+      "tests-modified (1 files)",
+      "source-modified (1 files)",
+      "co-located-source-and-test",
+      "focused-atomic-scope"
+    ],
+    "negative": []
+  },
+  "originalCommitMessage": "fix: Add missing validateEach for UsePipes",
+  "createdAt": "2026-09-13T15:54:44.744Z"
+}

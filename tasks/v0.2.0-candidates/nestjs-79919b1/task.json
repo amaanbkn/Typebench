@@ -1,0 +1,17 @@
+{
+  "taskId": "nestjs-79919b1",
+  "repository": "nestjs",
+  "repositoryUrl": "https://github.com/nestjs/nest",
+  "baseCommit": "067a07116af7373f092f62eaf2d4d21deb89e084",
+  "category": "type_fix",
+  "difficulty": "hard",
+  "title": "Identify Decorator Type in Invalid-class-module Error",
+  "description": "Task for nestjs: Identify Decorator Type in Invalid-class-module Error",
+  "packageManager": "npm",
+  "testCommand": "npm test -- packages/core/test/errors/test/messages.spec.ts",
+  "targetedTests": [
+    "packages/core/test/errors/test/messages.spec.ts"
+  ],
+  "taskStatus": "ready",
+  "createdAt": "2026-09-13T15:54:44.744Z"
+}

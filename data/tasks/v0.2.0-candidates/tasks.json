@@ -1,1232 +1,194 @@
 [
   {
-    "id": "axios-typefix-0",
+    "id": "axios-a9f47af",
     "version": "0.2.0",
     "repository": {
       "name": "axios",
       "url": "https://github.com/axios/axios.git",
       "category": "http-client"
     },
-    "baseCommit": "5945e40bb171d4ac4fc195df276cf952244f0f89",
-    "hiddenFixCommit": "d8233d9e8e9a64bfba9bbe01d475ba417510b82b",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(types): restore AxiosError.cause type from unknown to Error (#7327)\n\nFiles affected: index.d.cts, index.d.ts, test/module/typings/esm/index.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
+    "baseCommit": "066b39195a677c95794849236b2f98c7f9e9ff0e",
+    "hiddenFixCommit": "a9f47afbf3224d2ca987dbd8188789c7ea853c5d",
+    "prompt": "# Task: Set Correct Content-Type for Node FormData\n\n## Problem Overview\nAn issue has been identified in **axios** affecting lib. The current codebase exhibits unexpected behavior or lacks full support for this feature under specific TypeScript configurations and usage patterns.\n\n## Problem Description\nWhen interacting with the affected module(s), the expected behavior or type resolution is not properly maintained. You are tasked with resolving this type fix in the codebase.\n\n## Expected Behavior\n1. Ensure all relevant typings and runtime implementations satisfy the intended capability: **Set Correct Content-Type for Node FormData**.\n2. Preserve correct TypeScript type inference without introducing `any` casts or regressions.\n3. Maintain full backwards compatibility across related APIs.\n\n## Scope & Constraints\n- Do not alter public package configurations or remove existing exports unless required.\n- Keep your modifications focused strictly on the relevant source files and logic.\n- All TypeScript type checks (`tsc --noEmit` or equivalent) must pass cleanly.\n\n## Verification\nYou can verify your solution using the repository's test runner:\n```bash\nnpm test -- test/unit/adapters/fetch.js\n```\n\nRelevant test suites:\n- `test/unit/adapters/fetch.js`\n",
+    "testCommand": "npm test -- test/unit/adapters/fetch.js",
+    "typecheckCommand": "npx tsc --noEmit",
     "metadata": {
-      "category": "typefix",
+      "category": "type_fix",
       "difficulty": "medium",
       "filesChanged": [
-        "index.d.cts",
-        "index.d.ts",
-        "test/module/typings/esm/index.ts"
+        "lib/helpers/resolveConfig.js",
+        "test/unit/adapters/fetch.js"
       ],
-      "linesChanged": 13
+      "linesChanged": 90,
+      "validationStatus": "validated-no-regression-test",
+      "validationReason": "Both baseline and historical fix pass the available test suite; no reproducible regression failure was observed."
     },
     "validation": {
-      "hiddenTests": [],
+      "hiddenTests": [
+        "test/unit/adapters/fetch.js"
+      ],
       "expectedPatch": ""
     }
   },
   {
-    "id": "axios-typefix-1",
+    "id": "rxjs-b7a4e94",
     "version": "0.2.0",
     "repository": {
-      "name": "axios",
-      "url": "https://github.com/axios/axios.git",
-      "category": "http-client"
+      "name": "rxjs",
+      "url": "https://github.com/ReactiveX/rxjs.git",
+      "category": "reactive"
     },
-    "baseCommit": "7d551393c384e58058e04ae954c4cfd929afcd64",
-    "hiddenFixCommit": "eb0a2db04beda089e6bdcb2820f193ed2faecbc3",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: chore: fix typos in test (#6923)\n\nFiles affected: test/module/typings/esm/index.ts, test/specs/defaults.spec.js\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
+    "baseCommit": "458cbe957a892e2e14b92553b49c4f7e4e41fb7e",
+    "hiddenFixCommit": "b7a4e9493d3242a2b07195c134efa2215a0cbb9f",
+    "prompt": "# Task: Properly Handle Default ThrottleConfig Values\n\n## Problem Overview\nAn issue has been identified in **rxjs** affecting src. The current codebase exhibits unexpected behavior or lacks full support for this feature under specific TypeScript configurations and usage patterns.\n\n## Problem Description\nWhen interacting with the affected module(s), the expected behavior or type resolution is not properly maintained. You are tasked with resolving this bug fix in the codebase.\n\n## Expected Behavior\n1. Ensure all relevant typings and runtime implementations satisfy the intended capability: **Properly Handle Default ThrottleConfig Values**.\n2. Preserve correct TypeScript type inference without introducing `any` casts or regressions.\n3. Maintain full backwards compatibility across related APIs.\n\n## Scope & Constraints\n- Do not alter public package configurations or remove existing exports unless required.\n- Keep your modifications focused strictly on the relevant source files and logic.\n- All TypeScript type checks (`tsc --noEmit` or equivalent) must pass cleanly.\n\n## Verification\nYou can verify your solution using the repository's test runner:\n```bash\npnpm test -- spec/operators/throttle-spec.ts spec/operators/throttleTime-spec.ts\n```\n\nRelevant test suites:\n- `spec/operators/throttle-spec.ts`\n- `spec/operators/throttleTime-spec.ts`\n",
+    "testCommand": "pnpm test -- spec/operators/throttle-spec.ts spec/operators/throttleTime-spec.ts",
+    "typecheckCommand": "npx tsc --noEmit",
     "metadata": {
-      "category": "typefix",
-      "difficulty": "easy",
-      "filesChanged": [
-        "test/module/typings/esm/index.ts",
-        "test/specs/defaults.spec.js"
-      ],
-      "linesChanged": 4
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "axios-bugfix-2",
-    "version": "0.2.0",
-    "repository": {
-      "name": "axios",
-      "url": "https://github.com/axios/axios.git",
-      "category": "http-client"
-    },
-    "baseCommit": "25387ae1cedb93b385029e759cac9a22b71ec498",
-    "hiddenFixCommit": "bef4868caf27a1076d4ce87b4995ddbf0ac49f20",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(index): add create to index exports (#6460)\n\nFiles affected: index.d.ts, index.js, tests/unit/api.test.js\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
+      "category": "bug_fix",
       "difficulty": "medium",
       "filesChanged": [
-        "index.d.ts",
-        "index.js",
-        "tests/unit/api.test.js"
+        "spec/operators/throttle-spec.ts",
+        "spec/operators/throttleTime-spec.ts",
+        "src/internal/operators/throttle.ts",
+        "src/internal/operators/throttleTime.ts"
       ],
-      "linesChanged": 11
+      "linesChanged": 101,
+      "validationStatus": "validated-no-regression-test",
+      "validationReason": "Both baseline and historical fix pass the available test suite; no reproducible regression failure was observed."
     },
     "validation": {
-      "hiddenTests": [],
+      "hiddenTests": [
+        "spec/operators/throttle-spec.ts",
+        "spec/operators/throttleTime-spec.ts"
+      ],
       "expectedPatch": ""
     }
   },
   {
-    "id": "axios-typefix-3",
-    "version": "0.2.0",
-    "repository": {
-      "name": "axios",
-      "url": "https://github.com/axios/axios.git",
-      "category": "http-client"
-    },
-    "baseCommit": "f8694341deaabd2e81059543fe03f9c791656903",
-    "hiddenFixCommit": "8d1271b49fc226ed7defd07cd577bd69a55bb13a",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(types): add handlers to AxiosInterceptorManager interface (#5551)\n\nFiles affected: index.d.cts, index.d.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "index.d.cts",
-        "index.d.ts"
-      ],
-      "linesChanged": 44
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "axios-typefix-4",
-    "version": "0.2.0",
-    "repository": {
-      "name": "axios",
-      "url": "https://github.com/axios/axios.git",
-      "category": "http-client"
-    },
-    "baseCommit": "5a079ca39460fbbfa7c63d1081d6b116d18ac3ab",
-    "hiddenFixCommit": "0dbb7fd4f61dc568498cd13a681fa7f907d6ec7e",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(types): change the type guard on isCancel (#5595)\n\nFiles affected: index.d.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
-      "difficulty": "easy",
-      "filesChanged": [
-        "index.d.ts"
-      ],
-      "linesChanged": 3
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "axios-bugfix-5",
-    "version": "0.2.0",
-    "repository": {
-      "name": "axios",
-      "url": "https://github.com/axios/axios.git",
-      "category": "http-client"
-    },
-    "baseCommit": "d9b941c3027f815e1ec9727c739699d4776b323f",
-    "hiddenFixCommit": "2344aab6090c17c7d9ff8719c435a15abf2be2bb",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(fetch): preserve abort reasons in fetch adapter (#10806)\n\nFiles affected: lib/adapters/fetch.js, tests/smoke/bun/tests/timeout.smoke.test.ts, tests/unit/adapters/fetch.test.js\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "hard",
-      "filesChanged": [
-        "lib/adapters/fetch.js",
-        "tests/smoke/bun/tests/timeout.smoke.test.ts",
-        "tests/unit/adapters/fetch.test.js"
-      ],
-      "linesChanged": 134
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "axios-typefix-6",
-    "version": "0.2.0",
-    "repository": {
-      "name": "axios",
-      "url": "https://github.com/axios/axios.git",
-      "category": "http-client"
-    },
-    "baseCommit": "a88f748cc957eeb45a982236190d89cf07a8a230",
-    "hiddenFixCommit": "80324886b1f528a9ec25b0e13e2eba4f75fa817a",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(types): export RawAxiosHeaders to fix TS2742 in consumers (#6389)\n\nFiles affected: index.d.cts, index.d.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "index.d.cts",
-        "index.d.ts"
-      ],
-      "linesChanged": 22
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "axios-feature-7",
-    "version": "0.2.0",
-    "repository": {
-      "name": "axios",
-      "url": "https://github.com/axios/axios.git",
-      "category": "http-client"
-    },
-    "baseCommit": "7960d34eded2de66ffd30b4687f8da0e46c4903e",
-    "hiddenFixCommit": "2a9763426e43d996fd60d01afe63fa6e1f5b4fca",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: feat: support reviver on JSON.parse (#5926)\n\nFiles affected: index.d.ts, lib/defaults/index.js, test/unit/adapters/http.js\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "feature",
-      "difficulty": "medium",
-      "filesChanged": [
-        "index.d.ts",
-        "lib/defaults/index.js",
-        "test/unit/adapters/http.js"
-      ],
-      "linesChanged": 21
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "axios-feature-9",
-    "version": "0.2.0",
-    "repository": {
-      "name": "axios",
-      "url": "https://github.com/axios/axios.git",
-      "category": "http-client"
-    },
-    "baseCommit": "1ac4aeb77ac1b33b29c885aa1bea93d5a05e7bfd",
-    "hiddenFixCommit": "39955a6ebed53217a524a3c8c7e5568fc0faa4bd",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: feat(HttpStatusCode): add RFC 9110 aliases for 413 and 422 (#11082)\n\nFiles affected: PRE_RELEASE_CHANGELOG.md, PRE_RELEASE_DOCS.md, index.d.cts, index.d.ts, lib/helpers/HttpStatusCode.js, tests/module/cjs/tests/helpers/cjs-added-types.ts, tests/module/esm/tests/helpers/esm-added-types.ts, tests/unit/helpers/HttpStatusCode.test.js\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "feature",
-      "difficulty": "hard",
-      "filesChanged": [
-        "PRE_RELEASE_CHANGELOG.md",
-        "PRE_RELEASE_DOCS.md",
-        "index.d.cts",
-        "index.d.ts",
-        "lib/helpers/HttpStatusCode.js",
-        "tests/module/cjs/tests/helpers/cjs-added-types.ts",
-        "tests/module/esm/tests/helpers/esm-added-types.ts",
-        "tests/unit/helpers/HttpStatusCode.test.js"
-      ],
-      "linesChanged": 48
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "axios-feature-10",
-    "version": "0.2.0",
-    "repository": {
-      "name": "axios",
-      "url": "https://github.com/axios/axios.git",
-      "category": "http-client"
-    },
-    "baseCommit": "caa3497913b731fbae957e6e88edd82da7930111",
-    "hiddenFixCommit": "25387ae1cedb93b385029e759cac9a22b71ec498",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: chore: added clarifying docs for the type change (#10804)\n\nFiles affected: index.d.cts, index.d.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "feature",
-      "difficulty": "medium",
-      "filesChanged": [
-        "index.d.cts",
-        "index.d.ts"
-      ],
-      "linesChanged": 50
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "axios-feature-12",
-    "version": "0.2.0",
-    "repository": {
-      "name": "axios",
-      "url": "https://github.com/axios/axios.git",
-      "category": "http-client"
-    },
-    "baseCommit": "d5b76d4af72cefe24ff3973de0ada6683a362041",
-    "hiddenFixCommit": "f73474d02c5aa957b2daeecee65508557fd3c6e5",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: feat(types): Intellisense for string literals in a widened union (#6134)\n\nFiles affected: index.d.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "feature",
-      "difficulty": "easy",
-      "filesChanged": [
-        "index.d.ts"
-      ],
-      "linesChanged": 8
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "axios-test-14",
-    "version": "0.2.0",
-    "repository": {
-      "name": "axios",
-      "url": "https://github.com/axios/axios.git",
-      "category": "http-client"
-    },
-    "baseCommit": "eb0a2db04beda089e6bdcb2820f193ed2faecbc3",
-    "hiddenFixCommit": "ee7799e13c0783c0fdfa656613bb1af6f5e53ccd",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: refactor: remove unused import in test (#6922)\n\nFiles affected: test/module/typings/esm/index.ts, test/specs/defaults.spec.js, test/specs/headers.spec.js\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "test",
-      "difficulty": "medium",
-      "filesChanged": [
-        "test/module/typings/esm/index.ts",
-        "test/specs/defaults.spec.js",
-        "test/specs/headers.spec.js"
-      ],
-      "linesChanged": 4
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "nestjs-bugfix-0",
+    "id": "nestjs-33515ed",
     "version": "0.2.0",
     "repository": {
       "name": "nestjs",
       "url": "https://github.com/nestjs/nest.git",
       "category": "backend-framework"
     },
-    "baseCommit": "19ad8bf452bbbe159caa990d6344f8122eb607eb",
-    "hiddenFixCommit": "86a7f16388eb71cd63a9e54d1e9f343a0927c7f1",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(core): throw `UndefinedDependencyException` for nil inject entries\n\nFiles affected: packages/core/injector/injector.ts, packages/core/test/injector/injector.spec.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
+    "baseCommit": "7adf63c0d4d74c4f13eb3a88cdf9197a0271143c",
+    "hiddenFixCommit": "33515ed0576ed47bf7c9fe1cba85cf5b9bfe52de",
+    "prompt": "# Task: Improve Missing Buffer Error Message in File Type Validator\n\n## Problem Overview\nAn issue has been identified in **nestjs** affecting packages/common. The current codebase exhibits unexpected behavior or lacks full support for this feature under specific TypeScript configurations and usage patterns.\n\n## Problem Description\nWhen interacting with the affected module(s), the expected behavior or type resolution is not properly maintained. You are tasked with resolving this type fix in the codebase.\n\n## Expected Behavior\n1. Ensure all relevant typings and runtime implementations satisfy the intended capability: **Improve Missing Buffer Error Message in File Type Validator**.\n2. Preserve correct TypeScript type inference without introducing `any` casts or regressions.\n3. Maintain full backwards compatibility across related APIs.\n\n## Scope & Constraints\n- Do not alter public package configurations or remove existing exports unless required.\n- Keep your modifications focused strictly on the relevant source files and logic.\n- All TypeScript type checks (`tsc --noEmit` or equivalent) must pass cleanly.\n\n## Verification\nYou can verify your solution using the repository's test runner:\n```bash\nnpm test -- packages/common/test/pipes/file/file-type.validator.spec.ts\n```\n\nRelevant test suites:\n- `packages/common/test/pipes/file/file-type.validator.spec.ts`\n",
+    "testCommand": "npm test -- packages/common/test/pipes/file/file-type.validator.spec.ts",
+    "typecheckCommand": "npx tsc --noEmit",
     "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/core/injector/injector.ts",
-        "packages/core/test/injector/injector.spec.ts"
-      ],
-      "linesChanged": 51
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "nestjs-bugfix-1",
-    "version": "0.2.0",
-    "repository": {
-      "name": "nestjs",
-      "url": "https://github.com/nestjs/nest.git",
-      "category": "backend-framework"
-    },
-    "baseCommit": "6d3f3c04aa94083e367ff430342b55ebf3227c70",
-    "hiddenFixCommit": "5f2618ac605b9cab7aeb5ef87ef32a190fae507a",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(common): Reject hex and non-numeric strings in parse-float pipe\n\nFiles affected: packages/common/pipes/parse-float.pipe.ts, packages/common/test/pipes/parse-float.pipe.spec.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/common/pipes/parse-float.pipe.ts",
-        "packages/common/test/pipes/parse-float.pipe.spec.ts"
-      ],
-      "linesChanged": 48
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "nestjs-bugfix-2",
-    "version": "0.2.0",
-    "repository": {
-      "name": "nestjs",
-      "url": "https://github.com/nestjs/nest.git",
-      "category": "backend-framework"
-    },
-    "baseCommit": "bf4860899da0b5e7ad5973fec266dfe73fa13eb6",
-    "hiddenFixCommit": "134f6ab4a77133001cb406a707b0f04ca4c91540",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(microservices): reject pending Redis requests on close\n\nFiles affected: packages/microservices/client/client-redis.ts, packages/microservices/test/client/client-redis.spec.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/microservices/client/client-redis.ts",
-        "packages/microservices/test/client/client-redis.spec.ts"
-      ],
-      "linesChanged": 52
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "nestjs-bugfix-3",
-    "version": "0.2.0",
-    "repository": {
-      "name": "nestjs",
-      "url": "https://github.com/nestjs/nest.git",
-      "category": "backend-framework"
-    },
-    "baseCommit": "1eeccd30a4cd23db5c1eb5539d49ff3fae4f2de6",
-    "hiddenFixCommit": "9847b54434d46a5d9f9a85667c1639ca5cc85178",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(ws): remove the upgrade listener on dispose\n\nFiles affected: packages/platform-ws/adapters/ws-adapter.ts, packages/platform-ws/test/ws-adapter.spec.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/platform-ws/adapters/ws-adapter.ts",
-        "packages/platform-ws/test/ws-adapter.spec.ts"
-      ],
-      "linesChanged": 54
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "nestjs-bugfix-4",
-    "version": "0.2.0",
-    "repository": {
-      "name": "nestjs",
-      "url": "https://github.com/nestjs/nest.git",
-      "category": "backend-framework"
-    },
-    "baseCommit": "d1b055eab9cb3f89774b3d55e72bd95c8f0628ab",
-    "hiddenFixCommit": "fb4d3e70ad80bf23c4bdb33d67f42abc43730200",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(common): include field paths in standard schema validation errors\n\nFiles affected: packages/common/pipes/standard-schema-validation.pipe.ts, packages/common/test/pipes/standard-schema-validation.pipe.spec.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/common/pipes/standard-schema-validation.pipe.ts",
-        "packages/common/test/pipes/standard-schema-validation.pipe.spec.ts"
-      ],
-      "linesChanged": 45
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "nestjs-typefix-13",
-    "version": "0.2.0",
-    "repository": {
-      "name": "nestjs",
-      "url": "https://github.com/nestjs/nest.git",
-      "category": "backend-framework"
-    },
-    "baseCommit": "c3bc75c973813969aa676793e20a7cba12a9daf5",
-    "hiddenFixCommit": "ca97a3f420e568e9d1ccf19834730a7f7365439d",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(common): match string file types containing regex metacharacters\n\nFiles affected: packages/common/pipes/file/file-type.validator.ts, packages/common/test/pipes/file/file-type.validator.spec.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
+      "category": "type_fix",
       "difficulty": "medium",
       "filesChanged": [
         "packages/common/pipes/file/file-type.validator.ts",
         "packages/common/test/pipes/file/file-type.validator.spec.ts"
       ],
-      "linesChanged": 62
+      "linesChanged": 40,
+      "validationStatus": "validated-no-regression-test",
+      "validationReason": "Both baseline and historical fix pass the available test suite; no reproducible regression failure was observed."
     },
     "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "vite-bugfix-0",
-    "version": "0.2.0",
-    "repository": {
-      "name": "vite",
-      "url": "https://github.com/vitejs/vite.git",
-      "category": "build-tool"
-    },
-    "baseCommit": "3f80524aa1fa40bfa831f1a1bf2641c3979ba396",
-    "hiddenFixCommit": "7c2aa3b40ba00ce1299e4f31932c7929f179a80a",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix: make separate object instance for each environment (#22276)\n\nFiles affected: packages/vite/src/node/__tests__/config.spec.ts, packages/vite/src/node/config.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/vite/src/node/__tests__/config.spec.ts",
-        "packages/vite/src/node/config.ts"
+      "hiddenTests": [
+        "packages/common/test/pipes/file/file-type.validator.spec.ts"
       ],
-      "linesChanged": 50
-    },
-    "validation": {
-      "hiddenTests": [],
       "expectedPatch": ""
     }
   },
   {
-    "id": "vite-bugfix-1",
+    "id": "nestjs-16aceab",
     "version": "0.2.0",
     "repository": {
-      "name": "vite",
-      "url": "https://github.com/vitejs/vite.git",
-      "category": "build-tool"
+      "name": "nestjs",
+      "url": "https://github.com/nestjs/nest.git",
+      "category": "backend-framework"
     },
-    "baseCommit": "e6e9fc9e4cbefc482e068d03a19401fb7d9226cc",
-    "hiddenFixCommit": "3f24533ac4845ed22547279d1721bd82a35345e3",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(optimizer): handle more chars that will be sanitized (#22208)\n\nFiles affected: packages/vite/src/node/__tests__/utils.spec.ts, packages/vite/src/node/utils.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
+    "baseCommit": "82ded5dce432d8ebd90b9b6462c00f07d70566c1",
+    "hiddenFixCommit": "16aceab9b21bf3e4b79e3b1f32a91e139e0e5250",
+    "prompt": "# Task: Include Received Value Type in Invalid-module Error\n\n## Problem Overview\nAn issue has been identified in **nestjs** affecting packages/core. The current codebase exhibits unexpected behavior or lacks full support for this feature under specific TypeScript configurations and usage patterns.\n\n## Problem Description\nWhen interacting with the affected module(s), the expected behavior or type resolution is not properly maintained. You are tasked with resolving this type fix in the codebase.\n\n## Expected Behavior\n1. Ensure all relevant typings and runtime implementations satisfy the intended capability: **Include Received Value Type in Invalid-module Error**.\n2. Preserve correct TypeScript type inference without introducing `any` casts or regressions.\n3. Maintain full backwards compatibility across related APIs.\n\n## Scope & Constraints\n- Do not alter public package configurations or remove existing exports unless required.\n- Keep your modifications focused strictly on the relevant source files and logic.\n- All TypeScript type checks (`tsc --noEmit` or equivalent) must pass cleanly.\n\n## Verification\nYou can verify your solution using the repository's test runner:\n```bash\nnpm test -- packages/core/test/errors/test/messages.spec.ts\n```\n\nRelevant test suites:\n- `packages/core/test/errors/test/messages.spec.ts`\n",
+    "testCommand": "npm test -- packages/core/test/errors/test/messages.spec.ts",
+    "typecheckCommand": "npx tsc --noEmit",
     "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
+      "category": "type_fix",
+      "difficulty": "hard",
       "filesChanged": [
-        "packages/vite/src/node/__tests__/utils.spec.ts",
-        "packages/vite/src/node/utils.ts"
+        "packages/core/errors/exceptions/invalid-module.exception.ts",
+        "packages/core/errors/messages.ts",
+        "packages/core/scanner.ts",
+        "packages/core/test/errors/test/messages.spec.ts"
       ],
-      "linesChanged": 51
+      "linesChanged": 81,
+      "validationStatus": "validated-no-regression-test",
+      "validationReason": "Both baseline and historical fix pass the available test suite; no reproducible regression failure was observed."
     },
     "validation": {
-      "hiddenTests": [],
+      "hiddenTests": [
+        "packages/core/test/errors/test/messages.spec.ts"
+      ],
       "expectedPatch": ""
     }
   },
   {
-    "id": "vite-bugfix-2",
+    "id": "nestjs-79919b1",
     "version": "0.2.0",
     "repository": {
-      "name": "vite",
-      "url": "https://github.com/vitejs/vite.git",
-      "category": "build-tool"
+      "name": "nestjs",
+      "url": "https://github.com/nestjs/nest.git",
+      "category": "backend-framework"
     },
-    "baseCommit": "330e98211d7c3d9153d24f7850981d2f1b01a0f3",
-    "hiddenFixCommit": "cccef55dfaa6253929d2cb58d3af53f217efc877",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix: revert, \"fix: escape ids with multiple null bytes (#22687)\"\n\nFiles affected: packages/vite/src/shared/__tests__/utils.spec.ts, packages/vite/src/shared/utils.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
+    "baseCommit": "067a07116af7373f092f62eaf2d4d21deb89e084",
+    "hiddenFixCommit": "79919b1aa85fd5004f948c86ac447faae0da360b",
+    "prompt": "# Task: Identify Decorator Type in Invalid-class-module Error\n\n## Problem Overview\nAn issue has been identified in **nestjs** affecting packages/core. The current codebase exhibits unexpected behavior or lacks full support for this feature under specific TypeScript configurations and usage patterns.\n\n## Problem Description\nWhen interacting with the affected module(s), the expected behavior or type resolution is not properly maintained. You are tasked with resolving this type fix in the codebase.\n\n## Expected Behavior\n1. Ensure all relevant typings and runtime implementations satisfy the intended capability: **Identify Decorator Type in Invalid-class-module Error**.\n2. Preserve correct TypeScript type inference without introducing `any` casts or regressions.\n3. Maintain full backwards compatibility across related APIs.\n\n## Scope & Constraints\n- Do not alter public package configurations or remove existing exports unless required.\n- Keep your modifications focused strictly on the relevant source files and logic.\n- All TypeScript type checks (`tsc --noEmit` or equivalent) must pass cleanly.\n\n## Verification\nYou can verify your solution using the repository's test runner:\n```bash\nnpm test -- packages/core/test/errors/test/messages.spec.ts\n```\n\nRelevant test suites:\n- `packages/core/test/errors/test/messages.spec.ts`\n",
+    "testCommand": "npm test -- packages/core/test/errors/test/messages.spec.ts",
+    "typecheckCommand": "npx tsc --noEmit",
     "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
+      "category": "type_fix",
+      "difficulty": "hard",
       "filesChanged": [
-        "packages/vite/src/shared/__tests__/utils.spec.ts",
-        "packages/vite/src/shared/utils.ts"
+        "packages/core/errors/exceptions/invalid-class-module.exception.ts",
+        "packages/core/errors/messages.ts",
+        "packages/core/scanner.ts",
+        "packages/core/test/errors/test/messages.spec.ts"
       ],
-      "linesChanged": 55
+      "linesChanged": 107,
+      "validationStatus": "validated-no-regression-test",
+      "validationReason": "Both baseline and historical fix pass the available test suite; no reproducible regression failure was observed."
     },
     "validation": {
-      "hiddenTests": [],
+      "hiddenTests": [
+        "packages/core/test/errors/test/messages.spec.ts"
+      ],
       "expectedPatch": ""
     }
   },
   {
-    "id": "vite-bugfix-3",
+    "id": "nestjs-9226a6f",
     "version": "0.2.0",
     "repository": {
-      "name": "vite",
-      "url": "https://github.com/vitejs/vite.git",
-      "category": "build-tool"
+      "name": "nestjs",
+      "url": "https://github.com/nestjs/nest.git",
+      "category": "backend-framework"
     },
-    "baseCommit": "85167d392db5f755db95705b54491784e79dbad9",
-    "hiddenFixCommit": "085a0ab704bf1a698d459d625a5c955d27b73134",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(optimize-deps): ignore `ERR_CLOSED_SERVER` in scanner (#22784)\n\nFiles affected: packages/vite/src/node/__tests__/scan.spec.ts, packages/vite/src/node/optimizer/scan.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
+    "baseCommit": "7adf63c0d4d74c4f13eb3a88cdf9197a0271143c",
+    "hiddenFixCommit": "9226a6f6134741976144b967585967f3823f755a",
+    "prompt": "# Task: Add Missing ValidateEach for UsePipes\n\n## Problem Overview\nAn issue has been identified in **nestjs** affecting packages/common. The current codebase exhibits unexpected behavior or lacks full support for this feature under specific TypeScript configurations and usage patterns.\n\n## Problem Description\nWhen interacting with the affected module(s), the expected behavior or type resolution is not properly maintained. You are tasked with resolving this bug fix in the codebase.\n\n## Expected Behavior\n1. Ensure all relevant typings and runtime implementations satisfy the intended capability: **Add Missing ValidateEach for UsePipes**.\n2. Preserve correct TypeScript type inference without introducing `any` casts or regressions.\n3. Maintain full backwards compatibility across related APIs.\n\n## Scope & Constraints\n- Do not alter public package configurations or remove existing exports unless required.\n- Keep your modifications focused strictly on the relevant source files and logic.\n- All TypeScript type checks (`tsc --noEmit` or equivalent) must pass cleanly.\n\n## Verification\nYou can verify your solution using the repository's test runner:\n```bash\nnpm test -- packages/common/test/decorators/use-pipes.decorator.spec.ts\n```\n\nRelevant test suites:\n- `packages/common/test/decorators/use-pipes.decorator.spec.ts`\n",
+    "testCommand": "npm test -- packages/common/test/decorators/use-pipes.decorator.spec.ts",
+    "typecheckCommand": "npx tsc --noEmit",
     "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/vite/src/node/__tests__/scan.spec.ts",
-        "packages/vite/src/node/optimizer/scan.ts"
-      ],
-      "linesChanged": 45
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "vite-bugfix-4",
-    "version": "0.2.0",
-    "repository": {
-      "name": "vite",
-      "url": "https://github.com/vitejs/vite.git",
-      "category": "build-tool"
-    },
-    "baseCommit": "7e18bf802bdde7a386eb3b407c87a67f89a895ca",
-    "hiddenFixCommit": "9722b0795b68602597ddd53e3d3c7ed9f00cb831",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(optimizer): scanner should resolve `input` from `root` (#22769)\n\nFiles affected: packages/vite/src/node/__tests__/fixtures/scan-build-input/src/entry-client.tsx, packages/vite/src/node/__tests__/scan.spec.ts, packages/vite/src/node/optimizer/scan.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/vite/src/node/__tests__/fixtures/scan-build-input/src/entry-client.tsx",
-        "packages/vite/src/node/__tests__/scan.spec.ts",
-        "packages/vite/src/node/optimizer/scan.ts"
-      ],
-      "linesChanged": 56
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "vite-typefix-7",
-    "version": "0.2.0",
-    "repository": {
-      "name": "vite",
-      "url": "https://github.com/vitejs/vite.git",
-      "category": "build-tool"
-    },
-    "baseCommit": "3ac77d9dd742968961af38a5a91ed6b061ceda7d",
-    "hiddenFixCommit": "599c5b02a8b6879b05ede988020f1331e877aaea",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(module-runner): keep stack trace interception working when `Object.prototype` is frozen (#23073)\n\nFiles affected: packages/vite/src/module-runner/sourcemap/interceptor.ts, packages/vite/src/node/ssr/runtime/__tests__/server-source-maps.spec.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/vite/src/module-runner/sourcemap/interceptor.ts",
-        "packages/vite/src/node/ssr/runtime/__tests__/server-source-maps.spec.ts"
-      ],
-      "linesChanged": 39
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "typescript-eslint-bugfix-0",
-    "version": "0.2.0",
-    "repository": {
-      "name": "typescript-eslint",
-      "url": "https://github.com/typescript-eslint/typescript-eslint.git",
-      "category": "linting"
-    },
-    "baseCommit": "7aecc1c44e60bc4b47402ce63a79587746766d9f",
-    "hiddenFixCommit": "8826d0ebf7ff178afb6b0e72bf22d9132e4c83a2",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(eslint-plugin): [no-useless-default-assignment] don't report defaults used by other overloads (#12607)\n\nFiles affected: packages/eslint-plugin/src/rules/no-useless-default-assignment.ts, packages/eslint-plugin/tests/rules/no-useless-default-assignment.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/eslint-plugin/src/rules/no-useless-default-assignment.ts",
-        "packages/eslint-plugin/tests/rules/no-useless-default-assignment.test.ts"
-      ],
-      "linesChanged": 51
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "typescript-eslint-typefix-1",
-    "version": "0.2.0",
-    "repository": {
-      "name": "typescript-eslint",
-      "url": "https://github.com/typescript-eslint/typescript-eslint.git",
-      "category": "linting"
-    },
-    "baseCommit": "dd020578ed417b844b1d03a70be42a126d51cbb5",
-    "hiddenFixCommit": "fb3da7974e00d119493a7170e34b76b2a9051f85",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(eslint-plugin): [no-unnecessary-type-assertion] handle optional-chained calls to overloaded functions (#12491)\n\nFiles affected: packages/eslint-plugin/src/rules/no-unnecessary-type-assertion.ts, packages/eslint-plugin/tests/rules/no-unnecessary-type-assertion.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/eslint-plugin/src/rules/no-unnecessary-type-assertion.ts",
-        "packages/eslint-plugin/tests/rules/no-unnecessary-type-assertion.test.ts"
-      ],
-      "linesChanged": 51
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "typescript-eslint-typefix-2",
-    "version": "0.2.0",
-    "repository": {
-      "name": "typescript-eslint",
-      "url": "https://github.com/typescript-eslint/typescript-eslint.git",
-      "category": "linting"
-    },
-    "baseCommit": "2b7f63f9cdf91dc216678f9a0d1ffe1aaf2ff0af",
-    "hiddenFixCommit": "e128548b50573ebe3904662222e05be63970fc32",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(eslint-plugin): [no-restricted-types] flag banned generics in extends or implements (#12120)\n\nFiles affected: packages/eslint-plugin/src/rules/no-restricted-types.ts, packages/eslint-plugin/tests/rules/no-restricted-types.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/eslint-plugin/src/rules/no-restricted-types.ts",
-        "packages/eslint-plugin/tests/rules/no-restricted-types.test.ts"
-      ],
-      "linesChanged": 48
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "typescript-eslint-bugfix-3",
-    "version": "0.2.0",
-    "repository": {
-      "name": "typescript-eslint",
-      "url": "https://github.com/typescript-eslint/typescript-eslint.git",
-      "category": "linting"
-    },
-    "baseCommit": "a166cea2d00fedd0762ecb87d95bc1f1cf93d528",
-    "hiddenFixCommit": "cf79108b6405972fb73f5991e913e1b36de8a67f",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(eslint-plugin): [no-useless-default-assignment] handle conditional initializer (#11908)\n\nFiles affected: packages/eslint-plugin/src/rules/no-useless-default-assignment.ts, packages/eslint-plugin/tests/rules/no-useless-default-assignment.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/eslint-plugin/src/rules/no-useless-default-assignment.ts",
-        "packages/eslint-plugin/tests/rules/no-useless-default-assignment.test.ts"
-      ],
-      "linesChanged": 53
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "typescript-eslint-typefix-4",
-    "version": "0.2.0",
-    "repository": {
-      "name": "typescript-eslint",
-      "url": "https://github.com/typescript-eslint/typescript-eslint.git",
-      "category": "linting"
-    },
-    "baseCommit": "e3f10dbc2fa24e08178c3139671370c9f0be3ccb",
-    "hiddenFixCommit": "c4b4d1075d0e5fa92a0adbdfb1bed912e86eabfb",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(eslint-plugin): [no-unnecessary-type-assertion] preserve phantom type arguments in generic inference (#12269)\n\nFiles affected: packages/eslint-plugin/src/rules/no-unnecessary-type-assertion.ts, packages/eslint-plugin/tests/rules/no-unnecessary-type-assertion.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/eslint-plugin/src/rules/no-unnecessary-type-assertion.ts",
-        "packages/eslint-plugin/tests/rules/no-unnecessary-type-assertion.test.ts"
-      ],
-      "linesChanged": 45
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "typescript-eslint-typefix-5",
-    "version": "0.2.0",
-    "repository": {
-      "name": "typescript-eslint",
-      "url": "https://github.com/typescript-eslint/typescript-eslint.git",
-      "category": "linting"
-    },
-    "baseCommit": "204eabc2949c59802b4d7057d9e16874fa19db6f",
-    "hiddenFixCommit": "565e6668b2c69b02a74d8ca27c41633f20f4a699",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(eslint-plugin): [no-unnecessary-type-assertion] avoid false positive for template literal expressions (#12281)\n\nFiles affected: packages/eslint-plugin/src/rules/no-unnecessary-type-assertion.ts, packages/eslint-plugin/tests/rules/no-unnecessary-type-assertion.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/eslint-plugin/src/rules/no-unnecessary-type-assertion.ts",
-        "packages/eslint-plugin/tests/rules/no-unnecessary-type-assertion.test.ts"
-      ],
-      "linesChanged": 44
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "typescript-eslint-bugfix-6",
-    "version": "0.2.0",
-    "repository": {
-      "name": "typescript-eslint",
-      "url": "https://github.com/typescript-eslint/typescript-eslint.git",
-      "category": "linting"
-    },
-    "baseCommit": "5ffa76049a0dd6c73ba9c0a7e8388ab1324f740f",
-    "hiddenFixCommit": "7aecc1c44e60bc4b47402ce63a79587746766d9f",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(eslint-plugin): [prefer-nullish-coalescing] handle shadowed Boolean calls (#12591)\n\nFiles affected: packages/eslint-plugin/src/rules/prefer-nullish-coalescing.ts, packages/eslint-plugin/tests/rules/prefer-nullish-coalescing.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/eslint-plugin/src/rules/prefer-nullish-coalescing.ts",
-        "packages/eslint-plugin/tests/rules/prefer-nullish-coalescing.test.ts"
-      ],
-      "linesChanged": 43
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "typescript-eslint-typefix-7",
-    "version": "0.2.0",
-    "repository": {
-      "name": "typescript-eslint",
-      "url": "https://github.com/typescript-eslint/typescript-eslint.git",
-      "category": "linting"
-    },
-    "baseCommit": "9cacdd4bebdb0bb650f09cd01d15a81abd4735b3",
-    "hiddenFixCommit": "5ffa76049a0dd6c73ba9c0a7e8388ab1324f740f",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(eslint-plugin): [no-unnecessary-type-conversion] ignore shadowed built-ins (#12590)\n\nFiles affected: packages/eslint-plugin/src/rules/no-unnecessary-type-conversion.ts, packages/eslint-plugin/tests/rules/no-unnecessary-type-conversion.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/eslint-plugin/src/rules/no-unnecessary-type-conversion.ts",
-        "packages/eslint-plugin/tests/rules/no-unnecessary-type-conversion.test.ts"
-      ],
-      "linesChanged": 40
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "typescript-eslint-bugfix-10",
-    "version": "0.2.0",
-    "repository": {
-      "name": "typescript-eslint",
-      "url": "https://github.com/typescript-eslint/typescript-eslint.git",
-      "category": "linting"
-    },
-    "baseCommit": "3e210f855ce0f5309882d4c304991ba8c296397f",
-    "hiddenFixCommit": "5a9bd366139c8e306dd78ae906d4389972de42b6",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(eslint-plugin): [prefer-regexp-exec] avoid fixing unknown RegExp flags (#12161)\n\nFiles affected: packages/eslint-plugin/src/rules/prefer-regexp-exec.ts, packages/eslint-plugin/tests/rules/prefer-regexp-exec.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/eslint-plugin/src/rules/prefer-regexp-exec.ts",
-        "packages/eslint-plugin/tests/rules/prefer-regexp-exec.test.ts"
-      ],
-      "linesChanged": 61
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "typescript-eslint-bugfix-11",
-    "version": "0.2.0",
-    "repository": {
-      "name": "typescript-eslint",
-      "url": "https://github.com/typescript-eslint/typescript-eslint.git",
-      "category": "linting"
-    },
-    "baseCommit": "f8e1e4e2f7454ab2ba680cb523f9e3abe6582f81",
-    "hiddenFixCommit": "4586535ab24d7d5e9b3ba87e4adb8636f9314aca",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(eslint-plugin): [no-deprecated] report deprecated imported values used in object shorthand properties (#12780)\n\nFiles affected: packages/eslint-plugin/src/rules/no-deprecated.ts, packages/eslint-plugin/tests/rules/no-deprecated.test.ts, packages/typescript-eslint/src/index.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/eslint-plugin/src/rules/no-deprecated.ts",
-        "packages/eslint-plugin/tests/rules/no-deprecated.test.ts",
-        "packages/typescript-eslint/src/index.ts"
-      ],
-      "linesChanged": 35
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "prisma-bugfix-0",
-    "version": "0.2.0",
-    "repository": {
-      "name": "prisma",
-      "url": "https://github.com/prisma/prisma.git",
-      "category": "orm"
-    },
-    "baseCommit": "38936c97a0823881de5b636c175fa1c5f06758bf",
-    "hiddenFixCommit": "0f37454eec96b193e8b20e8f569e453acd2af644",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(language-server): recognize connection errors from any copy of vscode-jsonrpc (TML-3222) (#30077)\n\nFiles affected: packages/1-framework/3-tooling/language-server/src/guarded-connection.ts, packages/1-framework/3-tooling/language-server/test/guarded-connection.test.ts, packages/1-framework/3-tooling/language-server/test/server.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/1-framework/3-tooling/language-server/src/guarded-connection.ts",
-        "packages/1-framework/3-tooling/language-server/test/guarded-connection.test.ts",
-        "packages/1-framework/3-tooling/language-server/test/server.test.ts"
-      ],
-      "linesChanged": 57
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "prisma-bugfix-1",
-    "version": "0.2.0",
-    "repository": {
-      "name": "prisma",
-      "url": "https://github.com/prisma/prisma.git",
-      "category": "orm"
-    },
-    "baseCommit": "456ba69c4157877f93314e4e4e9934627fc6cb81",
-    "hiddenFixCommit": "7934152cbc40292c4818d78209243a4520cbb6ed",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(cli): migration graph --dot draws the DOT as a human block, un-redding main (#30057)\n\nFiles affected: packages/1-framework/3-tooling/cli/src/orm/migration/graph.ts, packages/1-framework/3-tooling/cli/test/orm/migration-graph.test.ts, test/integration/test/cli-journeys/migration-graph-dot.e2e.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/1-framework/3-tooling/cli/src/orm/migration/graph.ts",
-        "packages/1-framework/3-tooling/cli/test/orm/migration-graph.test.ts",
-        "test/integration/test/cli-journeys/migration-graph-dot.e2e.test.ts"
-      ],
-      "linesChanged": 41
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "prisma-test-2",
-    "version": "0.2.0",
-    "repository": {
-      "name": "prisma",
-      "url": "https://github.com/prisma/prisma.git",
-      "category": "orm"
-    },
-    "baseCommit": "63b3833b3464db6bb3807836c84a54f546cf931d",
-    "hiddenFixCommit": "0f0c84248467f5d579baa5b314cbf9488d646a81",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: native-enums: resolve enum ownership via the generic coordinate walk (#954)\n\nFiles affected: packages/3-targets/3-targets/postgres/src/core/psl-infer/infer-psl-contract.ts, packages/3-targets/3-targets/postgres/test/psl-infer/infer-psl-contract.enum-adoption.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "test",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/3-targets/3-targets/postgres/src/core/psl-infer/infer-psl-contract.ts",
-        "packages/3-targets/3-targets/postgres/test/psl-infer/infer-psl-contract.enum-adoption.test.ts"
-      ],
-      "linesChanged": 61
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "prisma-typefix-3",
-    "version": "0.2.0",
-    "repository": {
-      "name": "prisma",
-      "url": "https://github.com/prisma/prisma.git",
-      "category": "orm"
-    },
-    "baseCommit": "269e4be9e5dbba56baa9f10f746aaf5b7cd1a805",
-    "hiddenFixCommit": "7d37eb5b16d83605a3bd8bc9abe6e3d5804b763b",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(psl-parser): report missing field type in model/composite blocks (#854)\n\nFiles affected: packages/1-framework/2-authoring/psl-parser/src/parse.ts, packages/1-framework/2-authoring/psl-parser/test/parse-diagnostics.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/1-framework/2-authoring/psl-parser/src/parse.ts",
-        "packages/1-framework/2-authoring/psl-parser/test/parse-diagnostics.test.ts"
-      ],
-      "linesChanged": 39
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "prisma-bugfix-4",
-    "version": "0.2.0",
-    "repository": {
-      "name": "prisma",
-      "url": "https://github.com/prisma/prisma.git",
-      "category": "orm"
-    },
-    "baseCommit": "263137ecea609ff28d6d1a11c2d0c38ea33132f1",
-    "hiddenFixCommit": "0ddd8405bb19983bf44be9fee59d4a9e139066f0",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(runtime): pre-iteration invalidation guard in withTransaction guarded generators\n\nFiles affected: packages/2-sql/5-runtime/src/sql-runtime.ts, packages/2-sql/5-runtime/test/sql-runtime.test.ts, test/e2e/framework/test/sqlite/transaction.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/2-sql/5-runtime/src/sql-runtime.ts",
-        "packages/2-sql/5-runtime/test/sql-runtime.test.ts",
-        "test/e2e/framework/test/sqlite/transaction.test.ts"
-      ],
-      "linesChanged": 36
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "prisma-typefix-5",
-    "version": "0.2.0",
-    "repository": {
-      "name": "prisma",
-      "url": "https://github.com/prisma/prisma.git",
-      "category": "orm"
-    },
-    "baseCommit": "c45025fc7ad08da811bd934df53a5e48ac57e8ac",
-    "hiddenFixCommit": "90ca6086710980c3aa5f534dda44a66ee96e7849",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(psl-parser): correct string-escape decode order and stream type-annotation segments\n\nFiles affected: packages/1-framework/2-authoring/psl-parser/src/syntax/ast/expressions.ts, packages/1-framework/2-authoring/psl-parser/src/syntax/ast/type-annotation.ts, packages/1-framework/2-authoring/psl-parser/test/syntax/ast.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/1-framework/2-authoring/psl-parser/src/syntax/ast/expressions.ts",
-        "packages/1-framework/2-authoring/psl-parser/src/syntax/ast/type-annotation.ts",
-        "packages/1-framework/2-authoring/psl-parser/test/syntax/ast.test.ts"
-      ],
-      "linesChanged": 67
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "prisma-bugfix-6",
-    "version": "0.2.0",
-    "repository": {
-      "name": "prisma",
-      "url": "https://github.com/prisma/prisma.git",
-      "category": "orm"
-    },
-    "baseCommit": "6b4bd9d3407d6d211fc61f5b1270916bdabbd25f",
-    "hiddenFixCommit": "ecedd5cf4519bf40628d350f22102b30205e87e0",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(sql-runtime): move guardedStream invalidation check to post-yield resumption point\n\nFiles affected: packages/2-sql/5-runtime/src/sql-runtime.ts, packages/2-sql/5-runtime/test/sql-runtime.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/2-sql/5-runtime/src/sql-runtime.ts",
-        "packages/2-sql/5-runtime/test/sql-runtime.test.ts"
-      ],
-      "linesChanged": 30
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "prisma-bugfix-7",
-    "version": "0.2.0",
-    "repository": {
-      "name": "prisma",
-      "url": "https://github.com/prisma/prisma.git",
-      "category": "orm"
-    },
-    "baseCommit": "06d1b40d910207334ca0faee354b2184e795591e",
-    "hiddenFixCommit": "7060e84f286405133c3c673f00732e19cf524d05",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(sql-orm-client): reconcile N:M through-descriptor with required-namespace resolvers (post-rebase)\n\nFiles affected: packages/3-extensions/sql-orm-client/src/collection-contract.ts, packages/3-extensions/sql-orm-client/test/collection-contract.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "bugfix",
+      "category": "bug_fix",
       "difficulty": "easy",
       "filesChanged": [
-        "packages/3-extensions/sql-orm-client/src/collection-contract.ts",
-        "packages/3-extensions/sql-orm-client/test/collection-contract.test.ts"
+        "packages/common/decorators/core/use-pipes.decorator.ts",
+        "packages/common/test/decorators/use-pipes.decorator.spec.ts"
       ],
-      "linesChanged": 18
+      "linesChanged": 7,
+      "validationStatus": "validated-no-regression-test",
+      "validationReason": "Both baseline and historical fix pass the available test suite; no reproducible regression failure was observed."
     },
     "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "prisma-typefix-9",
-    "version": "0.2.0",
-    "repository": {
-      "name": "prisma",
-      "url": "https://github.com/prisma/prisma.git",
-      "category": "orm"
-    },
-    "baseCommit": "91aeb56b91898c14d952d31a90b4a4d4f0d10cf0",
-    "hiddenFixCommit": "3f6c418c34fe5001f7519d2c741f2e90061f6d31",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(slice-0): repair typecheck against the cardinality-discriminated relation union\n\nFiles affected: packages/1-framework/3-tooling/emitter/src/domain-type-generation.ts, packages/2-sql/2-authoring/contract-ts/src/build-contract.ts, test/integration/test/sql-orm-client/fixtures/contract.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/1-framework/3-tooling/emitter/src/domain-type-generation.ts",
-        "packages/2-sql/2-authoring/contract-ts/src/build-contract.ts",
-        "test/integration/test/sql-orm-client/fixtures/contract.ts"
+      "hiddenTests": [
+        "packages/common/test/decorators/use-pipes.decorator.spec.ts"
       ],
-      "linesChanged": 88
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "prisma-test-11",
-    "version": "0.2.0",
-    "repository": {
-      "name": "prisma",
-      "url": "https://github.com/prisma/prisma.git",
-      "category": "orm"
-    },
-    "baseCommit": "72703a8c2e481be2ba9129cf0c296e1f55582686",
-    "hiddenFixCommit": "1d89f6cd32b9c330705eb4b4130764d7311703fd",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: test(sql-orm-client): pin per-namespace aggregate resolution for shared bare table names\n\nFiles affected: packages/3-extensions/sql-orm-client/test/orm-same-bare-table-name.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "test",
-      "difficulty": "medium",
-      "filesChanged": [
-        "packages/3-extensions/sql-orm-client/test/orm-same-bare-table-name.test.ts"
-      ],
-      "linesChanged": 61
-    },
-    "validation": {
-      "hiddenTests": [],
-      "expectedPatch": ""
-    }
-  },
-  {
-    "id": "prisma-typefix-14",
-    "version": "0.2.0",
-    "repository": {
-      "name": "prisma",
-      "url": "https://github.com/prisma/prisma.git",
-      "category": "orm"
-    },
-    "baseCommit": "f79fe915751c584e167101fb5c1d9abb3c01939f",
-    "hiddenFixCommit": "12bee1ba31e353b52596d4f7a40412a564afd32f",
-    "prompt": "Fix the following issue in the TypeScript codebase.\n\nContext: fix(postgres-adapter): validate SERIAL-family type for autoincrement() defaults (#30040)\n\nFiles affected: docs/reference/error-reference.md, packages/3-targets/6-adapters/postgres/src/core/control-adapter.ts, packages/3-targets/6-adapters/postgres/test/ddl-create-table-lowering.test.ts\n\nRun tests with: npm test\nEnsure typecheck passes: npm run typecheck\n\nDescribe the issue and implement a fix.",
-    "testCommand": "npm test",
-    "typecheckCommand": "npm run typecheck",
-    "metadata": {
-      "category": "typefix",
-      "difficulty": "medium",
-      "filesChanged": [
-        "docs/reference/error-reference.md",
-        "packages/3-targets/6-adapters/postgres/src/core/control-adapter.ts",
-        "packages/3-targets/6-adapters/postgres/test/ddl-create-table-lowering.test.ts"
-      ],
-      "linesChanged": 75
-    },
-    "validation": {
-      "hiddenTests": [],
       "expectedPatch": ""
     }
   }

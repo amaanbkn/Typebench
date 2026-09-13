@@ -1,0 +1,32 @@
+{
+  "repository": "prisma",
+  "commitSha": "b1565ba136bb3b0cdc9962aed924c590e456183c",
+  "shortSha": "b1565ba",
+  "parentSha": "1d907c1bea4c7b23de246aa63bbf5aba0f9d1395",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/prisma-Yb8I3J'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/prisma-Yb8I3J/.git/objects/pack/pack-325f36aacfa8b9babf59bfaf9812ab1e0f921f3b.pack': Disk quota exceeded\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "packages/3-mongo-target/1-mongo-target/test/mongo-runner.test.ts"
+  ],
+  "durationMs": 57,
+  "timestamp": "2026-09-13T16:03:30.506Z",
+  "error": "Cloning into '/tmp/typebench-validation/prisma-Yb8I3J'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/prisma-Yb8I3J/.git/objects/pack/pack-325f36aacfa8b9babf59bfaf9812ab1e0f921f3b.pack': Disk quota exceeded\n"
+}

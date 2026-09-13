@@ -1,0 +1,32 @@
+{
+  "repository": "vue",
+  "commitSha": "1bb28d011b31bc75c80d2860bc6484cceec1ff20",
+  "shortSha": "1bb28d0",
+  "parentSha": "959ded22ab7ea1453f607e0964e1fb6748ece6c7",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/vue-jsTpuJ'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/vue-jsTpuJ/.git/objects/pack/pack-430ee9dc432ccb4265f474e344a973dcc77055a3.pack': Disk quota exceeded\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "packages/reactivity/__tests__/ref.spec.ts"
+  ],
+  "durationMs": 15,
+  "timestamp": "2026-09-13T16:11:16.885Z",
+  "error": "Cloning into '/tmp/typebench-validation/vue-jsTpuJ'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/vue-jsTpuJ/.git/objects/pack/pack-430ee9dc432ccb4265f474e344a973dcc77055a3.pack': Disk quota exceeded\n"
+}

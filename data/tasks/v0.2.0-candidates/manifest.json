@@ -1,13 +1,128 @@
 {
   "version": "0.2.0",
-  "generatedAt": "2026-09-06T10:46:54.128Z",
-  "taskCount": 45,
+  "generatedAt": "2026-09-13T16:14:42.632Z",
+  "taskCount": 6,
   "repositories": [
     "axios",
-    "nestjs",
-    "vite",
-    "typescript-eslint",
-    "prisma"
+    "rxjs",
+    "nestjs"
   ],
-  "fingerprint": "fde83d6868070d77ac5b955ca17d379639febd080ba8759d5bb71374d389c78b"
+  "categories": [
+    "type_fix",
+    "bug_fix"
+  ],
+  "difficulty": {
+    "easy": 1,
+    "medium": 3,
+    "hard": 2
+  },
+  "fingerprint": "628c518683a96222db9403756e15211521738089ff736aaf1031643e290b460f",
+  "generation": {
+    "targetTasks": 60,
+    "maxCandidatesPerRepository": 12,
+    "minTasksPerRepository": 6,
+    "validationTimeoutMs": 180000
+  },
+  "repositoryStats": [
+    {
+      "repository": "axios",
+      "inspected": 997,
+      "discovered": 396,
+      "validated": 1,
+      "reproducibleFixes": 0,
+      "noRegressionValidation": 1,
+      "unvalidated": 11,
+      "invalid": 0
+    },
+    {
+      "repository": "rxjs",
+      "inspected": 999,
+      "discovered": 660,
+      "validated": 1,
+      "reproducibleFixes": 0,
+      "noRegressionValidation": 1,
+      "unvalidated": 11,
+      "invalid": 0
+    },
+    {
+      "repository": "nestjs",
+      "inspected": 1000,
+      "discovered": 249,
+      "validated": 4,
+      "reproducibleFixes": 0,
+      "noRegressionValidation": 4,
+      "unvalidated": 8,
+      "invalid": 0
+    },
+    {
+      "repository": "vite",
+      "inspected": 1000,
+      "discovered": 452,
+      "validated": 0,
+      "reproducibleFixes": 0,
+      "noRegressionValidation": 0,
+      "unvalidated": 12,
+      "invalid": 0
+    },
+    {
+      "repository": "typescript-eslint",
+      "inspected": 998,
+      "discovered": 350,
+      "validated": 0,
+      "reproducibleFixes": 0,
+      "noRegressionValidation": 0,
+      "unvalidated": 12,
+      "invalid": 0
+    },
+    {
+      "repository": "prisma",
+      "inspected": 999,
+      "discovered": 685,
+      "validated": 0,
+      "reproducibleFixes": 0,
+      "noRegressionValidation": 0,
+      "unvalidated": 12,
+      "invalid": 0
+    },
+    {
+      "repository": "type-challenges",
+      "inspected": 989,
+      "discovered": 412,
+      "validated": 0,
+      "reproducibleFixes": 0,
+      "noRegressionValidation": 0,
+      "unvalidated": 12,
+      "invalid": 0
+    },
+    {
+      "repository": "vue",
+      "inspected": 1000,
+      "discovered": 509,
+      "validated": 0,
+      "reproducibleFixes": 0,
+      "noRegressionValidation": 0,
+      "unvalidated": 12,
+      "invalid": 0
+    },
+    {
+      "repository": "angular",
+      "inspected": 1000,
+      "discovered": 491,
+      "validated": 0,
+      "reproducibleFixes": 0,
+      "noRegressionValidation": 0,
+      "unvalidated": 12,
+      "invalid": 0
+    },
+    {
+      "repository": "eslint",
+      "inspected": 1000,
+      "discovered": 386,
+      "validated": 0,
+      "reproducibleFixes": 0,
+      "noRegressionValidation": 0,
+      "unvalidated": 12,
+      "invalid": 0
+    }
+  ]
 }

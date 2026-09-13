@@ -1,0 +1,42 @@
+{
+  "taskId": "nestjs-79919b1",
+  "repository": "nestjs",
+  "repositoryUrl": "https://github.com/nestjs/nest",
+  "commitSha": "79919b1aa85fd5004f948c86ac447faae0da360b",
+  "parentSha": "067a07116af7373f092f62eaf2d4d21deb89e084",
+  "category": "type_fix",
+  "difficulty": "hard",
+  "title": "Identify Decorator Type in Invalid-class-module Error",
+  "description": "Task for nestjs: Identify Decorator Type in Invalid-class-module Error",
+  "changedFiles": [
+    "packages/core/errors/exceptions/invalid-class-module.exception.ts",
+    "packages/core/errors/messages.ts",
+    "packages/core/scanner.ts",
+    "packages/core/test/errors/test/messages.spec.ts"
+  ],
+  "sourceFiles": [
+    "packages/core/errors/exceptions/invalid-class-module.exception.ts",
+    "packages/core/errors/messages.ts",
+    "packages/core/scanner.ts"
+  ],
+  "testFiles": [
+    "packages/core/test/errors/test/messages.spec.ts"
+  ],
+  "validationStatus": "validated-no-regression-test",
+  "validationReason": "Both baseline and historical fix pass the available test suite; no reproducible regression failure was observed.",
+  "taskStatus": "ready",
+  "candidateScore": 13,
+  "signals": {
+    "positive": [
+      "fix-keyword",
+      "typescript-type-signal",
+      "tests-modified (1 files)",
+      "source-modified (3 files)",
+      "co-located-source-and-test",
+      "focused-atomic-scope"
+    ],
+    "negative": []
+  },
+  "originalCommitMessage": "fix(core): identify decorator type in invalid-class-module error",
+  "createdAt": "2026-09-13T15:54:44.744Z"
+}

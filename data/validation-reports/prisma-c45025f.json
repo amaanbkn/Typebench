@@ -1,0 +1,32 @@
+{
+  "repository": "prisma",
+  "commitSha": "c45025fc7ad08da811bd934df53a5e48ac57e8ac",
+  "shortSha": "c45025f",
+  "parentSha": "60387f4b473720a498c6d175222f166aaaa07bec",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/prisma-2qu8Ef'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/prisma-2qu8Ef/.git/objects/pack/pack-325f36aacfa8b9babf59bfaf9812ab1e0f921f3b.pack': Disk quota exceeded\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "packages/1-framework/2-authoring/psl-parser/test/syntax/ast.test.ts"
+  ],
+  "durationMs": 54,
+  "timestamp": "2026-09-13T16:03:30.620Z",
+  "error": "Cloning into '/tmp/typebench-validation/prisma-2qu8Ef'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/prisma-2qu8Ef/.git/objects/pack/pack-325f36aacfa8b9babf59bfaf9812ab1e0f921f3b.pack': Disk quota exceeded\n"
+}

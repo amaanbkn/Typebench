@@ -1,0 +1,33 @@
+{
+  "repository": "vue",
+  "commitSha": "0dcd225c01f211ebb8ce4dda8c8eac10539abf1a",
+  "shortSha": "0dcd225",
+  "parentSha": "68e978e3e71a8ae40701808e78966f2168c5907c",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Cloning into '/tmp/typebench-validation/vue-mjRApY'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/vue-mjRApY/.git/objects/pack/pack-430ee9dc432ccb4265f474e344a973dcc77055a3.pack': Disk quota exceeded\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "packages/compiler-sfc/__tests__/compileScript/defineProps.spec.ts",
+    "packages/compiler-sfc/__tests__/compileScript/resolveType.spec.ts"
+  ],
+  "durationMs": 15,
+  "timestamp": "2026-09-13T16:11:16.869Z",
+  "error": "Cloning into '/tmp/typebench-validation/vue-mjRApY'...\nerror: copy-fd: write returned: Disk quota exceeded\nfatal: failed to copy file to '/tmp/typebench-validation/vue-mjRApY/.git/objects/pack/pack-430ee9dc432ccb4265f474e344a973dcc77055a3.pack': Disk quota exceeded\n"
+}

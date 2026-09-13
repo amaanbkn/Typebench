@@ -1,0 +1,39 @@
+{
+  "taskId": "nestjs-33515ed",
+  "repository": "nestjs",
+  "repositoryUrl": "https://github.com/nestjs/nest",
+  "commitSha": "33515ed0576ed47bf7c9fe1cba85cf5b9bfe52de",
+  "parentSha": "7adf63c0d4d74c4f13eb3a88cdf9197a0271143c",
+  "category": "type_fix",
+  "difficulty": "medium",
+  "title": "Improve Missing Buffer Error Message in File Type Validator",
+  "description": "Task for nestjs: Improve Missing Buffer Error Message in File Type Validator",
+  "changedFiles": [
+    "packages/common/pipes/file/file-type.validator.ts",
+    "packages/common/test/pipes/file/file-type.validator.spec.ts"
+  ],
+  "sourceFiles": [
+    "packages/common/pipes/file/file-type.validator.ts"
+  ],
+  "testFiles": [
+    "packages/common/test/pipes/file/file-type.validator.spec.ts"
+  ],
+  "validationStatus": "validated-no-regression-test",
+  "validationReason": "Both baseline and historical fix pass the available test suite; no reproducible regression failure was observed.",
+  "taskStatus": "ready",
+  "candidateScore": 14,
+  "signals": {
+    "positive": [
+      "fix-keyword",
+      "feature-keyword",
+      "typescript-type-signal",
+      "tests-modified (1 files)",
+      "source-modified (1 files)",
+      "co-located-source-and-test",
+      "focused-atomic-scope"
+    ],
+    "negative": []
+  },
+  "originalCommitMessage": "fix(common): improve missing buffer error message in file type validator",
+  "createdAt": "2026-09-13T15:54:44.743Z"
+}

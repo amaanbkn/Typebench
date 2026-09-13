@@ -1,0 +1,32 @@
+{
+  "repository": "vite",
+  "commitSha": "428bda3b98886708006f4f2f409095f89d705df1",
+  "shortSha": "428bda3",
+  "parentSha": "d8cd38830251b95fd7dddcd0eee0ce94cc61c2f4",
+  "status": "unvalidated",
+  "validationReason": "Validation could not be completed: Dependency installation failed.\nCommand failed: pnpm install --frozen-lockfile\n",
+  "baseline": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "fixed": {
+    "command": "",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "",
+    "stderr": "",
+    "durationMs": 0
+  },
+  "tests": [
+    "playground/resolve-tsconfig-paths/__tests__/resolve.spec.ts"
+  ],
+  "durationMs": 2656,
+  "timestamp": "2026-09-13T15:58:38.730Z",
+  "error": "Dependency installation failed.\nCommand failed: pnpm install --frozen-lockfile\n"
+}
