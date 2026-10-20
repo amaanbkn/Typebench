@@ -1,0 +1,81 @@
+{
+  "reportId": "reliability_v0.2.0_ts-solver_3x_2026-10-20_mvgm18rw",
+  "releaseVersion": "0.2.0",
+  "datasetFingerprint": "sha256:7cf632e0304c6a17d563eaa9fe305ae4d33eeec4499157ccc3ced4a0df8e2742",
+  "agentName": "ts-solver",
+  "trialsCount": 3,
+  "totalTasks": 3,
+  "passAt1": 0,
+  "meanScore": 0,
+  "scoreStdDev": 0,
+  "confidenceInterval95": [
+    0,
+    0
+  ],
+  "consistencyRate": 100,
+  "flakyTasksCount": 0,
+  "flakyTaskIds": [],
+  "totalDurationMs": 29966,
+  "timestamp": "2026-10-20T11:38:50.924Z",
+  "tasks": {
+    "hono-1096d66": {
+      "taskId": "hono-1096d66",
+      "repository": "hono",
+      "trialsCount": 3,
+      "solvedTrials": 0,
+      "failedTrials": 3,
+      "passRate": 0,
+      "passAt1": 0,
+      "isConsistent": true,
+      "isFlaky": false,
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "meanScore": 0,
+      "scoreStdDev": 0
+    },
+    "hono-28a9c12": {
+      "taskId": "hono-28a9c12",
+      "repository": "hono",
+      "trialsCount": 3,
+      "solvedTrials": 0,
+      "failedTrials": 3,
+      "passRate": 0,
+      "passAt1": 0,
+      "isConsistent": true,
+      "isFlaky": false,
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "meanScore": 0,
+      "scoreStdDev": 0
+    },
+    "hono-7967760": {
+      "taskId": "hono-7967760",
+      "repository": "hono",
+      "trialsCount": 3,
+      "solvedTrials": 0,
+      "failedTrials": 3,
+      "passRate": 0,
+      "passAt1": 0,
+      "isConsistent": true,
+      "isFlaky": false,
+      "scores": [
+        0,
+        0,
+        0
+      ],
+      "meanScore": 0,
+      "scoreStdDev": 0
+    }
+  },
+  "runReportIds": [
+    "benchmark_v0.2.0_ts-solver_2026-10-20_mvgm0lni",
+    "benchmark_v0.2.0_ts-solver_2026-10-20_mvgm0s52",
+    "benchmark_v0.2.0_ts-solver_2026-10-20_mvgm120r"
+  ]
+}

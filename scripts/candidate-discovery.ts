@@ -28,6 +28,8 @@ export interface CandidateCommit extends CommitInfo {
   sourceFiles: string[];
   docFiles: string[];
   configFiles: string[];
+  targetedTestCommand?: string;
+  testWorkspacePackages?: string[];
   rejectionReason?: string;
 }
 
@@ -48,7 +50,7 @@ const TS_SRC_REGEX = /\.(ts|tsx)$/i;
 const JS_SRC_REGEX = /\.(js|jsx|mjs|cjs)$/i;
 const DOCS_REGEX = /\.(md|markdown|mdx|txt|rst)$/i;
 const DOCS_DIR_REGEX = /(?:^|\/)(?:docs|documentation|website|www)\//i;
-const CONFIG_REGEX = /(?:package-lock\.json|pnpm-lock\.yaml|yarn\.lock|turbo\.json|tsconfig.*\.json|\.eslintrc|\.prettier.*|\.github\/|\.npmrc|\.nvmrc|lerna\.json|LICENSE)$/i;
+const CONFIG_REGEX = /(?:package-lock\.json|pnpm-lock\.yaml|yarn\.lock|bun\.lockb?|turbo\.json|tsconfig.*\.json|\.eslintrc|\.prettier.*|\.github\/|\.npmrc|\.nvmrc|lerna\.json|LICENSE)$/i;
 
 /**
  * Classifies the changed files in a commit.

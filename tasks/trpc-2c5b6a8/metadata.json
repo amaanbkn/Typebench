@@ -18,9 +18,14 @@
   "testFiles": [
     "packages/server/src/unstable-core-do-not-import/createProxy.test.ts"
   ],
-  "validationStatus": "unvalidated",
-  "validationReason": "Environment failure during baseline test execution: sh: line 1: vitest: command not found",
-  "taskStatus": "needs-review",
+  "validationStatus": "baseline-fails-fixed-passes",
+  "validationReason": "Candidate test files fail against the parent commit and pass against the historical fix commit.",
+  "validationReport": "data/validation-reports/trpc-2c5b6a8.json",
+  "validationEnvironment": {
+    "node": "24.x",
+    "packageManager": "pnpm@9.12.2"
+  },
+  "taskStatus": "ready",
   "candidateScore": 12,
   "signals": {
     "positive": [

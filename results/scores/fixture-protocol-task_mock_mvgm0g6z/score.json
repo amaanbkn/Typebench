@@ -1,0 +1,32 @@
+{
+  "runId": "fixture-protocol-task_mock_mvgm0g6z",
+  "taskId": "fixture-protocol-task",
+  "agentName": "mock",
+  "score": 0,
+  "maxScore": 100,
+  "components": {
+    "benchmarkTests": {
+      "weight": 70,
+      "score": 0,
+      "maxScore": 70,
+      "status": "failed"
+    },
+    "regressionTests": {
+      "weight": 15,
+      "score": 0,
+      "maxScore": 15,
+      "status": "unavailable"
+    },
+    "typecheck": {
+      "weight": 15,
+      "score": 0,
+      "maxScore": 15,
+      "status": "unavailable"
+    }
+  },
+  "status": "failed",
+  "isAvailable": true,
+  "evaluationStatus": "failed",
+  "durationMs": 254,
+  "timestamp": "2026-10-20T11:38:14.219Z"
+}

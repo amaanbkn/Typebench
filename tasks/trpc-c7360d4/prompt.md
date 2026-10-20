@@ -19,7 +19,7 @@ When interacting with the affected module(s), the expected behavior or type reso
 ## Verification
 You can verify your solution using the repository's test runner:
 ```bash
-pnpm test -- packages/tanstack-react-query/test/mutationOptions.test.tsx
+pnpm exec vitest run --project @trpc/tanstack-react-query packages/tanstack-react-query/test/mutationOptions.test.tsx
 ```
 
 Relevant test suites:

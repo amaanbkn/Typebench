@@ -8,10 +8,14 @@
   "title": "Abort JSONL Stream on HttpBatchStreamLink Unsubscribe",
   "description": "Task for trpc: Abort JSONL Stream on HttpBatchStreamLink Unsubscribe",
   "packageManager": "pnpm",
-  "testCommand": "pnpm test -- packages/tests/server/links.test.ts",
+  "testCommand": "pnpm exec vitest run --project @trpc/tests packages/tests/server/links.test.ts",
   "targetedTests": [
     "packages/tests/server/links.test.ts"
   ],
-  "taskStatus": "needs-review",
+  "testWorkspacePackages": [
+    "./packages/client",
+    "./packages/server"
+  ],
+  "taskStatus": "ready",
   "createdAt": "2026-08-22T08:57:26.306Z"
 }

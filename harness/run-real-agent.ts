@@ -3,7 +3,7 @@
 /**
  * TypeBench Real-Agent Benchmark Validation CLI
  * Usage:
- *   npx tsx harness/run-real-agent.ts --agent ts-solver --release dataset/releases/v0.1.0.json --trials 2 [--limit 2] [--verbose]
+ *   npx tsx harness/run-real-agent.ts --agent ts-solver --release dataset/releases/v0.2.0.json --trials 2 [--limit 2] [--verbose]
  */
 
 import {
@@ -15,7 +15,7 @@ import { listAvailableAgents } from '../agents/agent-runner.js';
 async function main() {
   const args = process.argv.slice(2);
   let agentArg = 'ts-solver';
-  let releaseArg = 'dataset/releases/v0.1.0.json';
+  let releaseArg = 'dataset/releases/v0.2.0.json';
   let trials = 2;
   let timeoutSec = 300;
   let limit: number | undefined;
@@ -44,7 +44,7 @@ Usage:
 
 Options:
   -a, --agent <name>       Name of real coding agent (default: ts-solver | available: ${listAvailableAgents().join(', ')})
-  -r, --release <path>     Path to frozen release checkpoint (default: dataset/releases/v0.1.0.json)
+  -r, --release <path>     Path to frozen release checkpoint (default: dataset/releases/v0.2.0.json)
   -n, --trials <n>         Number of independent repeated trials per task (default: 2)
   --timeout <seconds>      Uniform task timeout in seconds (default: 300)
   -l, --limit <n>          Limit evaluation to first N tasks

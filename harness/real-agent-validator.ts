@@ -45,7 +45,7 @@ export interface AgentValidationReport {
  */
 export async function validateRealAgentExecution(
   agentName: string,
-  releasePathOrVersion = 'dataset/releases/v0.1.0.json',
+  releasePathOrVersion = 'dataset/releases/v0.2.0.json',
   options: RealAgentValidationOptions = {}
 ): Promise<AgentValidationReport> {
   const outputDir =

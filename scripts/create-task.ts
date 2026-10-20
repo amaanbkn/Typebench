@@ -21,7 +21,7 @@ export interface TaskConfig {
   difficulty: 'easy' | 'medium' | 'hard';
   title: string;
   description: string;
-  packageManager: 'npm' | 'pnpm' | 'yarn';
+  packageManager: 'bun' | 'npm' | 'pnpm' | 'yarn';
   testCommand: string;
   targetedTests?: string[];
   taskStatus: TaskStatus;
@@ -246,7 +246,7 @@ export async function createBenchmarkTask(
   const repositoryUrl = seedRepo?.url || `https://github.com/${repoName}/${repoName}`;
 
   // Determine test command
-  let packageManager: 'npm' | 'pnpm' | 'yarn' = 'npm';
+  let packageManager: 'bun' | 'npm' | 'pnpm' | 'yarn' = 'npm';
   let testCommand = 'npm test';
 
   if (options.workspacePath && fs.existsSync(options.workspacePath)) {
@@ -261,7 +261,8 @@ packageManager = testConfig.packageManager;
     testCommand = testConfig.targetedCommand || testConfig.testCommand;
   } else if (validationReport.baseline && validationReport.baseline.command && validationReport.baseline.command !== 'none') {
     testCommand = validationReport.baseline.command;
-    if (testCommand.startsWith('pnpm')) packageManager = 'pnpm';
+    if (testCommand.startsWith('bun')) packageManager = 'bun';
+    else if (testCommand.startsWith('pnpm')) packageManager = 'pnpm';
     else if (testCommand.startsWith('yarn')) packageManager = 'yarn';
   }
 

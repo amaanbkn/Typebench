@@ -1,0 +1,20 @@
+{
+  "runId": "fixture-protocol-task_mock_mvgm0ggc",
+  "taskId": "fixture-protocol-task",
+  "agentName": "mock",
+  "status": "failed",
+  "benchmarkTests": {
+    "command": "node test.cjs",
+    "exitCode": 1,
+    "passed": false,
+    "durationMs": 20,
+    "status": "failed",
+    "stdoutSnippet": "",
+    "stderrSnippet": "Command failed: node test.cjs"
+  },
+  "changedFiles": [
+    "TYPEBENCH_AGENT_SOLUTION.md"
+  ],
+  "durationMs": 256,
+  "timestamp": "2026-10-20T11:38:14.554Z"
+}

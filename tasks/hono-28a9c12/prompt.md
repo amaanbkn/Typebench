@@ -19,7 +19,7 @@ When interacting with the affected module(s), the expected behavior or type reso
 ## Verification
 You can verify your solution using the repository's test runner:
 ```bash
-npm test -- src/helper/accepts/accepts.test.ts
+bun run test -- src/helper/accepts/accepts.test.ts
 ```
 
 Relevant test suites:

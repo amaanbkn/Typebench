@@ -3,14 +3,14 @@
 /**
  * TypeBench Release Checkpoint Integrity Validator CLI
  * Usage:
- *   npx tsx dataset/validate-release.ts [--release dataset/releases/v0.1.0.json] [--verbose]
+ *   npx tsx dataset/validate-release.ts [--release dataset/releases/v0.2.0.json] [--verbose]
  */
 
 import { verifyReleaseCheckpoint } from './freeze.js';
 
 async function main() {
   const args = process.argv.slice(2);
-  let releaseArg = '0.1.0';
+  let releaseArg = '0.2.0';
   let verbose = false;
 
   for (let i = 0; i < args.length; i++) {
@@ -29,7 +29,7 @@ Usage:
   npx tsx dataset/validate-release.ts [options]
 
 Options:
-  -r, --release <path>    Path to release JSON or version tag (default: 0.1.0)
+  -r, --release <path>    Path to release JSON or version tag (default: 0.2.0)
   -v, --version <semver>  Release version tag
   --verbose               Show detailed task validation
   -h, --help              Show help

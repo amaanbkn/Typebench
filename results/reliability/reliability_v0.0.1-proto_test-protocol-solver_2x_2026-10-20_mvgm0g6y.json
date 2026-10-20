@@ -1,0 +1,43 @@
+{
+  "reportId": "reliability_v0.0.1-proto_test-protocol-solver_2x_2026-10-20_mvgm0g6y",
+  "releaseVersion": "0.0.1-proto",
+  "datasetFingerprint": "sha256:a558cc56686234c2f1152ed94c53f68b079876c64ad753bbc62ed8c324877977",
+  "agentName": "test-protocol-solver",
+  "trialsCount": 2,
+  "totalTasks": 1,
+  "passAt1": 100,
+  "meanScore": 100,
+  "scoreStdDev": 0,
+  "confidenceInterval95": [
+    100,
+    100
+  ],
+  "consistencyRate": 100,
+  "flakyTasksCount": 0,
+  "flakyTaskIds": [],
+  "totalDurationMs": 735,
+  "timestamp": "2026-10-20T11:38:13.882Z",
+  "tasks": {
+    "fixture-protocol-task": {
+      "taskId": "fixture-protocol-task",
+      "repository": "calc",
+      "trialsCount": 2,
+      "solvedTrials": 2,
+      "failedTrials": 0,
+      "passRate": 100,
+      "passAt1": 1,
+      "isConsistent": true,
+      "isFlaky": false,
+      "scores": [
+        100,
+        100
+      ],
+      "meanScore": 100,
+      "scoreStdDev": 0
+    }
+  },
+  "runReportIds": [
+    "benchmark_v0.0.1-proto_test-protocol-solver_2026-10-20_mvgm0fmj",
+    "benchmark_v0.0.1-proto_test-protocol-solver_2026-10-20_mvgm0fwx"
+  ]
+}

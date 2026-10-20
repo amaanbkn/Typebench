@@ -347,7 +347,7 @@ export function inspectTaskForContamination(
  * Performs a dataset-wide contamination audit.
  */
 export function auditDatasetContamination(
-  releasePathOrVersion = 'dataset/releases/v0.1.0.json',
+  releasePathOrVersion = 'dataset/releases/v0.2.0.json',
   options: ContaminationAuditOptions = {}
 ): ContaminationAuditReport {
   const tasksDir = options.tasksDir ?? path.resolve(process.cwd(), 'tasks');
@@ -470,7 +470,7 @@ export function formatContaminationReport(report: ContaminationAuditReport): str
 
 // CLI execution if run directly
 if (process.argv[1]?.includes('audit-contamination')) {
-  const versionArg = process.argv[2] || 'dataset/releases/v0.1.0.json';
+  const versionArg = process.argv[2] || 'dataset/releases/v0.2.0.json';
   const report = auditDatasetContamination(versionArg);
   console.log(formatContaminationReport(report));
   if (report.contaminationDetected) {

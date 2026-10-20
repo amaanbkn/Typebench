@@ -1,6 +1,6 @@
 
 # Typebench Evaluation Sandbox
-FROM node:20-bookworm-slim
+FROM node:24-bookworm-slim
 
 # Install system dependencies & git
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -12,11 +12,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     && rm -rf /var/lib/apt/lists/*
 
-# Enable Corepack for deterministic packageManager (pnpm / yarn) auto-switching
-RUN corepack enable && corepack prepare pnpm@latest --activate && corepack prepare yarn@stable --activate
+# Corepack selects pnpm from each historical repository's packageManager field.
+RUN corepack enable && corepack prepare pnpm@10.33.1 --activate && corepack prepare yarn@4.9.2 --activate
+RUN npm install --global bun@1.4.3
 
 WORKDIR /workspace
 
 # Default entrypoint runs bash
 ENTRYPOINT ["/bin/bash"]
-

@@ -3,14 +3,14 @@
 /**
  * TypeBench Dataset Release & Freeze CLI
  * Usage:
- *   npx tsx dataset/release-dataset.ts --version 0.1.0 [--verbose]
+ *   npx tsx dataset/release-dataset.ts --version 0.2.0 [--verbose]
  */
 
 import { freezeDataset } from './freeze.js';
 
 async function main() {
   const args = process.argv.slice(2);
-  let version = '0.1.0';
+  let version = '0.2.0';
   let verbose = false;
 
   for (let i = 0; i < args.length; i++) {
@@ -27,7 +27,7 @@ Usage:
   npx tsx dataset/release-dataset.ts [options]
 
 Options:
-  -v, --version <semver>  Release version tag (default: 0.1.0)
+  -v, --version <semver>  Release version tag (default: 0.2.0)
   --verbose               Show detailed task checksums
   -h, --help              Show help
 `);

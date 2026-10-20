@@ -49,7 +49,7 @@ export interface SandboxTaskInput {
   repository: string;
   repositoryUrl: string;
   baseCommit: string;
-  packageManager?: 'npm' | 'pnpm' | 'yarn';
+  packageManager?: 'bun' | 'npm' | 'pnpm' | 'yarn';
   testCommand: string;
   taskStatus?: string;
 }
@@ -285,7 +285,9 @@ export CI=true
 
 # Detect package manager
 PM="npm"
-if [ -f "pnpm-lock.yaml" ] || [ -f "pnpm-workspace.yaml" ]; then
+if [ -f "bun.lock" ] || [ -f "bun.lockb" ]; then
+  PM="bun"
+elif [ -f "pnpm-lock.yaml" ] || [ -f "pnpm-workspace.yaml" ]; then
   PM="pnpm"
 elif [ -f "yarn.lock" ]; then
   PM="yarn"
@@ -294,7 +296,9 @@ PM_VER=$($PM -v 2>/dev/null || echo "unknown")
 echo "PACKAGE_MANAGER: $PM"
 echo "PACKAGE_MANAGER_VERSION: $PM_VER"
 
-if [ "$PM" = "pnpm" ]; then
+if [ "$PM" = "bun" ]; then
+  bun install --frozen-lockfile || exit 102
+elif [ "$PM" = "pnpm" ]; then
   pnpm install --no-frozen-lockfile --ignore-scripts || exit 102
 elif [ "$PM" = "yarn" ]; then
   yarn install --ignore-scripts || exit 102

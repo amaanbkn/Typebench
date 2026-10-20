@@ -2,7 +2,7 @@
  * Core type definitions for Typebench Evaluation Engine
  */
 
-export type PackageManager = 'npm' | 'pnpm' | 'yarn';
+export type PackageManager = 'bun' | 'npm' | 'pnpm' | 'yarn';
 
 export type TaskDifficulty = 'easy' | 'medium' | 'hard';
 

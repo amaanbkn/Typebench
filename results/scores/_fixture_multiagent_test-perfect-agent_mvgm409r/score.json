@@ -1,0 +1,32 @@
+{
+  "runId": "_fixture_multiagent_test-perfect-agent_mvgm409r",
+  "taskId": "_fixture_multiagent",
+  "agentName": "test-perfect-agent",
+  "score": 100,
+  "maxScore": 100,
+  "components": {
+    "benchmarkTests": {
+      "weight": 70,
+      "score": 70,
+      "maxScore": 70,
+      "status": "passed"
+    },
+    "regressionTests": {
+      "weight": 15,
+      "score": 15,
+      "maxScore": 15,
+      "status": "unavailable"
+    },
+    "typecheck": {
+      "weight": 15,
+      "score": 15,
+      "maxScore": 15,
+      "status": "unavailable"
+    }
+  },
+  "status": "solved",
+  "isAvailable": true,
+  "evaluationStatus": "solved",
+  "durationMs": 308,
+  "timestamp": "2026-10-20T11:41:00.261Z"
+}

@@ -1,0 +1,20 @@
+{
+  "runId": "_fixture_multiagent_test-perfect-agent_mvgm5mxa",
+  "taskId": "_fixture_multiagent",
+  "agentName": "test-perfect-agent",
+  "status": "solved",
+  "benchmarkTests": {
+    "command": "node test.cjs",
+    "exitCode": 0,
+    "passed": true,
+    "durationMs": 27,
+    "status": "passed",
+    "stdoutSnippet": "Test Passed: 5 + 7 = 12",
+    "stderrSnippet": ""
+  },
+  "changedFiles": [
+    "calc.cjs"
+  ],
+  "durationMs": 260,
+  "timestamp": "2026-10-20T11:42:16.225Z"
+}

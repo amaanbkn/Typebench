@@ -28,14 +28,16 @@ async function main() {
 
   const taskDir1 = path.join(tempTasksDir, 'fixture-task-1');
   const taskDir2 = path.join(tempTasksDir, 'fixture-task-2');
+  const taskDir3 = path.join(tempTasksDir, 'fixture-task-3');
   fs.mkdirSync(taskDir1, { recursive: true });
   fs.mkdirSync(taskDir2, { recursive: true });
+  fs.mkdirSync(taskDir3, { recursive: true });
   fs.mkdirSync(tempReleasesDir, { recursive: true });
 
   // Task 1
   fs.writeFileSync(
     path.join(taskDir1, 'task.json'),
-    JSON.stringify({ taskId: 'fixture-task-1', repository: 'repo1', baseCommit: 'commit1', testCommand: 'npm test' }),
+    JSON.stringify({ taskId: 'fixture-task-1', repository: 'repo1', baseCommit: 'commit1', testCommand: 'npm test', taskStatus: 'ready' }),
     'utf-8'
   );
   fs.writeFileSync(path.join(taskDir1, 'prompt.md'), '# Task 1\nDo thing 1\n', 'utf-8');
@@ -44,11 +46,20 @@ async function main() {
   // Task 2
   fs.writeFileSync(
     path.join(taskDir2, 'task.json'),
-    JSON.stringify({ taskId: 'fixture-task-2', repository: 'repo2', baseCommit: 'commit2', testCommand: 'npm test' }),
+    JSON.stringify({ taskId: 'fixture-task-2', repository: 'repo2', baseCommit: 'commit2', testCommand: 'npm test', taskStatus: 'ready' }),
     'utf-8'
   );
   fs.writeFileSync(path.join(taskDir2, 'prompt.md'), '# Task 2\nDo thing 2\n', 'utf-8');
   fs.writeFileSync(path.join(taskDir2, 'metadata.json'), JSON.stringify({ commitSha: 'commit2', signals: [] }), 'utf-8');
+
+  // Task 3 is not yet validated and must stay out of the release.
+  fs.writeFileSync(
+    path.join(taskDir3, 'task.json'),
+    JSON.stringify({ taskId: 'fixture-task-3', repository: 'repo3', baseCommit: 'commit3', testCommand: 'npm test', taskStatus: 'needs-review' }),
+    'utf-8'
+  );
+  fs.writeFileSync(path.join(taskDir3, 'prompt.md'), '# Task 3\nDo thing 3\n', 'utf-8');
+  fs.writeFileSync(path.join(taskDir3, 'metadata.json'), JSON.stringify({ commitSha: 'commit3', signals: [] }), 'utf-8');
 
   // 1. Test Freezing
   console.log('Test 1: Freezing Dataset Release v0.0.1-test...');
@@ -60,6 +71,23 @@ async function main() {
 
   assert(checkpoint.version === '0.0.1-test', 'Version should match');
   assert(checkpoint.totalTasks === 2, 'Total tasks should be 2');
+  assert(checkpoint.tasks.every((task) => task.taskStatus === 'ready'), 'Unvalidated tasks must not be included');
+  assert(checkpoint.repositories.length === 2, 'Repositories should only include released tasks');
+  assert(checkpoint.repositories.every((repository) => repository.taskCount === 1), 'Repository counts must match released tasks');
+  assert(checkpoint.statistics.byStatus.ready === 2, 'Release statistics must include only ready tasks');
+  assert(!checkpoint.statistics.byStatus['needs-review'], 'Release statistics must exclude unvalidated tasks');
+  let duplicateReleaseRejected = false;
+  try {
+    freezeDataset('0.0.1-test', {
+      tasksDir: tempTasksDir,
+      releasesDir: tempReleasesDir,
+      manifestPath: tempManifestPath,
+    });
+  } catch (error) {
+    duplicateReleaseRejected =
+      error instanceof Error && error.message.includes('already exists');
+  }
+  assert(duplicateReleaseRejected, 'An existing release version must not be overwritten');
   assert(checkpoint.datasetFingerprint.startsWith('sha256:'), 'Fingerprint must be SHA-256');
   console.log(`  ✅ Checkpoint Created (Fingerprint: ${checkpoint.datasetFingerprint.slice(0, 20)}...)\n`);
 

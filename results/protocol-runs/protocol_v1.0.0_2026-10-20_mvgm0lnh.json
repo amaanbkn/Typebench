@@ -1,0 +1,42 @@
+{
+  "protocolRunId": "protocol_v1.0.0_2026-10-20_mvgm0lnh",
+  "protocolVersion": "1.0.0",
+  "releaseVersion": "0.2.0",
+  "datasetFingerprint": "sha256:7cf632e0304c6a17d563eaa9fe305ae4d33eeec4499157ccc3ced4a0df8e2742",
+  "timestamp": "2026-10-20T11:38:50.924Z",
+  "config": {
+    "protocolVersion": "1.0.0",
+    "releaseVersion": "0.2.0",
+    "releaseCheckpointPath": "/home/shaktimaan/PROJECTS/Typebench/dataset/releases/v0.2.0.json",
+    "timeoutSecPerTask": 180,
+    "evalTimeoutSec": 300,
+    "trialsPerTask": 3,
+    "enforceAntiContamination": true,
+    "scoringWeights": {
+      "benchmark": 0.7,
+      "typecheck": 0.15,
+      "regression": 0.15
+    }
+  },
+  "evaluatedAgents": [
+    "ts-solver"
+  ],
+  "totalTasks": 3,
+  "trialsPerAgent": 3,
+  "agentSummaries": {
+    "ts-solver": {
+      "agentName": "ts-solver",
+      "passAt1": 0,
+      "meanScore": 0,
+      "scoreStdDev": 0,
+      "confidenceInterval95": [
+        0,
+        0
+      ],
+      "consistencyRate": 100,
+      "flakyTasksCount": 0,
+      "totalDurationMs": 29966,
+      "reliabilityReportId": "reliability_v0.2.0_ts-solver_3x_2026-10-20_mvgm18rw"
+    }
+  }
+}

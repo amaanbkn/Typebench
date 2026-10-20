@@ -92,7 +92,7 @@ function inferTestRunner(testCommand: string): string {
  * Audits task distribution across the frozen dataset release or manifest.
  */
 export function auditDatasetDistribution(
-  releasePathOrVersion = 'dataset/releases/v0.1.0.json',
+  releasePathOrVersion = 'dataset/releases/v0.2.0.json',
   options: DistributionAuditOptions = {}
 ): DistributionAuditReport {
   const tasksDir = options.tasksDir ?? path.resolve(process.cwd(), 'tasks');
@@ -355,7 +355,7 @@ export function formatDistributionReport(report: DistributionAuditReport): strin
 
 // CLI execution if run directly
 if (process.argv[1]?.includes('audit-distribution')) {
-  const versionArg = process.argv[2] || 'dataset/releases/v0.1.0.json';
+  const versionArg = process.argv[2] || 'dataset/releases/v0.2.0.json';
   const report = auditDatasetDistribution(versionArg);
   console.log(formatDistributionReport(report));
 }

@@ -1,0 +1,20 @@
+{
+  "runId": "fixture-calc-task_test-benchmark-solver_mvgm5meu",
+  "taskId": "fixture-calc-task",
+  "agentName": "test-benchmark-solver",
+  "status": "solved",
+  "benchmarkTests": {
+    "command": "node test.cjs",
+    "exitCode": 0,
+    "passed": true,
+    "durationMs": 22,
+    "status": "passed",
+    "stdoutSnippet": "Test Passed",
+    "stderrSnippet": ""
+  },
+  "changedFiles": [
+    "calc.cjs"
+  ],
+  "durationMs": 254,
+  "timestamp": "2026-10-20T11:42:15.556Z"
+}

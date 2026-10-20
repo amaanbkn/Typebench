@@ -1,0 +1,32 @@
+{
+  "runId": "trpc-2c5b6a8_ts-solver_mvgm27c4",
+  "taskId": "trpc-2c5b6a8",
+  "agentName": "ts-solver",
+  "score": 0,
+  "maxScore": 100,
+  "components": {
+    "benchmarkTests": {
+      "weight": 70,
+      "score": 0,
+      "maxScore": 70,
+      "status": "no_changes"
+    },
+    "regressionTests": {
+      "weight": 15,
+      "score": 0,
+      "maxScore": 15,
+      "status": "no_changes"
+    },
+    "typecheck": {
+      "weight": 15,
+      "score": 0,
+      "maxScore": 15,
+      "status": "no_changes"
+    }
+  },
+  "status": "no_changes",
+  "isAvailable": true,
+  "evaluationStatus": "no_changes",
+  "durationMs": 0,
+  "timestamp": "2026-10-20T11:40:01.619Z"
+}

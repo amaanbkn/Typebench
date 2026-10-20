@@ -1,8 +1,8 @@
 {
-  "datasetVersion": "0.1.0",
+  "datasetVersion": "0.2.0",
   "name": "TypeBench TypeScript Benchmark Dataset",
   "description": "Curated real-world TypeScript engineering benchmark tasks evaluating AI coding agents on type safety, bug fixes, and feature implementations.",
-  "createdAt": "2026-08-22T09:04:01.055Z",
+  "createdAt": "2026-10-20T11:35:27.933Z",
   "repositories": [
     {
       "name": "hono",
@@ -33,22 +33,19 @@
       "title": "Support Custom BuildSearchParams and Filter Undefined Query in $ws()",
       "category": "bug_fix",
       "difficulty": "easy",
-      "packageManager": "npm",
-      "testCommand": "npm test -- src/client/client.test.ts",
-      "taskStatus": "needs-review",
+      "packageManager": "bun",
+      "testCommand": "bun run test -- src/client/client.test.ts",
+      "taskStatus": "ready",
       "baseCommit": "c4a44071eee614c7317403f3534cd213d3f0e0b3",
       "changedFilesCount": 2,
-      "signals": {
-        "positive": [
-          "fix-keyword",
-          "feature-keyword",
-          "tests-modified (1 files)",
-          "source-modified (1 files)",
-          "co-located-source-and-test",
-          "focused-atomic-scope"
-        ],
-        "negative": []
-      },
+      "signals": [
+        "fix-keyword",
+        "feature-keyword",
+        "tests-modified (1 files)",
+        "source-modified (1 files)",
+        "co-located-source-and-test",
+        "focused-atomic-scope"
+      ],
       "createdAt": "2026-08-22T08:59:24.755Z"
     },
     {
@@ -57,23 +54,20 @@
       "title": "Support Wildcard Media Types and Specificity Ordering in DefaultMatch",
       "category": "type_fix",
       "difficulty": "medium",
-      "packageManager": "npm",
-      "testCommand": "npm test -- src/helper/accepts/accepts.test.ts",
-      "taskStatus": "needs-review",
+      "packageManager": "bun",
+      "testCommand": "bun run test -- src/helper/accepts/accepts.test.ts",
+      "taskStatus": "ready",
       "baseCommit": "1096d66e03a3fd16a5cc5f912c2d5e8fd6d990b0",
       "changedFilesCount": 2,
-      "signals": {
-        "positive": [
-          "fix-keyword",
-          "feature-keyword",
-          "typescript-type-signal",
-          "tests-modified (1 files)",
-          "source-modified (1 files)",
-          "co-located-source-and-test",
-          "focused-atomic-scope"
-        ],
-        "negative": []
-      },
+      "signals": [
+        "fix-keyword",
+        "feature-keyword",
+        "typescript-type-signal",
+        "tests-modified (1 files)",
+        "source-modified (1 files)",
+        "co-located-source-and-test",
+        "focused-atomic-scope"
+      ],
       "createdAt": "2026-08-22T08:59:24.695Z"
     },
     {
@@ -82,22 +76,19 @@
       "title": "Handle Params on Unmatched Requests",
       "category": "bug_fix",
       "difficulty": "easy",
-      "packageManager": "npm",
-      "testCommand": "npm test -- src/request.test.ts",
-      "taskStatus": "needs-review",
+      "packageManager": "bun",
+      "testCommand": "bun run test -- src/request.test.ts",
+      "taskStatus": "ready",
       "baseCommit": "0293343dbf8f0bca52b210a98bcef31cc61395ee",
       "changedFilesCount": 2,
-      "signals": {
-        "positive": [
-          "fix-keyword",
-          "feature-keyword",
-          "tests-modified (1 files)",
-          "source-modified (1 files)",
-          "co-located-source-and-test",
-          "focused-atomic-scope"
-        ],
-        "negative": []
-      },
+      "signals": [
+        "fix-keyword",
+        "feature-keyword",
+        "tests-modified (1 files)",
+        "source-modified (1 files)",
+        "co-located-source-and-test",
+        "focused-atomic-scope"
+      ],
       "createdAt": "2026-08-22T08:59:24.820Z"
     },
     {
@@ -108,20 +99,17 @@
       "difficulty": "easy",
       "packageManager": "pnpm",
       "testCommand": "pnpm test -- packages/server/src/unstable-core-do-not-import/createProxy.test.ts",
-      "taskStatus": "needs-review",
+      "taskStatus": "ready",
       "baseCommit": "c188dab0822caf3615199e4ac95147bc7560d26f",
       "changedFilesCount": 2,
-      "signals": {
-        "positive": [
-          "fix-keyword",
-          "feature-keyword",
-          "tests-modified (1 files)",
-          "source-modified (1 files)",
-          "co-located-source-and-test",
-          "focused-atomic-scope"
-        ],
-        "negative": []
-      },
+      "signals": [
+        "fix-keyword",
+        "feature-keyword",
+        "tests-modified (1 files)",
+        "source-modified (1 files)",
+        "co-located-source-and-test",
+        "focused-atomic-scope"
+      ],
       "createdAt": "2026-08-22T08:56:55.076Z"
     },
     {
@@ -131,21 +119,18 @@
       "category": "bug_fix",
       "difficulty": "medium",
       "packageManager": "pnpm",
-      "testCommand": "pnpm test -- packages/tanstack-react-query/test/mutationOptions.test.tsx",
-      "taskStatus": "needs-review",
+      "testCommand": "pnpm exec vitest run --project @trpc/tanstack-react-query packages/tanstack-react-query/test/mutationOptions.test.tsx",
+      "taskStatus": "ready",
       "baseCommit": "774b244ca97518b86489d7b3c02c5f7b5e0de3ee",
       "changedFilesCount": 3,
-      "signals": {
-        "positive": [
-          "fix-keyword",
-          "feature-keyword",
-          "tests-modified (1 files)",
-          "source-modified (2 files)",
-          "co-located-source-and-test",
-          "focused-atomic-scope"
-        ],
-        "negative": []
-      },
+      "signals": [
+        "fix-keyword",
+        "feature-keyword",
+        "tests-modified (1 files)",
+        "source-modified (2 files)",
+        "co-located-source-and-test",
+        "focused-atomic-scope"
+      ],
       "createdAt": "2026-08-22T08:56:20.791Z"
     },
     {
@@ -155,20 +140,17 @@
       "category": "bug_fix",
       "difficulty": "easy",
       "packageManager": "pnpm",
-      "testCommand": "pnpm test -- packages/tests/server/links.test.ts",
-      "taskStatus": "needs-review",
+      "testCommand": "pnpm exec vitest run --project @trpc/tests packages/tests/server/links.test.ts",
+      "taskStatus": "ready",
       "baseCommit": "cdbc28049889a9da9ea2abb6bd6519afe2279ead",
       "changedFilesCount": 2,
-      "signals": {
-        "positive": [
-          "fix-keyword",
-          "tests-modified (1 files)",
-          "source-modified (1 files)",
-          "co-located-source-and-test",
-          "focused-atomic-scope"
-        ],
-        "negative": []
-      },
+      "signals": [
+        "fix-keyword",
+        "tests-modified (1 files)",
+        "source-modified (1 files)",
+        "co-located-source-and-test",
+        "focused-atomic-scope"
+      ],
       "createdAt": "2026-08-22T08:57:26.306Z"
     },
     {
@@ -179,19 +161,16 @@
       "difficulty": "easy",
       "packageManager": "pnpm",
       "testCommand": "pnpm test -- packages/zod/src/v4/classic/tests/catch.test.ts",
-      "taskStatus": "needs-review",
+      "taskStatus": "ready",
       "baseCommit": "937b5d01a143c36bb53591fffb29c44412ac9fef",
       "changedFilesCount": 2,
-      "signals": {
-        "positive": [
-          "fix-keyword",
-          "tests-modified (1 files)",
-          "source-modified (1 files)",
-          "co-located-source-and-test",
-          "focused-atomic-scope"
-        ],
-        "negative": []
-      },
+      "signals": [
+        "fix-keyword",
+        "tests-modified (1 files)",
+        "source-modified (1 files)",
+        "co-located-source-and-test",
+        "focused-atomic-scope"
+      ],
       "createdAt": "2026-08-22T08:55:52.357Z"
     },
     {
@@ -202,20 +181,17 @@
       "difficulty": "hard",
       "packageManager": "pnpm",
       "testCommand": "pnpm test -- packages/zod/src/v4/classic/tests/to-json-schema.test.ts",
-      "taskStatus": "needs-review",
+      "taskStatus": "ready",
       "baseCommit": "28e1ebd89d26147bacb164af988da6ed6de738d4",
       "changedFilesCount": 4,
-      "signals": {
-        "positive": [
-          "feature-keyword",
-          "typescript-type-signal",
-          "tests-modified (1 files)",
-          "source-modified (2 files)",
-          "co-located-source-and-test",
-          "focused-atomic-scope"
-        ],
-        "negative": []
-      },
+      "signals": [
+        "feature-keyword",
+        "typescript-type-signal",
+        "tests-modified (1 files)",
+        "source-modified (2 files)",
+        "co-located-source-and-test",
+        "focused-atomic-scope"
+      ],
       "createdAt": "2026-08-22T08:55:49.791Z"
     },
     {
@@ -226,26 +202,23 @@
       "difficulty": "easy",
       "packageManager": "pnpm",
       "testCommand": "pnpm test -- packages/zod/src/v4/classic/tests/cyclic-data.test.ts",
-      "taskStatus": "needs-review",
+      "taskStatus": "ready",
       "baseCommit": "463ebb30512e7b244f2dde197c5a188162b7c78a",
       "changedFilesCount": 2,
-      "signals": {
-        "positive": [
-          "fix-keyword",
-          "tests-modified (1 files)",
-          "source-modified (1 files)",
-          "co-located-source-and-test",
-          "focused-atomic-scope"
-        ],
-        "negative": []
-      },
+      "signals": [
+        "fix-keyword",
+        "tests-modified (1 files)",
+        "source-modified (1 files)",
+        "co-located-source-and-test",
+        "focused-atomic-scope"
+      ],
       "createdAt": "2026-08-22T08:55:54.887Z"
     }
   ],
   "statistics": {
     "totalTasks": 9,
     "byStatus": {
-      "needs-review": 9
+      "ready": 9
     },
     "byCategory": {
       "bug_fix": 7,
@@ -262,6 +235,6 @@
       "zod": 3
     }
   },
-  "datasetFingerprint": "sha256:ef94518a80402a7fb0b5b988872b20da2f974e74b59dfca2bc4f5c005e9acf6e",
-  "releaseVersion": "0.1.0"
+  "datasetFingerprint": "sha256:7cf632e0304c6a17d563eaa9fe305ae4d33eeec4499157ccc3ced4a0df8e2742",
+  "releaseVersion": "0.2.0"
 }

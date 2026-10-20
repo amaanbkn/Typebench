@@ -22,7 +22,7 @@ export interface RepositorySuitabilityScore {
   url: string;
   category: string;
   license: string;
-  packageManager: 'npm' | 'pnpm' | 'yarn';
+  packageManager: 'bun' | 'npm' | 'pnpm' | 'yarn';
   dimensions: QualityDimensions;
   overallScore: number; // 0 - 100
   tier: 'Tier-1 (Prime Seed)' | 'Tier-2 (Approved Seed)' | 'Tier-3 (Conditional)' | 'Unsuitable';
@@ -44,7 +44,7 @@ export interface RepositoryAuditSummary {
 const REPO_PROFILES: Record<string, Partial<RepositorySuitabilityScore>> = {
   hono: {
     license: 'MIT',
-    packageManager: 'npm',
+    packageManager: 'bun',
     dimensions: {
       typeScriptRelevance: 19,
       testQuality: 19,

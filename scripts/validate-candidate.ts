@@ -92,6 +92,7 @@ export interface ValidationOptions {
  */
 export interface TestCommandDetection {
   packageManager:
+    | 'bun'
     | 'npm'
     | 'pnpm'
     | 'yarn'
@@ -130,6 +131,23 @@ const VALIDATION_REPORTS_DIR =
 function detectPackageManager(
   workspacePath: string,
 ): TestCommandDetection['packageManager'] {
+  if (
+    fs.existsSync(
+      path.join(
+        workspacePath,
+        'bun.lock',
+      ),
+    ) ||
+    fs.existsSync(
+      path.join(
+        workspacePath,
+        'bun.lockb',
+      ),
+    )
+  ) {
+    return 'bun';
+  }
+
   if (
     fs.existsSync(
       path.join(
@@ -240,12 +258,16 @@ function quoteShellArgument(
  */
 function buildTestCommand(
   packageManager:
+    | 'bun'
     | 'npm'
     | 'pnpm'
     | 'yarn'
     | 'unknown',
 ): string {
   switch (packageManager) {
+    case 'bun':
+      return 'bun run test';
+
     case 'pnpm':
       return 'pnpm test';
 
@@ -265,6 +287,7 @@ function buildTestCommand(
  */
 function buildTargetedCommand(
   packageManager:
+    | 'bun'
     | 'npm'
     | 'pnpm'
     | 'yarn'
@@ -281,6 +304,9 @@ function buildTargetedCommand(
       .join(' ');
 
   switch (packageManager) {
+    case 'bun':
+      return `bun run test -- ${paths}`;
+
     case 'pnpm':
       return `pnpm test -- ${paths}`;
 
@@ -349,6 +375,10 @@ export function detectTestCommand(
     'string'
   ) {
     switch (packageManager) {
+      case 'bun':
+        testCommand = 'bun run test:unit';
+        break;
+
       case 'pnpm':
         testCommand =
           'pnpm run test:unit';
@@ -368,6 +398,10 @@ export function detectTestCommand(
     typeof scripts.jest === 'string'
   ) {
     switch (packageManager) {
+      case 'bun':
+        testCommand = 'bun run jest';
+        break;
+
       case 'pnpm':
         testCommand =
           'pnpm run jest';
@@ -496,12 +530,15 @@ async function runCommand(
 async function ensureDependencies(
   workspacePath: string,
   packageManager:
+    | 'bun'
     | 'npm'
     | 'pnpm'
     | 'yarn'
     | 'unknown',
   timeoutMs: number,
   verbose: boolean,
+  testFiles: string[] = [],
+  testWorkspacePackages: string[] = [],
 ): Promise<void> {
   const nodeModules =
     path.join(
@@ -524,9 +561,23 @@ async function ensureDependencies(
   let installCommand: string;
 
   switch (packageManager) {
-    case 'pnpm':
+    case 'bun':
       installCommand =
-        'pnpm install --frozen-lockfile';
+        'bun install --frozen-lockfile';
+      break;
+
+    case 'pnpm':
+      const packagePath = findWorkspacePackage(workspacePath, testFiles);
+      const packageFilters = [
+        ...new Set(
+          [packagePath, ...testWorkspacePackages]
+            .filter((value): value is string => Boolean(value))
+            .map((value) => `--filter '${value}...'`),
+        ),
+      ];
+      installCommand = packageFilters.length > 0
+        ? `pnpm install --frozen-lockfile --filter . ${packageFilters.join(' ')}`
+        : 'pnpm install --frozen-lockfile';
       break;
 
     case 'yarn':
@@ -535,8 +586,11 @@ async function ensureDependencies(
       break;
 
     case 'npm':
-      installCommand =
-        'npm ci';
+      installCommand = fs.existsSync(
+        path.join(workspacePath, 'package-lock.json'),
+      )
+        ? 'npm ci'
+        : 'npm install';
       break;
 
     default:
@@ -567,12 +621,30 @@ async function ensureDependencies(
       [
         'Dependency installation failed.',
         result.error,
+        result.stdout,
         result.stderr,
       ]
         .filter(Boolean)
         .join('\n'),
     );
   }
+}
+
+function findWorkspacePackage(workspacePath: string, testFiles: string[]): string | undefined {
+  for (const testFile of testFiles) {
+    let currentDirectory = path.resolve(workspacePath, path.dirname(testFile));
+    while (
+      currentDirectory !== workspacePath &&
+      currentDirectory.startsWith(`${workspacePath}${path.sep}`)
+    ) {
+      if (fs.existsSync(path.join(currentDirectory, 'package.json'))) {
+        return `./${path.relative(workspacePath, currentDirectory)}`;
+      }
+      currentDirectory = path.dirname(currentDirectory);
+    }
+  }
+
+  return undefined;
 }
 
 /**
@@ -661,6 +733,26 @@ async function checkoutCommit(
   await git.checkout(
     commitSha,
   );
+}
+
+async function applyCandidateTests(
+  git: SimpleGit,
+  commitSha: string,
+  testFiles: string[],
+  workspacePath: string,
+): Promise<void> {
+  for (const testFile of testFiles) {
+    const content = await git.show(`${commitSha}:${testFile}`);
+    const destination = path.resolve(workspacePath, testFile);
+    const relativePath = path.relative(workspacePath, destination);
+
+    if (relativePath.startsWith('..') || path.isAbsolute(relativePath)) {
+      throw new Error(`Candidate test path escapes repository: ${testFile}`);
+    }
+
+    await fs.promises.mkdir(path.dirname(destination), { recursive: true });
+    await fs.promises.writeFile(destination, content, 'utf8');
+  }
 }
 
 /**
@@ -854,11 +946,19 @@ export async function validateCandidate(
           [],
       );
 
+    await applyCandidateTests(
+      git,
+      candidate.sha,
+      candidate.testFiles || [],
+      workspacePath,
+    );
+
     /**
      * create-task.ts expects these fields, while the actual
      * validator uses the selected command for execution.
      */
     const baselineTestCommand =
+      candidate.targetedTestCommand ||
       baselineConfig.targetedCommand ||
       baselineConfig.testCommand;
 
@@ -874,6 +974,8 @@ export async function validateCandidate(
         baselineConfig.packageManager,
         timeoutMs,
         verbose,
+        candidate.testFiles || [],
+        candidate.testWorkspacePackages || [],
       );
     }
 
@@ -916,6 +1018,7 @@ export async function validateCandidate(
       );
 
     const fixedTestCommand =
+      candidate.targetedTestCommand ||
       fixedConfig.targetedCommand ||
       fixedConfig.testCommand;
 
@@ -935,6 +1038,10 @@ export async function validateCandidate(
             'package-lock.json' ||
           file ===
             'pnpm-lock.yaml' ||
+          file ===
+            'bun.lock' ||
+          file ===
+            'bun.lockb' ||
           file ===
             'yarn.lock',
       );
@@ -962,6 +1069,8 @@ export async function validateCandidate(
         fixedConfig.packageManager,
         timeoutMs,
         verbose,
+        candidate.testFiles || [],
+        candidate.testWorkspacePackages || [],
       );
     }
 
@@ -1011,7 +1120,7 @@ export async function validateCandidate(
         'baseline-fails-fixed-passes';
 
       validationReason =
-        'Baseline parent commit fails the test suite while the historical fix commit passes.';
+        'Candidate test files fail against the parent commit and pass against the historical fix commit.';
     } else if (
       baseline.passed &&
       fixed.passed

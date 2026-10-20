@@ -1,0 +1,32 @@
+{
+  "repository": "hono",
+  "commitSha": "7967760748503b50de7c315fe3aa76666a8e6cab",
+  "shortSha": "7967760",
+  "parentSha": "0293343dbf8f0bca52b210a98bcef31cc61395ee",
+  "status": "baseline-fails-fixed-passes",
+  "validationReason": "Candidate test files fail against the parent commit and pass against the historical fix commit.",
+  "baseline": {
+    "command": "bun run test -- src/request.test.ts",
+    "exitCode": 1,
+    "passed": false,
+    "timedOut": false,
+    "stdout": "\n RUN  v4.1.9 /home/shaktimaan/.cache/typebench-validation/hono-fXXdqZ\n      Coverage enabled with v8\n\n ❯ |main| src/request.test.ts (42 tests | 1 failed) 34ms\n     × req.param() on an unmatched request 3ms\n\n Test Files  1 failed (1)\n      Tests  1 failed | 41 passed (42)\n   Start at  16:56:05\n   Duration  351ms (transform 102ms, setup 0ms, import 140ms, tests 34ms, environment 0ms)\n\n",
+    "stderr": "$ tsc -p tsconfig.spec.json && vitest --run src/request.test.ts\nLoaded  vitest@4.1.9  and  @vitest/coverage-v8@4.1.7 .\nRunning mixed versions is not supported and may lead into bugs\nUpdate your dependencies and make sure the versions match.\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  |main| src/request.test.ts > Param > req.param() on an unmatched request\nTypeError: Cannot read properties of undefined (reading '1')\n ❯ HonoRequest.#getDecodedParam src/request.ts:104:48\n    102|\n    103|   #getDecodedParam(key: string): string | undefined {\n    104|     const paramKey = this.#matchResult[0][this.routeIndex][1][key]\n       |                                                ^\n    105|     const param = this.#getParamValue(paramKey)\n    106|     return param && tryDecodeURIComponent(param)\n ❯ HonoRequest.param src/request.ts:100:23\n ❯ src/request.test.ts:45:16\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\nerror: script \"test\" exited with code 1\n",
+    "durationMs": 7477,
+    "error": "Command failed: bun run test -- src/request.test.ts\n$ tsc -p tsconfig.spec.json && vitest --run src/request.test.ts\nLoaded  vitest@4.1.9  and  @vitest/coverage-v8@4.1.7 .\nRunning mixed versions is not supported and may lead into bugs\nUpdate your dependencies and make sure the versions match.\n\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n\n FAIL  |main| src/request.test.ts > Param > req.param() on an unmatched request\nTypeError: Cannot read properties of undefined (reading '1')\n ❯ HonoRequest.#getDecodedParam src/request.ts:104:48\n    102|\n    103|   #getDecodedParam(key: string): string | undefined {\n    104|     const paramKey = this.#matchResult[0][this.routeIndex][1][key]\n       |                                                ^\n    105|     const param = this.#getParamValue(paramKey)\n    106|     return param && tryDecodeURIComponent(param)\n ❯ HonoRequest.param src/request.ts:100:23\n ❯ src/request.test.ts:45:16\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n\nerror: script \"test\" exited with code 1\n"
+  },
+  "fixed": {
+    "command": "bun run test -- src/request.test.ts",
+    "exitCode": 0,
+    "passed": true,
+    "timedOut": false,
+    "stdout": "\n RUN  v4.1.9 /home/shaktimaan/.cache/typebench-validation/hono-fXXdqZ\n      Coverage enabled with v8\n\n\n Test Files  1 passed (1)\n      Tests  42 passed (42)\n   Start at  16:56:12\n   Duration  309ms (transform 67ms, setup 0ms, import 103ms, tests 33ms, environment 0ms)\n\n % Coverage report from v8\n-------------------|---------|----------|---------|---------|-------------------\nFile               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s \n-------------------|---------|----------|---------|---------|-------------------\nAll files          |   50.86 |    35.93 |   60.27 |   50.88 |                   \n src               |   91.78 |    82.75 |   93.75 |    91.3 |                   \n  ...-exception.ts |   42.85 |    33.33 |      50 |   42.85 | 67-74             \n  request.ts       |   96.96 |    88.46 |   96.66 |   96.77 | 228,386           \n src/utils         |   39.78 |     29.2 |   34.14 |   40.29 |                   \n  body.ts          |   67.92 |    57.77 |   77.77 |    67.3 | ...03,209,226-245 \n  buffer.ts        |      18 |        0 |   28.57 |   18.36 | ...2,81-95,99-103 \n  crypto.ts        |   16.66 |        0 |       0 |   16.66 | ...24,28-30,36-57 \n  url.ts           |   40.81 |     29.2 |      25 |   41.95 | ...63,276,281,295 \n-------------------|---------|----------|---------|---------|-------------------\n\n=============================== Coverage summary ===============================\nStatements   : 50.86% ( 177/348 )\nBranches     : 35.93% ( 83/231 )\nFunctions    : 60.27% ( 44/73 )\nLines        : 50.88% ( 172/338 )\n================================================================================\n",
+    "stderr": "$ tsc -p tsconfig.spec.json && vitest --run src/request.test.ts\nLoaded  vitest@4.1.9  and  @vitest/coverage-v8@4.1.7 .\nRunning mixed versions is not supported and may lead into bugs\nUpdate your dependencies and make sure the versions match.\n",
+    "durationMs": 6059
+  },
+  "tests": [
+    "src/request.test.ts"
+  ],
+  "durationMs": 17169,
+  "timestamp": "2026-10-20T11:26:12.360Z"
+}

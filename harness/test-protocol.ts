@@ -57,7 +57,7 @@ async function main() {
   const tempDir = path.join(os.tmpdir(), `typebench-protocol-test-${Date.now().toString(36)}`);
   const fixtureRepoPath = path.join(tempDir, 'repo');
   const tempTasksDir = path.join(tempDir, 'tasks');
-  const tempReleasesDir = path.join(tempDir, 'releases');
+  const tempReleasesDir = path.join(tempDir, 'dataset', 'releases');
   const tempOutputDir = path.join(tempDir, 'protocol-runs');
   const tempManifestPath = path.join(tempDir, 'manifest.json');
 
@@ -126,6 +126,16 @@ if (add(5, 5) !== 10) {
   // Test 1: Invariant check passes on valid config
   console.log('Test 1: Testing protocol invariant validation on valid release...');
   const validConfig = createDefaultProtocolConfig(releasePath, '0.0.1-proto');
+  const originalWorkingDirectory = process.cwd();
+  let versionConfig: ReturnType<typeof createDefaultProtocolConfig>;
+  try {
+    process.chdir(tempDir);
+    versionConfig = createDefaultProtocolConfig('0.0.1-proto');
+  } finally {
+    process.chdir(originalWorkingDirectory);
+  }
+  assert(versionConfig.releaseCheckpointPath === releasePath, 'Release version should resolve to its checkpoint path');
+  assert(versionConfig.releaseVersion === '0.0.1-proto', 'Release version should be read from its checkpoint');
   const check1 = validateProtocolInvariants(validConfig, { tasksDir: tempTasksDir });
   assert(check1.valid, `Valid protocol config should pass: ${check1.errors.join(', ')}`);
   console.log('  ✅ Invariant check passed.\n');

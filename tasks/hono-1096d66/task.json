@@ -7,11 +7,11 @@
   "difficulty": "easy",
   "title": "Support Custom BuildSearchParams and Filter Undefined Query in $ws()",
   "description": "Task for hono: Support Custom BuildSearchParams and Filter Undefined Query in $ws()",
-  "packageManager": "npm",
-  "testCommand": "npm test -- src/client/client.test.ts",
+  "packageManager": "bun",
+  "testCommand": "bun run test -- src/client/client.test.ts",
   "targetedTests": [
     "src/client/client.test.ts"
   ],
-  "taskStatus": "needs-review",
+  "taskStatus": "ready",
   "createdAt": "2026-08-22T08:59:24.755Z"
 }

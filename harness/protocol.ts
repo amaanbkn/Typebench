@@ -63,13 +63,37 @@ export interface ProtocolExecutionOptions {
  * Creates default standardized benchmark protocol configuration.
  */
 export function createDefaultProtocolConfig(
-  releaseCheckpointPath = 'dataset/releases/v0.1.0.json',
-  releaseVersion = '0.1.0'
+  releaseCheckpointPath = 'dataset/releases/v0.2.0.json',
+  releaseVersion?: string,
 ): BenchmarkProtocolConfig {
+  let resolvedReleasePath = path.resolve(process.cwd(), releaseCheckpointPath);
+  if (!fs.existsSync(resolvedReleasePath)) {
+    const version = path
+      .basename(releaseCheckpointPath)
+      .replace(/^v/, '')
+      .replace(/\.json$/, '');
+    if (/^\d+\.\d+\.\d+(?:-[\w.-]+)?$/.test(version)) {
+      const versionedPath = path.resolve(
+        process.cwd(),
+        'dataset/releases',
+        `v${version}.json`,
+      );
+      if (fs.existsSync(versionedPath)) {
+        resolvedReleasePath = versionedPath;
+      }
+    }
+  }
+
+  const resolvedReleaseVersion =
+    releaseVersion ||
+    (fs.existsSync(resolvedReleasePath)
+      ? (JSON.parse(fs.readFileSync(resolvedReleasePath, 'utf-8')) as DatasetReleaseCheckpoint).version
+      : '0.2.0');
+
   return {
     protocolVersion: '1.0.0',
-    releaseVersion,
-    releaseCheckpointPath,
+    releaseVersion: resolvedReleaseVersion,
+    releaseCheckpointPath: resolvedReleasePath,
     timeoutSecPerTask: 300,
     evalTimeoutSec: 300,
     trialsPerTask: 3,

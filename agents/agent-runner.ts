@@ -24,7 +24,7 @@ export interface TaskDefinitionInput {
   repository: string;
   repositoryUrl: string;
   baseCommit: string;
-  packageManager?: 'npm' | 'pnpm' | 'yarn';
+  packageManager?: 'bun' | 'npm' | 'pnpm' | 'yarn';
   testCommand?: string;
   prompt?: string;
 }

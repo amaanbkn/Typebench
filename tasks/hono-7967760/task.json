@@ -7,11 +7,11 @@
   "difficulty": "easy",
   "title": "Handle Params on Unmatched Requests",
   "description": "Task for hono: Handle Params on Unmatched Requests",
-  "packageManager": "npm",
-  "testCommand": "npm test -- src/request.test.ts",
+  "packageManager": "bun",
+  "testCommand": "bun run test -- src/request.test.ts",
   "targetedTests": [
     "src/request.test.ts"
   ],
-  "taskStatus": "needs-review",
+  "taskStatus": "ready",
   "createdAt": "2026-08-22T08:59:24.820Z"
 }

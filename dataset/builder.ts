@@ -67,7 +67,8 @@ export interface BuildDatasetOptions {
  */
 export function compileManifest(
   tasksDir = path.resolve(process.cwd(), 'tasks'),
-  outputManifestPath = path.resolve(process.cwd(), 'dataset/manifest.json')
+  outputManifestPath = path.resolve(process.cwd(), 'dataset/manifest.json'),
+  datasetVersion = '0.1.0',
 ): DatasetManifest {
   const seedRepos = getSeedRepos();
   const repoMap = new Map(seedRepos.map((r) => [r.name, r]));
@@ -94,7 +95,7 @@ export function compileManifest(
 
     try {
       const taskJson = JSON.parse(fs.readFileSync(taskPath, 'utf-8'));
-      let metadataJson: Partial<TaskMetadata> = {};
+      let metadataJson: Partial<TaskMetadata> & { filesChanged?: string[] } = {};
       if (fs.existsSync(metaPath)) {
         metadataJson = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
       }
@@ -102,7 +103,12 @@ export function compileManifest(
       const repoName = taskJson.repository || dirName.split('-')[0];
       const category = taskJson.category || 'bug_fix';
       const difficulty = taskJson.difficulty || 'medium';
-      const status = taskJson.taskStatus || 'ready';
+      const status = taskJson.taskStatus || 'needs-review';
+      const signals = Array.isArray(metadataJson.signals)
+        ? metadataJson.signals
+        : metadataJson.signals
+          ? [...metadataJson.signals.positive, ...metadataJson.signals.negative]
+          : [];
 
       byStatus[status] = (byStatus[status] || 0) + 1;
       byCategory[category] = (byCategory[category] || 0) + 1;
@@ -123,7 +129,7 @@ export function compileManifest(
           metadataJson.changedFiles?.length ||
           metadataJson.filesChanged?.length ||
           0,
-        signals: metadataJson.signals || [],
+        signals,
         createdAt: taskJson.createdAt || new Date().toISOString(),
       });
     } catch (err) {
@@ -147,7 +153,7 @@ export function compileManifest(
   }
 
   const manifest: DatasetManifest = {
-    datasetVersion: '0.1.0',
+    datasetVersion,
     name: 'TypeBench TypeScript Benchmark Dataset',
     description:
       'Curated real-world TypeScript engineering benchmark tasks evaluating AI coding agents on type safety, bug fixes, and feature implementations.',
@@ -244,7 +250,7 @@ export async function buildDataset(
       if (options.createTasks !== false && report.status !== 'invalid') {
         const taskResult = await createBenchmarkTask(candidate, report, {
           workspacePath: cloneResult.workspacePath,
-          tasksDir,
+          outputBaseDir: tasksDir,
         });
 
         if (taskResult.success) {

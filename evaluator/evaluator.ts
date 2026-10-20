@@ -74,10 +74,13 @@ export interface TaskData {
   repository: string;
   repositoryUrl: string;
   baseCommit: string;
-  packageManager?: 'npm' | 'pnpm' | 'yarn';
+  packageManager?: 'bun' | 'npm' | 'pnpm' | 'yarn';
   testCommand: string;
   targetedTests?: string[];
+  testWorkspacePackages?: string[];
   taskStatus?: string;
+  hiddenFixCommit?: string;
+  hiddenTestFiles?: string[];
 }
 
 /**
@@ -133,7 +136,162 @@ export function loadTaskData(taskId: string, tasksDir?: string): TaskData {
     throw new Error(`task.json not found for task ${taskId} at: ${taskJsonPath}`);
   }
 
-  return JSON.parse(fs.readFileSync(taskJsonPath, 'utf-8'));
+  const taskData: TaskData = JSON.parse(fs.readFileSync(taskJsonPath, 'utf-8'));
+  const metadataPath = path.join(taskPath, 'metadata.json');
+  if (fs.existsSync(metadataPath)) {
+    const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'));
+    taskData.hiddenFixCommit = metadata.commitSha;
+    taskData.hiddenTestFiles = metadata.testFiles;
+  }
+  return taskData;
+}
+
+function saveEvaluationResult(result: EvaluationResult, evaluationsBaseDir: string): void {
+  const outputDir = path.join(evaluationsBaseDir, result.runId);
+  fs.mkdirSync(outputDir, { recursive: true });
+  fs.writeFileSync(
+    path.join(outputDir, 'evaluation.json'),
+    JSON.stringify(result, null, 2),
+    'utf-8',
+  );
+}
+
+function getPackageManagerVersion(
+  workspacePath: string,
+  packageManager: 'bun' | 'pnpm' | 'yarn',
+): string {
+  const packageJson = JSON.parse(
+    fs.readFileSync(path.join(workspacePath, 'package.json'), 'utf-8'),
+  ) as {
+    packageManager?: string;
+    engines?: Record<string, string>;
+  };
+  const declaredPackageManager = packageJson.packageManager?.match(
+    new RegExp(`^${packageManager}@([^+]+)`),
+  )?.[1];
+  const declaredEngine = packageJson.engines?.[packageManager]?.match(
+    /\d+\.\d+\.\d+(?:-[\w.-]+)?/,
+  )?.[0];
+  const defaultVersions = {
+    bun: '1.4.3',
+    pnpm: '10.33.1',
+    yarn: '1.22.22',
+  };
+  const version = declaredPackageManager || declaredEngine || defaultVersions[packageManager];
+
+  if (!/^\d+\.\d+\.\d+(?:-[\w.-]+)?$/.test(version)) {
+    throw new Error(`Unsupported ${packageManager} version declaration: ${version}`);
+  }
+
+  return version;
+}
+
+function getNodeMajorVersion(workspacePath: string): string | undefined {
+  const packageJson = JSON.parse(
+    fs.readFileSync(path.join(workspacePath, 'package.json'), 'utf-8'),
+  ) as { engines?: { node?: string } };
+  return packageJson.engines?.node?.match(/\d+/)?.[0];
+}
+
+function packageManagerCommand(
+  taskData: TaskData,
+  workspacePath: string,
+  command: string,
+): string {
+  const packageManager = taskData.packageManager || 'npm';
+  if (packageManager === 'npm' || !command.startsWith(`${packageManager} `)) {
+    return command;
+  }
+
+  const version = getPackageManagerVersion(workspacePath, packageManager);
+  const packages = [`${packageManager}@${version}`];
+  const nodeMajor = getNodeMajorVersion(workspacePath);
+  if (nodeMajor) packages.unshift(`node@${nodeMajor}`);
+  const packageOptions = packages.map((name) => `--package=${name}`).join(' ');
+  return `npm exec --yes ${packageOptions} -- ${command}`;
+}
+
+async function installTaskDependencies(
+  taskData: TaskData,
+  workspacePath: string,
+  timeoutMs: number,
+): Promise<TestRunResult | undefined> {
+  if (
+    !fs.existsSync(path.join(workspacePath, 'package.json')) ||
+    fs.existsSync(path.join(workspacePath, 'node_modules'))
+  ) {
+    return undefined;
+  }
+
+  const packageManager = taskData.packageManager || 'npm';
+  let installCommand: string;
+  switch (packageManager) {
+    case 'bun':
+      installCommand = packageManagerCommand(taskData, workspacePath, 'bun install --frozen-lockfile');
+      break;
+    case 'pnpm': {
+      const packagePath = findWorkspacePackage(workspacePath, taskData.targetedTests || []);
+      const packageFilters = [
+        ...new Set(
+          [packagePath, ...(taskData.testWorkspacePackages || [])]
+            .filter((value): value is string => Boolean(value))
+            .map((value) => `--filter '${value}...'`),
+        ),
+      ];
+      const command = packageFilters.length > 0
+        ? `pnpm install --frozen-lockfile --filter . ${packageFilters.join(' ')}`
+        : 'pnpm install --frozen-lockfile';
+      installCommand = packageManagerCommand(taskData, workspacePath, command);
+      break;
+    }
+    case 'yarn':
+      installCommand = packageManagerCommand(taskData, workspacePath, fs.existsSync(path.join(workspacePath, 'yarn.lock'))
+        ? 'yarn install --frozen-lockfile'
+        : 'yarn install');
+      break;
+    default:
+      installCommand = fs.existsSync(path.join(workspacePath, 'package-lock.json'))
+        ? 'npm ci'
+        : 'npm install';
+  }
+
+  return runCommand(installCommand, workspacePath, timeoutMs);
+}
+
+function findWorkspacePackage(workspacePath: string, testFiles: string[]): string | undefined {
+  for (const testFile of testFiles) {
+    let currentDirectory = path.resolve(workspacePath, path.dirname(testFile));
+    while (
+      currentDirectory !== workspacePath &&
+      currentDirectory.startsWith(`${workspacePath}${path.sep}`)
+    ) {
+      if (fs.existsSync(path.join(currentDirectory, 'package.json'))) {
+        return `./${path.relative(workspacePath, currentDirectory)}`;
+      }
+      currentDirectory = path.dirname(currentDirectory);
+    }
+  }
+  return undefined;
+}
+
+async function overlayHiddenTests(
+  git: SimpleGit,
+  taskData: TaskData,
+  workspacePath: string,
+): Promise<void> {
+  if (!taskData.hiddenFixCommit) return;
+
+  for (const testFile of taskData.hiddenTestFiles || []) {
+    const destination = path.resolve(workspacePath, testFile);
+    const relativePath = path.relative(workspacePath, destination);
+    if (relativePath.startsWith('..') || path.isAbsolute(relativePath)) {
+      throw new Error(`Hidden test path escapes repository: ${testFile}`);
+    }
+
+    const content = await git.show(`${taskData.hiddenFixCommit}:${testFile}`);
+    await fs.promises.mkdir(path.dirname(destination), { recursive: true });
+    await fs.promises.writeFile(destination, content, 'utf-8');
+  }
 }
 
 /**
@@ -147,7 +305,7 @@ async function runCommand(
   const startTime = Date.now();
   const env = {
     ...process.env,
-    PATH: `/home/shaktimaan/.local/bin:${path.join(cwd, 'node_modules/.bin')}:${process.env.PATH}`,
+    PATH: `${path.join(cwd, 'node_modules/.bin')}:${process.env.PATH}`,
     CI: 'true',
   };
 
@@ -364,9 +522,58 @@ export async function evaluateRun(
       }
     }
 
+    const changedTestFiles = (taskData.hiddenTestFiles || taskData.targetedTests || []).filter(
+      (testFile) => runData.changedFiles.includes(testFile),
+    );
+    if (changedTestFiles.length > 0) {
+      const result: EvaluationResult = {
+        runId: runData.runId,
+        taskId: taskData.taskId,
+        agentName: runData.agentName,
+        status: 'failed',
+        benchmarkTests: {
+          command: taskData.testCommand,
+          exitCode: 1,
+          passed: false,
+          durationMs: 0,
+          status: 'failed',
+          stderrSnippet: `Agent modified benchmark test file(s): ${changedTestFiles.join(', ')}`,
+        },
+        changedFiles: runData.changedFiles,
+        durationMs: Date.now() - startTime,
+        error: 'Benchmark test files must not be modified by the agent.',
+        timestamp: new Date().toISOString(),
+      };
+      saveEvaluationResult(result, evaluationsBaseDir);
+      return result;
+    }
+
+    await overlayHiddenTests(workspaceGit, taskData, evalWorkspacePath);
+
     // Clean up temporary patch file
     if (fs.existsSync(patchFilePath)) {
       fs.unlinkSync(patchFilePath);
+    }
+
+    const dependencyInstall = await installTaskDependencies(taskData, evalWorkspacePath, timeoutMs);
+    if (dependencyInstall && !dependencyInstall.passed) {
+      const result: EvaluationResult = {
+        runId: runData.runId,
+        taskId: taskData.taskId,
+        agentName: runData.agentName,
+        status: 'infrastructure_failure',
+        benchmarkTests: {
+          ...dependencyInstall,
+          status: 'unavailable',
+          stderrSnippet: `Dependency installation failed: ${dependencyInstall.stderrSnippet || ''}`,
+        },
+        changedFiles: runData.changedFiles,
+        durationMs: Date.now() - startTime,
+        error: 'Evaluation dependencies could not be installed.',
+        timestamp: new Date().toISOString(),
+      };
+      saveEvaluationResult(result, evaluationsBaseDir);
+      return result;
     }
 
     // 6. Run Benchmark Tests
@@ -374,7 +581,12 @@ export async function evaluateRun(
       console.log(`[Evaluator] Running benchmark test command: "${taskData.testCommand}"...`);
     }
 
-    const benchmarkTests = await runCommand(taskData.testCommand, evalWorkspacePath, timeoutMs);
+    const benchmarkCommand = packageManagerCommand(
+      taskData,
+      evalWorkspacePath,
+      taskData.testCommand,
+    );
+    const benchmarkTests = await runCommand(benchmarkCommand, evalWorkspacePath, timeoutMs);
 
     // 7. Optional Typecheck execution
     let typecheckResult: TestRunResult | undefined;
@@ -392,10 +604,15 @@ export async function evaluateRun(
         }
 
         if (typeCmd) {
+          const resolvedTypecheckCommand = packageManagerCommand(
+            taskData,
+            evalWorkspacePath,
+            typeCmd,
+          );
           if (options.verbose) {
-            console.log(`[Evaluator] Running static typecheck: "${typeCmd}"...`);
+            console.log(`[Evaluator] Running static typecheck: "${resolvedTypecheckCommand}"...`);
           }
-          typecheckResult = await runCommand(typeCmd, evalWorkspacePath, 60000);
+          typecheckResult = await runCommand(resolvedTypecheckCommand, evalWorkspacePath, 60000);
         }
       } catch {
         // ignore

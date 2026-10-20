@@ -12,6 +12,6 @@
   "targetedTests": [
     "packages/zod/src/v4/classic/tests/cyclic-data.test.ts"
   ],
-  "taskStatus": "needs-review",
+  "taskStatus": "ready",
   "createdAt": "2026-08-22T08:55:54.887Z"
 }

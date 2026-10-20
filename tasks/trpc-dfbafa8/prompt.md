@@ -19,7 +19,7 @@ When interacting with the affected module(s), the expected behavior or type reso
 ## Verification
 You can verify your solution using the repository's test runner:
 ```bash
-pnpm test -- packages/tests/server/links.test.ts
+pnpm exec vitest run --project @trpc/tests packages/tests/server/links.test.ts
 ```
 
 Relevant test suites:

@@ -124,14 +124,25 @@ export function freezeDataset(
   const tasksDir = options.tasksDir ?? path.resolve(process.cwd(), 'tasks');
   const releasesDir = options.releasesDir ?? path.resolve(process.cwd(), 'dataset/releases');
   const manifestPath = options.manifestPath ?? path.resolve(process.cwd(), 'dataset/manifest.json');
+  const releaseFilePath = path.join(releasesDir, `v${version}.json`);
+  if (fs.existsSync(releaseFilePath)) {
+    throw new Error(
+      `Release ${version} already exists at ${releaseFilePath}; choose a new version.`,
+    );
+  }
 
   // Compile / synchronize live manifest first
-  const liveManifest = compileManifest(tasksDir, manifestPath);
+  const liveManifest = compileManifest(tasksDir, manifestPath, version);
 
   const taskEntries: ReleaseTaskEntry[] = [];
   const repoCommitsMap: Record<string, Set<string>> = {};
 
-  for (const t of liveManifest.tasks) {
+  const readyTasks = liveManifest.tasks.filter((task) => task.taskStatus === 'ready');
+  if (readyTasks.length === 0) {
+    throw new Error('Cannot freeze a release: no tasks are marked ready.');
+  }
+
+  for (const t of readyTasks) {
     const taskDir = path.join(tasksDir, t.taskId);
     const checksums = computeTaskChecksums(taskDir);
 
@@ -170,13 +181,37 @@ export function freezeDataset(
     .update(`v${version}|${fingerprintPayload}`)
     .digest('hex')}`;
 
-  const repositories: ReleaseRepositoryCheckpoint[] = liveManifest.repositories.map((r) => ({
-    name: r.name,
-    owner: r.owner,
-    url: r.url,
-    taskCount: r.taskCount,
-    baseCommits: Array.from(repoCommitsMap[r.name] || []).sort(),
-  }));
+  const releasedTaskCounts = new Map<string, number>();
+  const statistics = {
+    byStatus: {} as Record<string, number>,
+    byCategory: {} as Record<string, number>,
+    byDifficulty: {} as Record<string, number>,
+    byRepository: {} as Record<string, number>,
+  };
+  for (const task of taskEntries) {
+    releasedTaskCounts.set(
+      task.repository,
+      (releasedTaskCounts.get(task.repository) ?? 0) + 1,
+    );
+    statistics.byStatus[task.taskStatus] =
+      (statistics.byStatus[task.taskStatus] ?? 0) + 1;
+    statistics.byCategory[task.category] =
+      (statistics.byCategory[task.category] ?? 0) + 1;
+    statistics.byDifficulty[task.difficulty] =
+      (statistics.byDifficulty[task.difficulty] ?? 0) + 1;
+    statistics.byRepository[task.repository] =
+      (statistics.byRepository[task.repository] ?? 0) + 1;
+  }
+
+  const repositories: ReleaseRepositoryCheckpoint[] = liveManifest.repositories
+    .filter((repository) => releasedTaskCounts.has(repository.name))
+    .map((repository) => ({
+      name: repository.name,
+      owner: repository.owner,
+      url: repository.url,
+      taskCount: releasedTaskCounts.get(repository.name)!,
+      baseCommits: Array.from(repoCommitsMap[repository.name] || []).sort(),
+    }));
 
   const checkpoint: DatasetReleaseCheckpoint = {
     version,
@@ -187,12 +222,11 @@ export function freezeDataset(
     totalTasks: taskEntries.length,
     repositories,
     tasks: taskEntries,
-    statistics: liveManifest.statistics,
+    statistics,
   };
 
   // Save immutable release checkpoint artifact
   fs.mkdirSync(releasesDir, { recursive: true });
-  const releaseFilePath = path.join(releasesDir, `v${version}.json`);
   fs.writeFileSync(releaseFilePath, JSON.stringify(checkpoint, null, 2), 'utf-8');
 
   // Update live manifest with dataset fingerprint

@@ -3,24 +3,23 @@
   "version": "1.0.0",
   "description": "TypeScript-specific benchmark for AI coding agents",
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./cli/index.js",
   "bin": {
-    "typebench": "./dist/cli/index.js"
+    "typebench": "./cli/index.js"
   },
   "scripts": {
     "build": "tsc",
-    "dev": "tsx cli/index.ts",
+    "dev": "TYPEBENCH_SOURCE=1 node cli/index.js",
     "test": "find dataset evaluator harness scoring -type f -name 'test-*.ts' -print0 | xargs -0 -n1 tsx",
     "typecheck": "tsc --noEmit",
-    "prepare-dataset": "tsx scripts/expand-dataset.ts",
-    "validate": "tsx scripts/validate-dataset.ts",
-    "release": "tsx scripts/prepare-release.ts",
-    "ingest": "tsx scripts/ingest-repos.ts",
-    "discover": "tsx scripts/discover-candidates.ts",
+    "typebench": "node cli/index.js",
+    "prepare-dataset": "tsx dataset/build-dataset.ts",
+    "validate": "tsx dataset/validate-readiness.ts",
+    "release": "tsx dataset/release-dataset.ts",
     "generate-tasks": "tsx scripts/generate-tasks.ts",
-    "run-benchmark": "tsx cli/run.ts",
-    "evaluate": "tsx cli/eval.ts",
-    "leaderboard": "tsx cli/leaderboard.ts"
+    "run-benchmark": "node cli/index.js run",
+    "evaluate": "node cli/index.js evaluate",
+    "leaderboard": "node cli/index.js leaderboard"
   },
   "dependencies": {
     "chalk": "^5.3.0",
@@ -30,12 +29,12 @@
     "ora": "^7.0.1",
     "semver": "^7.5.4",
     "simple-git": "^3.22.0",
+    "tsx": "^4.7.0",
     "yaml": "^2.3.4"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.10.0",
-    "tsx": "^4.7.0",
     "typescript": "^5.3.0",
     "vitest": "^1.1.0"
   },

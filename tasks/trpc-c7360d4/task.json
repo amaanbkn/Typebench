@@ -8,10 +8,14 @@
   "title": "Add Prefix Support for Mutation Options",
   "description": "Task for trpc: Add Prefix Support for Mutation Options",
   "packageManager": "pnpm",
-  "testCommand": "pnpm test -- packages/tanstack-react-query/test/mutationOptions.test.tsx",
+  "testCommand": "pnpm exec vitest run --project @trpc/tanstack-react-query packages/tanstack-react-query/test/mutationOptions.test.tsx",
   "targetedTests": [
     "packages/tanstack-react-query/test/mutationOptions.test.tsx"
   ],
-  "taskStatus": "needs-review",
+  "testWorkspacePackages": [
+    "./packages/client",
+    "./packages/server"
+  ],
+  "taskStatus": "ready",
   "createdAt": "2026-08-22T08:56:20.791Z"
 }

@@ -1,0 +1,43 @@
+{
+  "reportId": "reliability_v0.0.1-real_ts-solver_2x_2026-10-20_mvgm42u6",
+  "releaseVersion": "0.0.1-real",
+  "datasetFingerprint": "sha256:fe6f2fec590a563abf2372e44b1a724a0e7e2e60b0d8be15c0de17650ccc4678",
+  "agentName": "ts-solver",
+  "trialsCount": 2,
+  "totalTasks": 1,
+  "passAt1": 100,
+  "meanScore": 100,
+  "scoreStdDev": 0,
+  "confidenceInterval95": [
+    100,
+    100
+  ],
+  "consistencyRate": 100,
+  "flakyTasksCount": 0,
+  "flakyTaskIds": [],
+  "totalDurationMs": 718,
+  "timestamp": "2026-10-20T11:41:03.198Z",
+  "tasks": {
+    "fixture-real-calc-task": {
+      "taskId": "fixture-real-calc-task",
+      "repository": "calc",
+      "trialsCount": 2,
+      "solvedTrials": 2,
+      "failedTrials": 0,
+      "passRate": 100,
+      "passAt1": 1,
+      "isConsistent": true,
+      "isFlaky": false,
+      "scores": [
+        100,
+        100
+      ],
+      "meanScore": 100,
+      "scoreStdDev": 0
+    }
+  },
+  "runReportIds": [
+    "benchmark_v0.0.1-real_ts-solver_2026-10-20_mvgm42a8",
+    "benchmark_v0.0.1-real_ts-solver_2026-10-20_mvgm42k3"
+  ]
+}

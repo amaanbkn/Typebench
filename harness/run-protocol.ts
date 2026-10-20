@@ -3,7 +3,7 @@
 /**
  * TypeBench Standardized Benchmark Protocol CLI
  * Usage:
- *   npx tsx harness/run-protocol.ts --release dataset/releases/v0.1.0.json --agents mock,nemotron --trials 2 [--limit 2] [--verbose]
+ *   npx tsx harness/run-protocol.ts --release dataset/releases/v0.2.0.json --agents mock,nemotron --trials 2 [--limit 2] [--verbose]
  */
 
 import {
@@ -15,7 +15,7 @@ import { listAvailableAgents } from '../agents/agent-runner.js';
 
 async function main() {
   const args = process.argv.slice(2);
-  let releaseArg = 'dataset/releases/v0.1.0.json';
+  let releaseArg = 'dataset/releases/v0.2.0.json';
   let agentsArg = ['mock'];
   let trials = 3;
   let timeoutSec = 300;
@@ -44,7 +44,7 @@ Usage:
   npx tsx harness/run-protocol.ts [options]
 
 Options:
-  -r, --release <path>     Path to release JSON checkpoint (default: dataset/releases/v0.1.0.json)
+  -r, --release <path>     Path to release JSON checkpoint (default: dataset/releases/v0.2.0.json)
   -a, --agents <list>      Comma-separated agent names (default: mock | available: ${listAvailableAgents().join(', ')})
   -n, --trials <n>         Trials per task for each agent (default: 3)
   --timeout <seconds>      Uniform task timeout in seconds (default: 300)

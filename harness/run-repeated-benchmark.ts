@@ -3,7 +3,7 @@
 /**
  * TypeBench Repeated Benchmark Execution & Statistical Reliability CLI
  * Usage:
- *   npx tsx harness/run-repeated-benchmark.ts --release dataset/releases/v0.1.0.json --agent mock --trials 3 [--limit 2] [--verbose]
+ *   npx tsx harness/run-repeated-benchmark.ts --release dataset/releases/v0.2.0.json --agent mock --trials 3 [--limit 2] [--verbose]
  */
 
 import { runRepeatedBenchmark, formatReliabilityReportSummary } from './statistics.js';
@@ -11,7 +11,7 @@ import { listAvailableAgents } from '../agents/agent-runner.js';
 
 async function main() {
   const args = process.argv.slice(2);
-  let releaseArg = 'dataset/releases/v0.1.0.json';
+  let releaseArg = 'dataset/releases/v0.2.0.json';
   let agentArg = 'mock';
   let trials = 3;
   let limit: number | undefined;
@@ -40,7 +40,7 @@ Usage:
   npx tsx harness/run-repeated-benchmark.ts [options]
 
 Options:
-  -r, --release <path>    Path to release JSON or version tag (default: dataset/releases/v0.1.0.json)
+  -r, --release <path>    Path to release JSON or version tag (default: dataset/releases/v0.2.0.json)
   -a, --agent <name>      Name of coding agent to evaluate (default: mock | available: ${listAvailableAgents().join(', ')})
   -n, --trials <n>        Number of independent repeated trials (default: 3)
   -l, --limit <n>         Limit execution to first N tasks in the release

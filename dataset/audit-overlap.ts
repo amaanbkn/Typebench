@@ -108,7 +108,7 @@ function computeJaccard(setA: Set<string>, setB: Set<string>): number {
  * Performs a comprehensive task independence and overlap audit across the dataset.
  */
 export function auditDatasetOverlap(
-  releasePathOrVersion = 'dataset/releases/v0.1.0.json',
+  releasePathOrVersion = 'dataset/releases/v0.2.0.json',
   options: OverlapAuditOptions = {}
 ): OverlapAuditReport {
   const tasksDir = options.tasksDir ?? path.resolve(process.cwd(), 'tasks');
@@ -441,7 +441,7 @@ export function formatOverlapReport(report: OverlapAuditReport): string {
 
 // CLI execution if run directly
 if (process.argv[1]?.includes('audit-overlap')) {
-  const versionArg = process.argv[2] || 'dataset/releases/v0.1.0.json';
+  const versionArg = process.argv[2] || 'dataset/releases/v0.2.0.json';
   const report = auditDatasetOverlap(versionArg);
   console.log(formatOverlapReport(report));
 }

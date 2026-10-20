@@ -3,7 +3,7 @@
 /**
  * TypeBench Benchmark Runner CLI
  * Usage:
- *   npx tsx harness/run-benchmark.ts --release dataset/releases/v0.1.0.json --agent mock [--limit 3] [--verbose]
+ *   npx tsx harness/run-benchmark.ts --release dataset/releases/v0.2.0.json --agent mock [--limit 3] [--verbose]
  */
 
 import { runBenchmarkOnRelease, formatBenchmarkReportSummary } from './benchmark-runner.js';
@@ -11,7 +11,7 @@ import { listAvailableAgents } from '../agents/agent-runner.js';
 
 async function main() {
   const args = process.argv.slice(2);
-  let releaseArg = 'dataset/releases/v0.1.0.json';
+  let releaseArg = 'dataset/releases/v0.2.0.json';
   let agentArg = 'mock';
   let limit: number | undefined;
   let timeoutSec = 300;
@@ -40,7 +40,7 @@ Usage:
   npx tsx harness/run-benchmark.ts [options]
 
 Options:
-  -r, --release <path>      Path to release JSON or version tag (default: dataset/releases/v0.1.0.json)
+  -r, --release <path>      Path to release JSON or version tag (default: dataset/releases/v0.2.0.json)
   -a, --agent <name>        Name of coding agent to evaluate (default: mock | available: ${listAvailableAgents().join(', ')})
   -l, --limit <n>           Limit execution to first N tasks in the release
   --timeout <seconds>       Task timeout in seconds (default: 300)

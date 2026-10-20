@@ -1,0 +1,59 @@
+{
+  "benchmarkRunId": "benchmark_v0.2.0_ts-solver_2026-10-20_mvgm0s52",
+  "releaseVersion": "0.2.0",
+  "datasetFingerprint": "sha256:7cf632e0304c6a17d563eaa9fe305ae4d33eeec4499157ccc3ced4a0df8e2742",
+  "agentName": "ts-solver",
+  "timestamp": "2026-10-20T11:38:42.171Z",
+  "totalTasks": 3,
+  "evaluatedTasks": 3,
+  "solvedTasks": 0,
+  "failedTasks": 3,
+  "infrastructureFailures": 0,
+  "passRate": 0,
+  "meanScore": 0,
+  "totalDurationMs": 12805,
+  "tasks": [
+    {
+      "taskId": "hono-1096d66",
+      "runId": "hono-1096d66_ts-solver_mvgm0s52",
+      "repository": "hono",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "baseCommit": "c4a44071eee614c7317403f3534cd213d3f0e0b3",
+      "status": "no_changes",
+      "score": 0,
+      "maxScore": 100,
+      "isAvailable": true,
+      "durationMs": 4152,
+      "patchLines": 1
+    },
+    {
+      "taskId": "hono-28a9c12",
+      "runId": "hono-28a9c12_ts-solver_mvgm0vch",
+      "repository": "hono",
+      "category": "type_fix",
+      "difficulty": "medium",
+      "baseCommit": "1096d66e03a3fd16a5cc5f912c2d5e8fd6d990b0",
+      "status": "no_changes",
+      "score": 0,
+      "maxScore": 100,
+      "isAvailable": true,
+      "durationMs": 3059,
+      "patchLines": 1
+    },
+    {
+      "taskId": "hono-7967760",
+      "runId": "hono-7967760_ts-solver_mvgm0xpj",
+      "repository": "hono",
+      "category": "bug_fix",
+      "difficulty": "easy",
+      "baseCommit": "0293343dbf8f0bca52b210a98bcef31cc61395ee",
+      "status": "no_changes",
+      "score": 0,
+      "maxScore": 100,
+      "isAvailable": true,
+      "durationMs": 5586,
+      "patchLines": 1
+    }
+  ]
+}

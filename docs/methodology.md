@@ -19,9 +19,9 @@ Most existing coding benchmarks (HumanEval, MBPP, etc.) measure simple standalon
 
 Candidate tasks are extracted from popular open-source TypeScript repositories (see [`scripts/seed-repos.json`](../scripts/seed-repos.json)) following strict quality filters:
 
-1. **Deterministic Reproducibility**: The repository must have an automated test suite runnable via `npm`, `pnpm`, or `yarn`.
+1. **Deterministic Reproducibility**: The task records its base commit, test command, and package manager (`npm`, `pnpm`, `yarn`, or `bun`). Monorepo dependency installation should be scoped to the affected workspace when possible.
 2. **Atomic Changes**: The task corresponds to an issue/PR with clear scope.
-3. **Fail-to-Pass Verification**: The task must fail on the base commit and pass on the target fix commit without modifying test files or cheat assertions.
+3. **Fail-to-Pass Verification**: Tests changed by the historical fix are applied only in a disposable validation/evaluation workspace. They must fail against the parent and pass against the fix. These tests are never included in the agent workspace, and agent changes to benchmark test files are rejected.
 4. **Anti-Contamination Measures**:
    - Stripping commit messages, issue discussions, and PR links.
    - Standardizing prompt instructions into neutral requirements.
@@ -30,13 +30,22 @@ Candidate tasks are extracted from popular open-source TypeScript repositories (
 
 ## 3. Sandboxed Execution & Isolation
 
-- Each evaluation runs inside an isolated Docker container with pre-installed Node.js, TypeScript tooling, and isolated network access (optional).
+- Each evaluation runs in a fresh workspace based on the recorded commit and package manager. Docker-backed readiness checks use the image in `harness/Dockerfile`.
 - The agent is provided a fresh checkout of the base commit.
-- Once the agent signals completion or hits the timeout limit, the evaluation harness executes `verify.sh`.
+- After the agent signals completion or hits the timeout limit, the evaluator overlays benchmark-only tests from the hidden fix commit, installs task dependencies, and runs the focused test command.
+- Agent changes to benchmark test files are rejected before evaluation.
 
 ---
 
-## 4. Scoring Methodology & Metrics
+## 4. Release Readiness
+
+- Task packages are stored in `tasks/<task-id>/`; `task.json` and `prompt.md` are agent-facing, while `metadata.json` retains hidden fix/test references for the evaluator.
+- A task is marked `ready` only after its changed tests fail on the parent and pass on the fix. Tasks marked `needs-review` are excluded from frozen releases.
+- A frozen release contains only ready tasks and records checksums for its task prompt/configuration/metadata. Any dataset change requires a new release version.
+
+---
+
+## 5. Scoring Methodology & Metrics
 
 Typebench evaluates task runs deterministically using objective test execution metrics. The evaluation layer produces an `EvaluationResult`, which the scoring engine transforms into a standardized numerical score ($0 \le \text{Score} \le 100$).
 
@@ -68,11 +77,10 @@ The scoring system handles different execution states explicitly:
 
 ---
 
-## 5. Aggregate Benchmark Metrics (Future Step)
+## 6. Aggregate Benchmark Metrics
 
-Task scores are separate from aggregate multi-task metrics:
+Task scores are also aggregated into multi-task metrics:
 1. **Pass Rate (Resolved@1)**: Percentage of benchmark tasks where `status === 'solved'`.
 2. **Mean Score**: Average score across all valid tasks.
 3. **Typecheck Pass Rate**: Percentage of runs where `typecheck.passed === true`.
 4. **Token Efficiency**: Average token consumption per resolved task.
-
